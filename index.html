@@ -1,0 +1,963 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Paisa Samjho Raj · Money made simple</title>
+<meta name="description" content="Paisa Samjho Raj: free, plain-English lessons on budgeting, emergency funds, insurance, SIP, mutual funds, index funds, ETFs and retirement for Indian families, plus SIP, goal and EMI calculators and a private family Money Planner.">
+<meta property="og:title" content="Paisa Samjho Raj · Money made simple">
+<meta property="og:description" content="Free lessons, calculators and a private family Money Planner. Educational, not advice.">
+<link rel="icon" href="img/raj-mark.png">
+<style>
+/* Paisa Samjho Raj. Learning path inspired by Zerodha Varsity, calculators in the style of Groww / ET Money,
+   same shell as techsamjhoraj.com with a money palette (forest green, gold, warm paper). */
+:root{
+  --paper:#f5f2ea; --card:#fcfaf5; --ink:#18201c; --muted:#5f665f; --line:#dbd7ca;
+  --brand:#1d6b4f; --brand-ink:#fdfbf6; --gold-ink:#9a6413;
+  --accent:#b93628; --green:#1d6b4f; --green-soft:#dfe9e1; --gold:#efe5cb; --red-soft:#f0ded6;
+  --c-val:#1d6b4f; --c-inv:#c9b98f; --c-int:#b93628;
+  --display:Georgia,"Times New Roman",serif;
+  --body:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#121614; --card:#1a1f1c; --ink:#eceae2; --muted:#a2a89f; --line:#2f3530;
+  --brand:#7cc4a3; --brand-ink:#0f1412; --gold-ink:#e2b25e;
+  --accent:#e0705f; --green:#8cc5ae; --green-soft:#20302a; --gold:#2e2a1f; --red-soft:#33221f;
+  --c-val:#7cc4a3; --c-inv:#6f6650; --c-int:#e0705f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#121614; --card:#1a1f1c; --ink:#eceae2; --muted:#a2a89f; --line:#2f3530;
+  --brand:#7cc4a3; --brand-ink:#0f1412; --gold-ink:#e2b25e;
+  --accent:#e0705f; --green:#8cc5ae; --green-soft:#20302a; --gold:#2e2a1f; --red-soft:#33221f;
+  --c-val:#7cc4a3; --c-inv:#6f6650; --c-int:#e0705f; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 var(--body)}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold-ink);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:24px}
+@media (max-width:600px){.wrap{padding-inline:16px}}
+
+header{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:10}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:800;font-size:20px;letter-spacing:-.5px}
+.brand img{width:40px;height:40px;border-radius:50%}
+.brand span{color:var(--gold-ink)}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:12px 16px;text-decoration:none;color:var(--muted);font-size:15px;border-bottom:3px solid transparent;white-space:nowrap}
+.tab:hover{color:var(--ink)}
+.tab[aria-current="page"]{color:var(--ink);font-weight:700;border-bottom-color:var(--brand)}
+@media (max-width:700px){.bar .social{display:none}}
+
+main{padding-block:32px 64px;min-height:70vh}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:2px;font-weight:700;color:var(--muted)}
+h1,h2,h3{text-wrap:balance}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(34px,5vw,54px);line-height:1.08;letter-spacing:-1.5px;margin:10px 0 12px}
+h1 em{color:var(--brand);font-style:italic}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(26px,3.4vw,34px);letter-spacing:-.8px;margin:0 0 8px;line-height:1.15}
+h3{font-size:18px;margin:0}
+.lead{color:var(--muted);font-size:17px;max-width:62ch;margin:0}
+.hindi{color:var(--green);font-size:16px;margin:6px 0 0}
+.page-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.section{margin-top:48px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.more{font-size:14.5px;color:var(--brand);text-decoration:none;font-weight:600}
+.more:hover{text-decoration:underline}
+
+/* home */
+.hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:40px;align-items:center}
+@media (max-width:900px){.hero{grid-template-columns:1fr}}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.hero-card{background:var(--brand);color:var(--brand-ink);border-radius:14px;padding:26px 26px 22px}
+.hero-card .eyebrow{color:var(--brand-ink);opacity:.75}
+.hero-card .big{font-family:var(--display);font-size:clamp(34px,4.4vw,46px);line-height:1.05;margin:6px 0 2px;font-variant-numeric:tabular-nums}
+.hero-card p{margin:0;opacity:.85;font-size:14.5px}
+.hero-card .row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid color-mix(in srgb,var(--brand-ink) 25%,transparent);padding-top:12px;margin-top:14px;font-size:14px;font-variant-numeric:tabular-nums}
+.hero-card .row b{display:block;font-size:18px}
+.hero-card a{color:var(--brand-ink)}
+.path{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;counter-reset:step}
+.step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;text-decoration:none;display:flex;flex-direction:column;gap:8px;transition:transform .15s,box-shadow .15s}
+.step:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.step .num{counter-increment:step;font-family:var(--display);font-size:30px;color:var(--gold-ink);line-height:1}
+.step .num:before{content:counter(step,decimal-leading-zero)}
+.step p{margin:0;color:var(--muted);font-size:14.5px}
+.step .meta{margin-top:auto;font-size:13px;color:var(--brand);font-weight:600}
+.band{background:var(--gold);border-radius:14px;padding:26px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.band p{margin:6px 0 0;color:var(--muted);max-width:60ch}
+
+/* cards and grids */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;text-decoration:none;display:flex;flex-direction:column;gap:6px}
+a.card{transition:transform .15s,box-shadow .15s}
+a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.card p{color:var(--muted);margin:0;font-size:14.5px}
+.card .ico{width:38px;height:38px;border-radius:10px;background:var(--green-soft);color:var(--brand);display:grid;place-items:center;font-weight:800;font-size:17px;margin-bottom:6px}
+.mail{font-family:Consolas,monospace;font-size:15px;user-select:all;background:var(--green-soft);padding:6px 10px;border-radius:6px;display:inline-block;margin-top:12px}
+
+/* learn */
+.modules{display:flex;flex-direction:column;gap:28px}
+.mod-head{display:flex;gap:14px;align-items:baseline;margin-bottom:12px}
+.mod-head .n{font-family:var(--display);font-size:26px;color:var(--gold-ink)}
+.mod-head p{margin:2px 0 0;color:var(--muted);font-size:14.5px}
+.lessons{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.lcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;text-decoration:none;display:flex;gap:12px;align-items:flex-start}
+.lcard:hover{border-color:var(--ink)}
+.lcard b{display:block;font-size:15.5px;line-height:1.35}
+.lcard small{color:var(--muted);font-size:13.5px;line-height:1.4;display:block;margin-top:3px}
+.tick{flex:none;width:20px;height:20px;border-radius:50%;border:2px solid var(--line);margin-top:2px;display:grid;place-items:center}
+.tick.done{background:var(--brand);border-color:var(--brand)}
+.tick.done:after{content:"";width:5px;height:9px;border:solid var(--paper);border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.prog{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.prog i{display:block;height:100%;background:var(--brand);border-radius:99px}
+.progrow{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:220px}
+.progrow .prog{flex:1}
+
+.course-view{display:grid;grid-template-columns:300px minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:900px){.course-view{grid-template-columns:1fr}}
+.side{background:var(--card);border:1px solid var(--line);border-radius:10px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 132px);max-height:calc(100vh - 150px);overflow:auto}
+@media (max-width:900px){.side{position:static;max-height:none}}
+.side-head{padding:16px 18px 12px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
+.back{font-size:13px;color:var(--muted);text-decoration:none}
+.back:hover{color:var(--ink)}
+.side details{border-bottom:1px solid var(--line)}
+.side details:last-child{border-bottom:0}
+.side summary{list-style:none;cursor:pointer;padding:12px 18px;font-weight:700;font-size:14px}
+.side summary::-webkit-details-marker{display:none}
+.side ul{list-style:none;margin:0;padding:0 8px 10px}
+.side a{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:8px;text-decoration:none;font-size:14px;line-height:1.4}
+.side a:hover{background:var(--paper)}
+.side a[aria-current="true"]{background:var(--green-soft);font-weight:700}
+.side .tick{width:16px;height:16px;margin-top:1px}
+
+.lesson{display:flex;flex-direction:column;gap:20px;min-width:0}
+.block{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px 24px}
+.block h3{font-size:13px;text-transform:uppercase;letter-spacing:1.6px;color:var(--muted);margin-bottom:10px}
+.block p{margin:0 0 10px;max-width:70ch}
+.block p:last-child{margin-bottom:0}
+.block ul,.block ol{margin:0;padding-left:20px;max-width:70ch}
+.block li{margin:5px 0}
+.example{background:var(--green-soft);border-color:transparent}
+.example .nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:12px}
+.example .nums div{background:var(--card);border-radius:8px;padding:10px 12px;font-size:13px;color:var(--muted)}
+.example .nums b{display:block;font-family:var(--display);font-weight:400;font-size:21px;color:var(--ink);font-variant-numeric:tabular-nums}
+.try{background:var(--gold);border-color:transparent}
+.takeaway{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.takeaway h3{color:var(--brand-ink);opacity:.75}
+.takeaway p{font-family:var(--display);font-size:23px;line-height:1.3}
+.lesson-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:20px}
+.navbtns{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border:1px solid var(--ink);border-radius:8px;background:transparent;text-decoration:none;cursor:pointer;font-size:14.5px}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn.brand{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.btn.done{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.btn[aria-disabled="true"]{opacity:.35;pointer-events:none}
+.chip{font-size:12px;padding:3px 10px;border-radius:99px;background:var(--red-soft);color:var(--accent);white-space:nowrap;justify-self:start}
+.chip.next{background:var(--green-soft);color:var(--green)}
+
+/* calculators */
+.calc{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:950px){.calc{grid-template-columns:1fr}}
+.calc-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.calc-tabs a{text-decoration:none;font-size:14px;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:7px 14px}
+.calc-tabs a:hover{border-color:var(--ink)}
+.calc-tabs a[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.cform{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:18px}
+.cf{display:flex;flex-direction:column;gap:8px}
+.cf-top{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px;color:var(--muted);font-weight:600}
+.cf-box{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;background:var(--paper);max-width:170px}
+.cf-box:focus-within{border-color:var(--ink)}
+.cf-box input{width:100%;min-width:0;border:0;background:transparent;padding:7px 9px;font:inherit;font-size:15px;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}
+.cf-box input:focus{outline:none}
+.cf-box i{font-style:normal;color:var(--muted);padding:0 9px;font-size:13px;white-space:nowrap}
+.cf input[type=range]{width:100%;accent-color:var(--brand)}
+.cf small{color:var(--muted);font-size:12.5px}
+.cres{display:flex;flex-direction:column;gap:18px;min-width:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--muted)}
+.kpi b{display:block;font-family:var(--display);font-weight:400;font-size:24px;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.2;margin:2px 0}
+.kpi.hi{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.kpi.hi b{color:var(--brand-ink)}
+.chart{width:100%;height:auto;display:block}
+.chart text{fill:var(--muted);font:12px var(--body)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted);list-style:none;margin:8px 0 0;padding:0}
+.legend li{display:flex;align-items:center;gap:6px}
+.dot{width:11px;height:11px;border-radius:3px;display:inline-block}
+.ytable{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.ytable th{text-align:right;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700;padding:6px 8px;border-bottom:1px solid var(--line)}
+.ytable td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right}
+.ytable th:first-child,.ytable td:first-child{text-align:left}
+.tw{overflow-x:auto}
+details.years summary{cursor:pointer;font-weight:600;font-size:14.5px}
+.cnote{font-size:13.5px;color:var(--muted);margin:0}
+
+/* series + about */
+.timeline{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.timeline li{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:16px;align-items:center;padding:12px 18px;background:var(--card);border:1px solid var(--line);border-radius:8px}
+.timeline .no{font-family:var(--display);font-size:20px;color:var(--gold-ink)}
+.timeline small{display:block;color:var(--muted);font-size:13.5px}
+@media (max-width:600px){.timeline li{grid-template-columns:40px minmax(0,1fr)}.timeline .chip{grid-column:2}}
+.about{display:grid;grid-template-columns:200px minmax(0,1fr);gap:40px;align-items:start}
+@media (max-width:700px){.about{grid-template-columns:1fr}}
+.about img{width:180px;height:180px;border-radius:50%;border:4px solid var(--card);box-shadow:0 10px 30px rgba(0,0,0,.12)}
+.about p{color:var(--muted);font-size:17px;max-width:62ch}
+.social{display:flex;gap:8px;flex-wrap:wrap}
+.social a{font-size:13px;font-weight:600;text-decoration:none;border:1px solid var(--line);border-radius:99px;padding:6px 12px;color:var(--ink);background:var(--card)}
+.social a:hover{border-color:var(--ink)}
+/* financial tracker */
+:root{--c-ins:#7a5ea8;--c-debt:#b93628;--c-ef:#c98a1b;--c-edu:#2f6f9f;--c-ret:#244c41;--c-home:#8a6f4d;--c-par:#b0577f;--c-free:#b9bcb2;--c-ess:#5d6b66;--c-ann:#a08a5a;--c-fun:#c9b98f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--c-ins:#b59ae0;--c-debt:#e0705f;--c-ef:#e3b04f;--c-edu:#7fb3dc;--c-ret:#8cc5ae;--c-home:#c4a57e;--c-par:#e08fb2;--c-free:#5a5f57;--c-ess:#7d8c86;--c-ann:#b29a66;--c-fun:#6f6650}}
+:root[data-theme="dark"]{--c-ins:#b59ae0;--c-debt:#e0705f;--c-ef:#e3b04f;--c-edu:#7fb3dc;--c-ret:#8cc5ae;--c-home:#c4a57e;--c-par:#e08fb2;--c-free:#5a5f57;--c-ess:#7d8c86;--c-ann:#b29a66;--c-fun:#6f6650}
+.fp-disc{background:var(--gold);border-radius:10px;padding:14px 18px;font-size:14px;margin-bottom:22px;max-width:none}
+.fp-disc b{color:var(--ink)}
+.fp{display:grid;grid-template-columns:minmax(0,430px) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:1100px){.fp{grid-template-columns:1fr}}
+.fp-form{display:flex;flex-direction:column;gap:12px;min-width:0}
+.fp-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.fp-tools .btn{padding:8px 14px;font-size:13.5px}
+.fp-jump{display:none}
+@media (max-width:1100px){.fp-jump{display:inline-flex}}
+.fp-tools label{font-size:13.5px;color:var(--muted);display:flex;gap:6px;align-items:center;cursor:pointer}
+.fp-banner{font-size:13.5px;background:var(--green-soft);color:var(--green);border-radius:8px;padding:9px 12px}
+.fp-sec{background:var(--card);border:1px solid var(--line);border-radius:10px}
+.fp-sec summary{list-style:none;cursor:pointer;padding:14px 18px;font-weight:700;font-size:15px;display:flex;justify-content:space-between;gap:10px}
+.fp-sec summary::-webkit-details-marker{display:none}
+.fp-sec summary:after{content:"+";color:var(--muted);font-weight:400}
+.fp-sec[open] summary:after{content:"−"}
+.fp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px;padding:0 18px 18px}
+@media (max-width:420px){.fp-grid{grid-template-columns:1fr}}
+.fp-f{display:flex;flex-direction:column;gap:4px;font-size:13.5px;min-width:0}
+.fp-f>span{color:var(--muted);font-weight:600;line-height:1.3}
+.fp-in{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;background:var(--paper)}
+.fp-in:focus-within{border-color:var(--ink)}
+.fp-in input,.fp-in select{flex:1;min-width:0;width:100%;border:0;background:transparent;padding:9px 10px;font:inherit;font-size:15px;color:var(--ink);font-variant-numeric:tabular-nums}
+.fp-in input:focus,.fp-in select:focus{outline:none}
+.fp-in i{font-style:normal;color:var(--muted);padding:0 10px;font-size:13px;white-space:nowrap}
+.fp-in i:first-child{padding-right:0}
+.fp-f small{color:var(--muted);font-size:12px;line-height:1.35}
+.fp-full{grid-column:1/-1}
+.fp-sub{grid-column:1/-1;font-size:12px;text-transform:uppercase;letter-spacing:1.4px;font-weight:700;color:var(--muted);margin-top:6px;border-top:1px solid var(--line);padding-top:12px}
+.fp-kid{grid-column:1/-1;display:grid;grid-template-columns:1fr 1.4fr auto;gap:10px;align-items:end}
+.fp-x{border:1px solid var(--line);background:transparent;border-radius:8px;padding:8px 11px;cursor:pointer;color:var(--muted)}
+.fp-x:hover{color:var(--accent);border-color:var(--accent)}
+.fp-add{grid-column:1/-1;justify-self:start;padding:8px 14px;font-size:13.5px}
+.fp-res{display:flex;flex-direction:column;gap:18px;min-width:0;container-type:inline-size;scroll-margin-top:130px}
+.fp-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.fp-kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--muted)}
+.fp-kpi b{display:block;font-family:var(--display);font-weight:400;font-size:22px;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.2;margin:2px 0}
+.fp-kpi.neg b{color:var(--accent)}
+.fp-stack{display:flex;height:26px;border-radius:6px;overflow:hidden;background:var(--line);margin:4px 0 12px}
+.fp-stack i{display:block;height:100%;min-width:0}
+.fp-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted);list-style:none;margin:0;padding:0}
+.fp-legend li{display:flex;align-items:center;gap:6px}
+.fp-dot{width:11px;height:11px;border-radius:3px;flex:none;display:inline-block}
+.fp-split{display:grid;grid-template-columns:200px minmax(0,1fr);gap:24px;align-items:center}
+@container (max-width:600px){.fp-split{grid-template-columns:1fr;justify-items:center}}
+.fp-donut{width:200px;height:200px}
+.fp-donut text{fill:var(--ink);font-family:var(--body)}
+.fp-tw{overflow-x:auto;width:100%}
+.fp-table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+.fp-table th{text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700;padding:6px 8px;border-bottom:1px solid var(--line)}
+.fp-table td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.fp-table tr:last-child td{border-bottom:0}
+.fp-table .r{text-align:right;white-space:nowrap}
+.fp-table small{display:block;color:var(--muted);font-size:12.5px;line-height:1.4}
+.fp-phase{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;background:var(--red-soft);color:var(--accent);margin-bottom:8px}
+.fp-phase.ok{background:var(--green-soft);color:var(--green)}
+.fp-checks{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.fp-check{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:8px;font-size:13.5px}
+.fp-check h4{margin:0;font-size:15px;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.fp-check p{margin:0;color:var(--muted)}
+.fp-check .big{font-family:var(--display);font-size:20px;color:var(--ink)}
+.fp-as{border:0;background:transparent;padding:0;color:var(--green);text-decoration:underline dotted;text-underline-offset:3px;cursor:pointer;font-size:inherit}
+.fp-res .block p,.fp-res .block li{font-size:14.5px}
+@media print{header,footer,.fp-form,.fp-tools{display:none!important}.fp{grid-template-columns:1fr}.fp-sec,.block,.fp-kpi,.fp-check{break-inside:avoid}}
+footer{border-top:1px solid var(--line);padding-block:28px;font-size:13px;color:var(--muted)}
+footer .wrap{display:flex;flex-direction:column;gap:14px}
+footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+footer p{margin:0;max-width:110ch}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{.tabs{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#home"><img src="img/raj-mark.png" alt="">Paisa <span>Samjho</span> Raj</a>
+    <div class="social" data-social></div>
+  </div>
+  <nav class="wrap tabs" aria-label="Sections">
+    <a class="tab" href="#home" data-tab="home">Home</a>
+    <a class="tab" href="#learn" data-tab="learn">Learn</a>
+    <a class="tab" href="#calculators" data-tab="calculators">Calculators</a>
+    <a class="tab" href="#planner" data-tab="planner">Money Planner</a>
+    <a class="tab" href="#series" data-tab="series">Money Plan Series</a>
+    <a class="tab" href="#about" data-tab="about">About</a>
+  </nav>
+</header>
+<main class="wrap" id="app"></main>
+<footer><div class="wrap">
+  <div class="row"><span>© 2026 Paisa Samjho Raj, a Samjho with Raj website</span><div class="social" data-social></div></div>
+  <p><b>Educational only.</b> Nothing on this site is financial, investment, tax or insurance advice, and Raj is not a SEBI-registered investment adviser. Examples use assumed returns and inflation; returns are never guaranteed and markets can fall. Mutual fund investments are subject to market risks; read all scheme-related documents carefully. Check current rules and speak to a SEBI-registered adviser before acting on your own money.</p>
+  <p>Learning Python and AI? Visit <a href="https://www.techsamjhoraj.com">techsamjhoraj.com</a>. Everything you enter here stays in your browser.</p>
+</div></footer>
+
+<script>
+// ---------- links ----------
+const SOCIAL = [
+  { name: "YouTube", url: "https://www.youtube.com/@SamjhowithRaj" },
+  { name: "Instagram", url: "https://www.instagram.com/samjhowithraj/" },
+  { name: "Facebook", url: "https://www.facebook.com/profile.php?id=61595088790170&sk=reels_tab" },
+  { name: "Tech lessons", url: "https://www.techsamjhoraj.com" },
+];
+function fillSocial(){ document.querySelectorAll("[data-social]").forEach(el => {
+  el.innerHTML = SOCIAL.map(x => `<a href="${x.url}" target="_blank" rel="noopener">${x.name}</a>`).join(""); }); }
+
+// ---------- financial tracker (runs only in this browser; nothing is sent anywhere) ----------
+const FP_KEY = "swr-tracker";
+const FP_LOANS = [["Credit card dues", 36], ["Personal loan", 14], ["Car / two-wheeler loan", 9.5], ["Education loan", 10], ["Home loan", 8.5], ["Other loan", 12]];
+const FP_ASSUME = { infl:6, eduInfl:10, homeInfl:6, eqRet:10, safeRet:7, epfRet:8, postRet:7, college:18, retAge:60, life:85,
+  hMetro:15, hNon:10, hParent:5, hPrem:2000, pPrem:5000, termMult:10, tPrem:1200, hiRate:12, debtMonths:18, efMonths:12,
+  goalFloor:20, parentFund:200000, parentYears:3 };
+// The Verma family from "Middle-Class Family Ka Money Plan" (Episode 01). Fictional example.
+function fpVerma(){ return { example:true, remember:false, adults:2, earners:2, age:35, job:"private", city:"nonmetro", home:"rent", parents:2,
+  kids:[{ age:8, cost:1000000 }, { age:4, cost:1000000 }], income:100000,
+  exp:{ housing:18000, groceries:14000, utilities:4000, transport:6000, school:10000, health:6000, emi:0, annual:6000, leisure:5000, other:0 },
+  savings:60000, epf:400000, invest:0, health:500000, parentsHealth:0, term:0, efMonths:0,
+  loans:FP_LOANS.map(([name, rate]) => ({ name, amt:0, rate })),
+  homeGoal:{ on:false, price:5000000, years:7, down:20 }, a:{ ...FP_ASSUME } }; }
+function fpBlank(){ const s = fpVerma(); s.example = false; s.parents = 0; s.kids = []; s.income = 0;
+  Object.keys(s.exp).forEach(k => s.exp[k] = 0); s.savings = s.epf = s.invest = s.health = s.term = 0; s.earners = 1; return s; }
+let fp = fpVerma();
+try { const saved = JSON.parse(localStorage.getItem(FP_KEY) || "null");
+  if (saved) { const d = fpVerma(); fp = { ...d, ...saved, exp:{ ...d.exp, ...saved.exp }, a:{ ...FP_ASSUME, ...saved.a }, homeGoal:{ ...d.homeGoal, ...saved.homeGoal } }; } } catch (e) {}
+function fpSave(){ try { fp.remember ? localStorage.setItem(FP_KEY, JSON.stringify(fp)) : localStorage.removeItem(FP_KEY); } catch (e) {} }
+
+const fpGet = p => p.split(".").reduce((o, k) => o == null ? o : o[k], fp);
+function fpSet(p, v){ const ks = p.split("."), last = ks.pop(); ks.reduce((o, k) => o[k], fp)[last] = v; }
+const inr = n => "₹" + Math.round(n).toLocaleString("en-IN");
+function inrShort(n){ n = Math.round(n); const a = Math.abs(n);
+  if (a >= 1e7) return "₹" + (n / 1e7).toFixed(2).replace(/\.?0+$/, "") + " crore";
+  if (a >= 1e5) return "₹" + (n / 1e5).toFixed(2).replace(/\.?0+$/, "") + " lakh";
+  return inr(n); }
+const pctOf = (x, y) => y > 0 ? Math.round(100 * x / y) : 0;
+// Monthly investment that grows to fv in `years` at an assumed yearly return (illustrative, not guaranteed).
+function sipFor(fv, years, ret){ if (fv <= 0) return 0; const r = Math.pow(1 + ret / 100, 1 / 12) - 1, n = Math.round(years * 12);
+  return r > 0 ? fv * r / (Math.pow(1 + r, n) - 1) : fv / n; }
+
+function fpCalc(s){
+  const a = s.a, e = s.exp;
+  const essentials = e.housing + e.groceries + e.utilities + e.transport + e.school + e.health + e.emi;
+  const spend = essentials + e.annual + e.leisure + e.other;
+  const surplus = s.income - spend, avail = Math.max(0, surplus);
+  const kids = s.kids.length, nonEarning = Math.max(0, s.adults - s.earners), deps = kids + s.parents + nonEarning;
+
+  // 1. Emergency fund: months of essential expenses
+  const efWhy = [];
+  let m = { govt:4, private:6, variable:9 }[s.job] || 6;
+  efWhy.push(`${m} months for ${{ govt:"a very stable job", private:"a private-sector salary", variable:"self-employed or variable income" }[s.job]}`);
+  if (s.earners <= 1) { m += 1; efWhy.push("+1 for a single income"); }
+  if (deps >= 3) { m += 1; efWhy.push(`+1 for ${deps} dependants`); }
+  m = Math.min(m, 12);
+  const efAuto = m; if (s.efMonths > 0) m = s.efMonths;
+  const efTarget = m * essentials, efGap = Math.max(0, efTarget - s.savings);
+
+  // 2. Insurance (rules of thumb)
+  const healthNeed = ((s.city === "metro" ? a.hMetro : a.hNon) + (s.adults + kids > 4 ? 5 : 0)) * 1e5;
+  const healthGap = Math.max(0, healthNeed - s.health);
+  const parentNeed = s.parents * a.hParent * 1e5, parentGap = Math.max(0, parentNeed - s.parentsHealth);
+  const loansTotal = s.loans.reduce((n, l) => n + l.amt, 0);
+  const needsTerm = deps > 0 || s.adults > 1;
+  const termNeed = needsTerm ? a.termMult * 12 * s.income + loansTotal : 0, termGap = Math.max(0, termNeed - s.term);
+  const insMonthly = (healthGap / 1e5 * a.hPrem + parentGap / 1e5 * a.pPrem + termGap / 1e6 * a.tPrem) / 12;
+
+  // 3. Costly debt
+  const hiLoans = s.loans.filter(l => l.amt > 0 && l.rate >= a.hiRate), hiTotal = hiLoans.reduce((n, l) => n + l.amt, 0);
+  const debtMonthly = hiTotal / Math.max(1, a.debtMonths);
+  const efMonthly = efGap / Math.max(1, a.efMonths);
+
+  // 4. Long-term goals
+  const retFor = y => y >= 7 ? a.eqRet : a.safeRet;
+  const goals = [];
+  s.kids.forEach((k, i) => { const y = Math.max(0, a.college - k.age), fv = k.cost * Math.pow(1 + a.eduInfl / 100, y);
+    goals.push({ key:"edu", name:`Child ${i + 1}: college (now ${k.age})`, years:y, today:k.cost, fv, infl:"eduInfl", ret:retFor(y), sip:y > 0 ? sipFor(fv, y, retFor(y)) : 0, dueNow:y === 0 }); });
+  const ry = Math.max(0, a.retAge - s.age);
+  const living = e.groceries + e.utilities + e.transport + e.health + e.annual + e.leisure + e.other + (s.home === "rent" ? e.housing : 0);
+  const atRet = living * Math.pow(1 + a.infl / 100, ry), T = Math.max(1, a.life - a.retAge);
+  const rr = (1 + a.postRet / 100) / (1 + a.infl / 100) - 1;
+  const corpus = 12 * atRet * (Math.abs(rr) > 1e-6 ? (1 - Math.pow(1 + rr, -T)) / rr * (1 + rr) : T);
+  const existing = s.epf * Math.pow(1 + a.epfRet / 100, ry) + s.invest * Math.pow(1 + a.eqRet / 100, ry);
+  const retNeed = Math.max(0, corpus - existing);
+  goals.push({ key:"ret", name:"Retirement", years:ry, today:living, fv:corpus, existing, infl:"infl", ret:a.eqRet, sip:ry > 0 ? sipFor(retNeed, ry, a.eqRet) : 0, dueNow:ry === 0 });
+  if (s.home === "rent" && s.homeGoal.on && s.homeGoal.price > 0) { const h = s.homeGoal, y = Math.max(1, h.years), fv = h.price * h.down / 100 * Math.pow(1 + a.homeInfl / 100, y);
+    goals.push({ key:"home", name:`Home down payment (${h.down}%)`, years:y, today:h.price * h.down / 100, fv, infl:"homeInfl", ret:retFor(y), sip:sipFor(fv, y, retFor(y)) }); }
+  if (s.parents > 0 && a.parentFund > 0) { const y = Math.max(1, a.parentYears), fv = s.parents * a.parentFund * Math.pow(1 + a.infl / 100, y);
+    goals.push({ key:"par", name:"Parents' care fund", years:y, today:s.parents * a.parentFund, fv, infl:"infl", ret:a.safeRet, sip:sipFor(fv, y, a.safeRet) }); }
+  const goalNeed = goals.reduce((n, g) => n + g.sip, 0);
+
+  // Split the surplus: keep a small share for long-term goals, fill safety buckets in order, the rest goes to goals.
+  const reserved = Math.min(goalNeed, avail * a.goalFloor / 100);
+  let pool = avail - reserved;
+  const take = want => { const x = Math.min(pool, want); pool -= x; return x; };
+  const ins = take(insMonthly), debt = take(debtMonthly), ef = take(efMonthly);
+  const goalAlloc = reserved + Math.min(pool, goalNeed - reserved);
+  pool -= goalAlloc - reserved;
+  const share = goalNeed > 0 ? goalAlloc / goalNeed : 0;
+  goals.forEach(g => g.got = g.sip * share);
+  const sumKey = k => goals.filter(g => g.key === k).reduce((n, g) => n + g.got, 0);
+  const buckets = [
+    { key:"ins", name:"Insurance gaps (premiums)", color:"var(--c-ins)", amt:ins, why:"Buy the missing health and term cover first. Premium is a rough estimate." },
+    { key:"debt", name:"Pay off costly debt", color:"var(--c-debt)", amt:debt, why:`Loans at ${a.hiRate}% or more, cleared in about ${a.debtMonths} months, on top of the normal EMI.` },
+    { key:"ef", name:"Emergency fund", color:"var(--c-ef)", amt:ef, why:`Fill the gap in about ${a.efMonths} months. Keep it in a savings account, FD or liquid fund.` },
+    { key:"edu", name:"Children's education", color:"var(--c-edu)", amt:sumKey("edu"), why:"One pot per child, invested until college." },
+    { key:"ret", name:"Retirement", color:"var(--c-ret)", amt:sumKey("ret"), why:"On top of EPF deducted from salary." },
+    { key:"home", name:"Home down payment", color:"var(--c-home)", amt:sumKey("home"), why:"Short goals stay in safer options." },
+    { key:"par", name:"Parents' care fund", color:"var(--c-par)", amt:sumKey("par"), why:"For medical bills and support, in safer options." },
+    { key:"free", name:"Not yet assigned", color:"var(--c-free)", amt:pool, why:"Every goal is covered at these assumptions. Use it to reach goals sooner or for planned wants." },
+  ].filter(b => b.amt >= 1);
+  const safetyOpen = insMonthly + debtMonthly + efMonthly > 0;
+  return { essentials, spend, surplus, avail, deps, kids, efMonths:m, efAuto, efWhy, efTarget, efGap, healthNeed, healthGap, parentNeed, parentGap,
+    needsTerm, termNeed, termGap, loansTotal, insMonthly, hiLoans, hiTotal, debtMonthly, efMonthly, goals, goalNeed, goalAlloc, buckets, safetyOpen, corpus, existing, atRet, ry, T };
+}
+
+// ----- form -----
+function fpNum(k, label, o = {}){
+  return `<label class="fp-f ${o.full ? "fp-full" : ""}"><span>${label}</span><span class="fp-in">${o.pre ? `<i>${o.pre}</i>` : ""}<input type="number" inputmode="decimal" min="0" step="${o.step || "any"}" data-k="${k}" value="${fpGet(k) || (o.blank ? "" : 0)}" ${o.ph != null ? `placeholder="${o.ph}"` : ""}>${o.suf ? `<i>${o.suf}</i>` : ""}</span>${o.rupee ? `<small data-amt="${k}"></small>` : ""}${o.hint ? `<small>${o.hint}</small>` : ""}</label>`;
+}
+const fpR = (k, label, o = {}) => fpNum(k, label, { pre:"₹", rupee:true, step:"500", ...o });
+function fpSel(k, label, opts, o = {}){
+  return `<label class="fp-f ${o.full ? "fp-full" : ""}"><span>${label}</span><span class="fp-in"><select data-k="${k}">${opts.map(([v, t]) => `<option value="${v}" ${String(fpGet(k)) === String(v) ? "selected" : ""}>${t}</option>`).join("")}</select></span>${o.hint ? `<small>${o.hint}</small>` : ""}</label>`;
+}
+function fpSec(id, title, body, open){ return `<details class="fp-sec" id="fps-${id}" ${open ? "open" : ""}><summary>${title}</summary><div class="fp-grid">${body}</div></details>`; }
+
+function fpForm(){
+  const s = fp;
+  const kids = s.kids.map((k, i) => `<div class="fp-kid">${fpNum(`kids.${i}.age`, `Child ${i + 1} age`, { suf:"yrs", step:"1" })}${fpR(`kids.${i}.cost`, "College cost today", { step:"50000" })}<button type="button" class="fp-x" data-del="${i}" aria-label="Remove child ${i + 1}">✕</button></div>`).join("");
+  const loans = s.loans.map((l, i) => fpR(`loans.${i}.amt`, `${l.name}: amount owed`, { step:"1000" }) + fpNum(`loans.${i}.rate`, "Interest rate", { suf:"% a year", step:"0.5" })).join("");
+  return `<form class="fp-form" id="fp-form" onsubmit="return false">
+    <div class="fp-tools">
+      <button type="button" class="btn" data-fp="verma">Load Verma family example</button>
+      <button type="button" class="btn" data-fp="clear">Start blank</button>
+      <button type="button" class="btn primary fp-jump" data-fp="jump">See my plan ↓</button>
+      <label><input type="checkbox" data-k="remember" ${s.remember ? "checked" : ""}> Remember my inputs on this device</label>
+    </div>
+    ${s.example ? `<div class="fp-banner">You're looking at the fictional Verma family from the Money Plan series (Lucknow, ₹1 lakh a month). Change any number to make it yours.</div>` : ""}
+    ${fpSec("house", "1 · Household", `
+      ${fpNum("adults", "Adults at home", { step:"1" })}
+      ${fpNum("earners", "Earning adults", { step:"1" })}
+      ${fpNum("age", "Age of main earner", { suf:"yrs", step:"1" })}
+      ${fpSel("job", "Job stability", [["govt", "Very stable (govt / PSU)"], ["private", "Private-sector salary"], ["variable", "Self-employed / variable"]])}
+      ${fpSel("city", "City type", [["metro", "Metro"], ["nonmetro", "Non-metro"]])}
+      ${fpSel("home", "Home", [["rent", "Rented"], ["own", "Own (paid off or on EMI)"]])}
+      ${fpNum("parents", "Parents you support (fully or partly)", { step:"1", full:true })}
+      <div class="fp-sub">Children</div>
+      ${kids || `<small class="fp-full" style="color:var(--muted)">No children added.</small>`}
+      ${s.kids.length < 6 ? `<button type="button" class="btn fp-add" data-fp="kid">+ Add a child</button>` : ""}
+    `, true)}
+    ${fpSec("money", "2 · Monthly income and expenses", `
+      ${fpR("income", "Take-home income (all earners)", { full:true, step:"1000", hint:"What reaches the bank each month, after tax and EPF." })}
+      <div class="fp-sub">Essentials</div>
+      ${fpR("exp.housing", "Rent or home-loan EMI")}
+      ${fpR("exp.groceries", "Groceries and household")}
+      ${fpR("exp.utilities", "Electricity, gas, phone, internet")}
+      ${fpR("exp.transport", "Transport and fuel")}
+      ${fpR("exp.school", "School fees and tuition")}
+      ${fpR("exp.health", "Health: medicines, insurance premiums")}
+      ${fpR("exp.emi", "Other EMIs (car, personal, card)", { full:true })}
+      <div class="fp-sub">Planned and flexible</div>
+      ${fpR("exp.annual", "Set aside for yearly costs", { hint:"Diwali, admissions, gifts, repairs ÷ 12" })}
+      ${fpR("exp.leisure", "Leisure and eating out")}
+      ${fpR("exp.other", "Anything else", { full:true })}
+    `, true)}
+    ${fpSec("assets", "3 · Savings and investments", `
+      ${fpR("savings", "Savings you can use quickly", { full:true, step:"5000", hint:"Bank balance, FDs, liquid funds. This counts toward the emergency fund." })}
+      ${fpR("epf", "EPF / PPF balance", { step:"10000" })}
+      ${fpR("invest", "Other investments", { step:"10000", hint:"Mutual funds, shares, NPS" })}
+    `)}
+    ${fpSec("cover", "4 · Insurance and loans", `
+      ${fpR("health", "Health cover for your family", { step:"100000", hint:"Total sum insured, incl. employer policy" })}
+      ${fpR("parentsHealth", "Health cover for parents", { step:"100000" })}
+      ${fpR("term", "Term life cover", { full:true, step:"500000", hint:"Pure term plans only. Leave out endowment / money-back policies." })}
+      <div class="fp-sub">Loans and dues</div>
+      ${loans}
+    `)}
+    ${fpSec("goals", "5 · Goals", `
+      ${s.home === "rent" ? `<label class="fp-f fp-full" style="flex-direction:row;gap:8px;align-items:center"><input type="checkbox" data-k="homeGoal.on" ${s.homeGoal.on ? "checked" : ""}><span>Plan to buy a home</span></label>
+      ${s.homeGoal.on ? fpR("homeGoal.price", "Home price today", { step:"100000" }) + fpNum("homeGoal.years", "In how many years", { suf:"yrs", step:"1" }) + fpNum("homeGoal.down", "Down payment", { suf:"%", step:"5", full:true, hint:"Banks usually lend the rest as a home loan." }) : ""}` : `<small class="fp-full" style="color:var(--muted)">You own your home, so no home goal is added.</small>`}
+      ${fpNum("efMonths", "Emergency fund target", { suf:"months", step:"1", blank:true, ph:`auto: ${fpCalc(s).efAuto}`, hint:"Leave blank to use the suggested number." })}
+      ${s.parents > 0 ? fpR("a.parentFund", "Parents' care fund, per parent", { step:"25000" }) + fpNum("a.parentYears", "Build it in", { suf:"yrs", step:"1" }) : ""}
+      ${s.kids.length ? fpNum("a.college", "Age a child starts college", { suf:"yrs", step:"1" }) : ""}
+      ${fpNum("a.retAge", "Retire at age", { suf:"yrs", step:"1" })}
+      ${fpNum("a.life", "Plan money up to age", { suf:"yrs", step:"1" })}
+    `)}
+    ${fpSec("assume", "6 · Assumptions (change any)", `
+      <small class="fp-full" style="color:var(--muted)">Guesses about the future, not promises. Try lower returns and higher inflation to see a safer plan.</small>
+      ${fpNum("a.infl", "General inflation", { suf:"% a year", step:"0.5" })}
+      ${fpNum("a.eduInfl", "Education cost inflation", { suf:"% a year", step:"0.5" })}
+      ${fpNum("a.homeInfl", "Home price growth", { suf:"% a year", step:"0.5" })}
+      ${fpNum("a.eqRet", "Return, goals 7+ years away", { suf:"% a year", step:"0.5", hint:"Mostly equity funds. Can be lower or negative in some years." })}
+      ${fpNum("a.safeRet", "Return, goals under 7 years", { suf:"% a year", step:"0.5", hint:"FDs, debt funds, RD." })}
+      ${fpNum("a.epfRet", "Return on EPF / PPF", { suf:"% a year", step:"0.25" })}
+      ${fpNum("a.postRet", "Return after retirement", { suf:"% a year", step:"0.5" })}
+      ${fpNum("a.hiRate", "Debt counts as costly from", { suf:"% a year", step:"0.5" })}
+      ${fpNum("a.debtMonths", "Clear costly debt in", { suf:"months", step:"1" })}
+      ${fpNum("a.efMonths", "Build emergency fund in", { suf:"months", step:"1" })}
+      ${fpNum("a.goalFloor", "Keep for goals while building safety", { suf:"% of surplus", step:"5", full:true, hint:"So long-term saving starts early. Set 0 for strict safety-first." })}
+      <div class="fp-sub">Insurance rules of thumb</div>
+      ${fpNum("a.hMetro", "Family health cover, metro", { suf:"lakh", step:"1" })}
+      ${fpNum("a.hNon", "Family health cover, non-metro", { suf:"lakh", step:"1" })}
+      ${fpNum("a.hParent", "Health cover per parent", { suf:"lakh", step:"1" })}
+      ${fpNum("a.termMult", "Term cover", { suf:"× yearly income", step:"1" })}
+      ${fpR("a.hPrem", "Health premium per ₹1 lakh a year", { step:"100", hint:"Very rough. Get real quotes." })}
+      ${fpR("a.pPrem", "Senior health premium per ₹1 lakh", { step:"100" })}
+      ${fpR("a.tPrem", "Term premium per ₹10 lakh a year", { step:"100", full:true, hint:"Depends on age, health, smoking. Get real quotes." })}
+    `)}
+  </form>`;
+}
+
+// ----- results -----
+const fpA = (k, text) => `<button type="button" class="fp-as" data-focus="${k}" title="Change this assumption">${text}</button>`;
+function fpDonut(buckets, total){
+  const C = 2 * Math.PI * 70; let off = 0;
+  const arcs = buckets.map(b => { const len = total > 0 ? C * b.amt / total : 0;
+    const el = `<circle r="70" cx="100" cy="100" fill="none" stroke="${b.color}" stroke-width="26" stroke-dasharray="${len} ${C - len}" stroke-dashoffset="${-off}" transform="rotate(-90 100 100)"><title>${b.name}: ${inr(b.amt)}</title></circle>`;
+    off += len; return el; }).join("");
+  return `<svg class="fp-donut" viewBox="0 0 200 200" role="img" aria-label="Split of your monthly surplus">
+    <circle r="70" cx="100" cy="100" fill="none" stroke="var(--line)" stroke-width="26"/>${arcs}
+    <text x="100" y="96" text-anchor="middle" font-size="12" opacity=".7">surplus</text>
+    <text x="100" y="118" text-anchor="middle" font-size="19" font-weight="700">${inrShort(total)}</text></svg>`;
+}
+function fpResults(){
+  const s = fp, a = s.a, r = fpCalc(s), e = s.exp;
+  if (s.income <= 0) return `<div class="block"><h3>Your plan</h3><p>Enter your monthly take-home income and expenses in the form (or load the Verma example) to see where each rupee of your surplus could go.</p></div>`;
+  const seg = (x, c, n) => x > 0 ? `<i style="width:${Math.min(100, 100 * x / Math.max(s.income, r.spend))}%;background:${c}" title="${n}: ${inr(x)}"></i>` : "";
+  const flex = e.leisure + e.other;
+  const kpis = `<div class="fp-kpis">
+    <div class="fp-kpi">Take-home<b>${inr(s.income)}</b>a month</div>
+    <div class="fp-kpi">Essentials<b>${inr(r.essentials)}</b>${pctOf(r.essentials, s.income)}% of income</div>
+    <div class="fp-kpi">All spending<b>${inr(r.spend)}</b>${pctOf(r.spend, s.income)}% of income</div>
+    <div class="fp-kpi ${r.surplus < 0 ? "neg" : ""}">Monthly surplus<b>${inr(r.surplus)}</b>${r.surplus >= 0 ? pctOf(r.surplus, s.income) + "% saving rate" : "spending more than income"}</div></div>`;
+  const bar = `<section class="block"><h3>Where your income goes</h3>
+    <div class="fp-stack" role="img" aria-label="Income split">${seg(r.essentials, "var(--c-ess)", "Essentials")}${seg(e.annual, "var(--c-ann)", "Yearly costs")}${seg(flex, "var(--c-fun)", "Leisure and other")}${seg(r.avail, "var(--c-ret)", "Surplus")}</div>
+    <ul class="fp-legend"><li><span class="fp-dot" style="background:var(--c-ess)"></span>Essentials ${inr(r.essentials)}</li><li><span class="fp-dot" style="background:var(--c-ann)"></span>Yearly costs ${inr(e.annual)}</li><li><span class="fp-dot" style="background:var(--c-fun)"></span>Leisure and other ${inr(flex)}</li><li><span class="fp-dot" style="background:var(--c-ret)"></span>Surplus to plan ${inr(r.avail)}</li></ul></section>`;
+
+  let split;
+  if (r.surplus <= 0) split = `<section class="block"><h3>Your monthly split</h3><p><b>There is no surplus to split yet.</b> Your expenses are ${inr(-r.surplus)} a month more than your income${r.surplus === 0 ? " (exactly equal)" : ""}.</p>
+    <p>Safety first: list every expense for one month, cut what you can from leisure and "anything else", and avoid new credit-card or app loans to fill the gap. Even ₹1,000 a month into an emergency fund is a start.</p></section>`;
+  else split = `<section class="block"><h3>Your monthly split · ${inr(r.avail)}</h3>
+    <span class="fp-phase ${r.safetyOpen ? "" : "ok"}">${r.safetyOpen ? "Stage 1: build safety first" : "Stage 2: safety done, grow long-term goals"}</span>
+    <div class="fp-split">${fpDonut(r.buckets, r.avail)}
+      <div class="fp-tw"><table class="fp-table"><thead><tr><th>Bucket</th><th class="r">₹ a month</th><th class="r">Share</th></tr></thead><tbody>
+      ${r.buckets.map((b, i) => `<tr><td><span class="fp-dot" style="background:${b.color};margin-right:6px"></span><b>${b.name}</b><small>${b.why}</small></td><td class="r">${inr(b.amt)}</td><td class="r">${pctOf(b.amt, r.avail)}%</td></tr>`).join("")}
+      </tbody></table></div></div>
+    <p style="margin-top:12px;color:var(--muted);font-size:13.5px">Order used: insurance → costly debt → emergency fund → long-term goals. While safety is being built, ${fpA("a.goalFloor", `${a.goalFloor}% of the surplus`)} still goes to goals so they get time to grow. As each safety gap closes, its money moves to the goals.</p></section>`;
+
+  const status = ok => `<span class="chip ${ok ? "next" : ""}">${ok ? "OK" : "Gap"}</span>`;
+  const prog = (have, need) => `<div class="prog"><i style="width:${need > 0 ? Math.min(100, 100 * have / need) : 100}%"></i></div>`;
+  const checks = `<section class="block"><h3>Safety check</h3><div class="fp-checks">
+    <div class="fp-check"><h4>Emergency fund ${status(r.efGap <= 0)}</h4><span class="big">${inrShort(r.efTarget)}</span>
+      <p>${r.efMonths} months of essentials (${inr(r.essentials)}). ${s.efMonths > 0 ? "You set this." : r.efWhy.join(", ") + "."}</p>${prog(s.savings, r.efTarget)}
+      <p>You have ${inrShort(s.savings)}${r.efGap > 0 ? ` · gap ${inrShort(r.efGap)}` : " · covered"}.</p></div>
+    <div class="fp-check"><h4>Health cover ${status(r.healthGap <= 0 && r.parentGap <= 0)}</h4><span class="big">${inrShort(r.healthNeed)}</span>
+      <p>Family floater, ${fpA(s.city === "metro" ? "a.hMetro" : "a.hNon", `rule of thumb for a ${s.city === "metro" ? "metro" : "non-metro"} city`)}. You have ${inrShort(s.health)}.</p>${prog(s.health, r.healthNeed)}
+      ${s.parents ? `<p>Parents: ${fpA("a.hParent", `${inrShort(a.hParent * 1e5)} each`)}, separate policy. You have ${inrShort(s.parentsHealth)}.</p>` : ""}</div>
+    <div class="fp-check"><h4>Term life cover ${status(r.termGap <= 0)}</h4>${r.needsTerm ? `<span class="big">${inrShort(r.termNeed)}</span>
+      <p>${fpA("a.termMult", `${a.termMult}× yearly income`)}${r.loansTotal ? ` + loans ${inrShort(r.loansTotal)}` : ""}. Split it between earners by income. You have ${inrShort(s.term)}.</p>${prog(s.term, r.termNeed)}`
+      : `<p>No one depends on your income, so term cover may not be needed yet.</p>`}</div>
+    <div class="fp-check"><h4>Costly debt ${status(r.hiTotal <= 0)}</h4><span class="big">${r.hiTotal ? inrShort(r.hiTotal) : "None"}</span>
+      <p>${r.hiTotal ? r.hiLoans.map(l => `${l.name} ${inrShort(l.amt)} at ${l.rate}%`).join(" · ") + `. Paying it off saves that interest for sure.` : `No loans at ${fpA("a.hiRate", `${a.hiRate}% or more`)}. Lower-rate loans (home, education) can keep their normal EMI.`}</p></div>
+  </div>${r.insMonthly > 0 ? `<p style="margin-top:12px;color:var(--muted);font-size:13.5px">Estimated premium for the missing cover: about ${inr(r.insMonthly)} a month, using ${fpA("a.hPrem", "rough premium rates")}. Real premiums depend on age and health, so get quotes.</p>` : ""}</section>`;
+
+  const goals = `<section class="block"><h3>Long-term goals</h3><div class="fp-tw"><table class="fp-table">
+    <thead><tr><th>Goal</th><th class="r">Money needed then</th><th class="r">Needed a month</th><th class="r">In this plan</th></tr></thead><tbody>
+    ${r.goals.map(g => `<tr><td><b>${g.name}</b><small>${g.dueNow ? "Due now" : `In ${g.years} years`} · ${g.key === "ret"
+        ? `living costs ${inr(g.today)}/month today → ${inr(r.atRet)}/month at ${a.retAge}, for ${r.T} years, at ${fpA("a.infl", `${a.infl}% inflation`)} and ${fpA("a.postRet", `${a.postRet}% return after retiring`)}. EPF/PPF and investments may grow to ${inrShort(g.existing)} (${fpA("a.epfRet", `${a.epfRet}%`)} / ${fpA("a.eqRet", `${a.eqRet}%`)}).`
+        : `${inrShort(g.today)} today at ${fpA(g.infl, `${a[g.infl]}% a year cost growth`)}`}${g.dueNow ? "" : ` · invested at ${fpA(g.ret === a.eqRet ? "a.eqRet" : "a.safeRet", `${g.ret}% assumed return`)}`}</small></td>
+      <td class="r">${inrShort(g.fv)}${g.years > 0 ? `<small>≈ ${inrShort(g.fv / Math.pow(1 + a.infl / 100, g.years))} in today's money</small>` : ""}</td><td class="r">${g.dueNow ? "—" : inr(g.sip)}</td><td class="r">${g.dueNow ? "—" : inr(g.got)}${!g.dueNow && g.sip > 0 ? `<small>${pctOf(g.got, g.sip)}% of need</small>` : ""}</td></tr>`).join("")}
+    </tbody></table></div>
+    <p style="margin-top:12px;color:var(--muted);font-size:13.5px">"Needed a month" is what would reach the goal if the assumed return actually happens. Returns are not guaranteed and can be lower. A gap today is normal: it shrinks as safety buckets fill, income grows and you step up your monthly amount.</p></section>`;
+
+  const tips = [];
+  if (s.loans[0].amt > 0) tips.push("Credit-card dues often cost 36–42% a year. Pay the full bill, not the minimum, and stop new spending on the card until it is cleared.");
+  if (s.savings > r.efTarget && r.hiTotal > 0) tips.push(`Your savings are ${inrShort(s.savings - r.efTarget)} above the emergency target. Using that extra to clear costly debt could be worth considering.`);
+  else if (s.savings > r.efTarget * 1.25 && r.efTarget > 0) tips.push(`Your savings are ${inrShort(s.savings - r.efTarget)} above the emergency target. The extra could be moved into your goal pots.`);
+  if (s.health > 0) tips.push("An employer group policy usually ends when you leave the job. A personal family floater keeps you covered between jobs.");
+  if (r.needsTerm && r.termGap > 0) tips.push("For life cover, a pure term plan usually gives the most cover per rupee. Avoid buying insurance as an investment.");
+  if (e.annual === 0) tips.push("Yearly costs (festivals, admissions, insurance renewals) are set to zero. Spreading them over 12 months stops them from breaking the emergency fund.");
+  if (s.kids.length && r.goals.some(g => g.key === "edu" && g.got < g.sip)) tips.push("Education goals have fixed dates, so they cannot be postponed the way retirement savings sometimes can. Review them every year.");
+  tips.push("EPF deducted from your salary is not part of take-home, so it is extra retirement saving on top of this plan.");
+  tips.push("Revisit this plan once a year, and after any salary change, new child, loan or job change.");
+
+  return `${kpis}${bar}${split}${checks}${goals}
+    <section class="block"><h3>Things to keep in mind</h3><ul>${tips.map(t => `<li>${t}</li>`).join("")}</ul></section>
+    <p class="fp-disc"><b>Educational and illustrative only.</b> This is not financial, investment, tax or insurance advice. Returns and inflation are assumptions you can change; no return is guaranteed and markets can fall. Insurance amounts are rules of thumb and premiums are rough guesses. For decisions about your own money, speak to a SEBI-registered investment adviser.</p>
+    <div class="fp-tools"><button type="button" class="btn" onclick="print()">Print or save as PDF</button></div>`;
+}
+
+function tracker(){
+  return `<div class="page-head"><div><div class="eyebrow">Money Planner</div>
+      <h1>Your family's <em>money plan</em>, one bucket at a time.</h1>
+      <p class="lead">Enter your household, income and expenses. See how much of your monthly surplus could go to the emergency fund, insurance, costly debt and long-term goals: safety first, then the future.</p>
+      <p class="hindi">Companion to the "Middle-Class Family Ka Money Plan" video series.</p></div></div>
+    <p class="fp-disc"><b>Private:</b> everything is calculated in your browser. Nothing you type is sent anywhere. <b>Educational only:</b> the numbers are illustrations based on assumptions you can change, not advice.</p>
+    <div class="fp">${fpForm()}<div class="fp-res" id="fp-res" aria-live="polite">${fpResults()}</div></div>`;
+}
+function fpAmtHints(){ document.querySelectorAll("[data-amt]").forEach(el => { const v = +fpGet(el.dataset.amt) || 0; el.textContent = v >= 1e5 ? inrShort(v) : ""; });
+  const ef = document.querySelector('#fp-form [data-k="efMonths"]'); if (ef) ef.placeholder = "auto: " + fpCalc(fp).efAuto; }
+function fpRedraw(full){
+  fpSave();
+  if (full) { const y = scrollY, open = [...document.querySelectorAll(".fp-sec")].map(d => d.open), f = document.activeElement?.dataset?.k;
+    app.innerHTML = tracker(); document.querySelectorAll(".fp-sec").forEach((d, i) => d.open = open[i] ?? d.open);
+    if (f) document.querySelector(`[data-k="${f}"]`)?.focus(); scrollTo(0, y); }
+  else document.getElementById("fp-res").innerHTML = fpResults();
+  fpAmtHints();
+}
+app.addEventListener("input", e => {
+  const el = e.target.closest("#fp-form [data-k]"); if (!el) return;
+  const k = el.dataset.k;
+  if (el.type === "checkbox") fpSet(k, el.checked);
+  else if (el.tagName === "SELECT") fpSet(k, el.value);
+  else { const v = parseFloat(el.value); fpSet(k, isFinite(v) && v > 0 ? Math.min(v, 1e10) : 0); }
+  if (k !== "remember") { fp.example = false; document.querySelector(".fp-banner")?.remove(); }
+  // Changes that add or remove form fields redraw the form; the rest only redraw the results.
+  fpRedraw(["home", "parents", "homeGoal.on"].includes(k));
+});
+app.addEventListener("click", e => {
+  const b = e.target.closest("[data-fp],[data-del],[data-focus]"); if (!b || !document.getElementById("fp-form")) return;
+  if (b.dataset.fp === "verma") { fp = { ...fpVerma(), remember:fp.remember }; fpRedraw(true); }
+  else if (b.dataset.fp === "clear") { fp = { ...fpBlank(), remember:fp.remember }; fpRedraw(true); }
+  else if (b.dataset.fp === "jump") document.getElementById("fp-res").scrollIntoView({ block:"start" });
+  else if (b.dataset.fp === "kid") { fp.kids.push({ age:5, cost:1000000 }); fp.example = false; fpRedraw(true); }
+  else if (b.dataset.del != null) { fp.kids.splice(+b.dataset.del, 1); fp.example = false; fpRedraw(true); }
+  else if (b.dataset.focus) { const inp = document.querySelector(`#fp-form [data-k="${b.dataset.focus}"]`); if (!inp) return;
+    inp.closest("details").open = true; inp.scrollIntoView({ block:"center" }); inp.focus({ preventScroll:true }); inp.select?.(); }
+});
+
+// ---------- money maths (all illustrative) ----------
+const mRate = R => Math.pow(1 + R / 100, 1 / 12) - 1;            // yearly % → equivalent monthly rate
+// SIP invested at the start of each month; optional yearly step-up. Returns year-by-year rows.
+function sipRows(P, R, years, step = 0){
+  const r = mRate(R), rows = []; let v = 0, inv = 0;
+  for (let m = 0; m < Math.round(years * 12); m++) {
+    const amt = P * Math.pow(1 + step / 100, Math.floor(m / 12)); v = (v + amt) * (1 + r); inv += amt;
+    if ((m + 1) % 12 === 0) rows.push({ y:(m + 1) / 12, inv, val:v });
+  }
+  return rows;
+}
+function lumpRows(A, R, years){ const rows = []; for (let y = 1; y <= years; y++) rows.push({ y, inv:A, val:A * Math.pow(1 + R / 100, y) }); return rows; }
+function sipNeeded(fv, R, years){ const r = mRate(R), n = Math.round(years * 12); if (fv <= 0 || n <= 0) return 0;
+  return r > 0 ? fv * r / ((Math.pow(1 + r, n) - 1) * (1 + r)) : fv / n; }
+function emiOf(P, R, years){ const i = R / 1200, n = Math.round(years * 12); return i > 0 ? P * i * Math.pow(1 + i, n) / (Math.pow(1 + i, n) - 1) : P / n; }
+
+// ---------- lessons (English notes for the Money Plan series) ----------
+const MODULES = [
+  { title:"Start with safety", blurb:"Before investing a rupee: know your spending, build a cushion, insure the earners and kill costly debt.", lessons:[
+    { id:"budget", title:"Where does the salary go?", short:"Track one month, then split essentials, wants and yearly costs.",
+      idea:["Most families don't overspend on one big thing. Money leaks through dozens of small payments: UPI, delivery apps, subscriptions, EMIs. You can't plan what you haven't measured.",
+            "Sort every rupee into three groups: <b>essentials</b> (rent, groceries, fees, bills, EMIs), <b>wants</b> (eating out, shopping, trips) and <b>yearly costs</b> (school admission, insurance renewal, Diwali, repairs). Yearly costs feel like emergencies only because nobody saved for them."],
+      points:["Download last month's bank and card statements and tag each line. One honest month beats a perfect app.","Treat the popular 50-30-20 split (needs, wants, savings) as a starting point, not a rule. In a high-rent city, needs may be 60% or more.","Divide yearly costs by 12 and move that amount to a separate account every month.","Pay yourself first: move savings out on salary day, then spend what is left."],
+      example:{ text:"The Verma family (fictional, Lucknow) takes home ₹1,00,000 a month.", nums:[["Essentials","₹58,000"],["Yearly costs ÷ 12","₹6,000"],["Leisure","₹5,000"],["Left to plan","₹31,000"]] },
+      action:"List last month's spending in the three groups. Find one want you can cut without feeling it.", takeaway:"You can't fix what you don't measure. Track one month first.", tool:"planner" },
+    { id:"emergency-fund", title:"How big should the emergency fund be?", short:"4–9 months of essentials, kept safe and quick to reach.",
+      idea:["An emergency fund pays for job loss, a hospital bill or an urgent repair without a credit card or a loan. It is insurance for your plan: without it, one bad month forces you to sell investments at the wrong time.",
+            "Size it on <b>essential</b> monthly expenses, not on income. The less stable the income, the bigger the cushion."],
+      points:["Very stable job (government, PSU): around 4 months. Private salary: around 6. Self-employed or variable income: 9 or more.","Add a month if there is only one earner or many dependants.","Keep it where it is safe and quick to withdraw: a savings account, sweep-in FD or a liquid fund. Not in shares.","Build it step by step: first ₹50,000, then one month, then the full target."],
+      example:{ text:"Verma family essentials are ₹58,000 a month, with a private-sector salary.", nums:[["Months","6"],["Target","₹3.48 lakh"],["At ₹15,000 a month","about 2 years"]] },
+      action:"Write down your essential monthly cost and multiply it by your number of months. That is your target.", takeaway:"Your emergency fund protects your investments from your emergencies.", tool:"planner" },
+    { id:"insurance", title:"Health and term insurance first", short:"Insure the risk you can't afford. Keep insurance and investment separate.",
+      idea:["One hospital stay can wipe out years of savings, and the loss of an earner can end a family's plan. Insurance moves these big risks to an insurer for a small yearly cost.",
+            "<b>Health insurance</b> pays hospital bills. <b>Term life insurance</b> pays your family a lump sum if you die during the policy term. It has no maturity value, which is why it is cheap."],
+      points:["An employer group policy usually ends when you leave the job. Keep a personal family floater as well.","Parents usually need their own policy; senior premiums are higher, so start early.","A common rule of thumb for term cover is about 10 times yearly income plus outstanding loans.","Endowment and money-back policies mix insurance with low-return saving. Usually it is better to buy pure term cover and invest separately.","Disclose health conditions honestly. A rejected claim is worse than a higher premium."],
+      example:{ text:"An earner with ₹12 lakh yearly income and a ₹10 lakh car loan.", nums:[["Term cover (10×)","₹1.2 crore"],["Plus loans","₹1.3 crore"],["Family health cover","₹10–15 lakh"]] },
+      action:"Check your current cover. Is it from your employer only? Is it pure term? Note the gaps.", takeaway:"Insurance is for protection. Investments are for growth. Don't mix them.", tool:"planner" },
+    { id:"debt", title:"Which loan to pay off first?", short:"Costly debt is a guaranteed negative return. Clear it before investing.",
+      idea:["A credit card charging around 3% a month costs roughly 36–42% a year. No safe investment earns that, so paying off this debt is the best 'return' you can get.",
+            "Low-rate loans with a clear purpose (home, education) can usually run on their normal EMI. High-rate loans (credit card, app loans, personal loans) should go first."],
+      points:["Always pay the full credit-card bill. Paying only the 'minimum due' keeps interest running on the whole balance.","Avalanche method: pay extra on the highest-rate loan first. It saves the most interest.","Snowball method: clear the smallest loan first. It saves less, but quick wins keep some people going.","'No-cost EMI' can hide a processing fee or a lost cash discount. Compare the total you pay."],
+      example:{ text:"₹1 lakh of credit-card dues at 36% a year.", nums:[["Interest in a year","about ₹36,000"],["Paid off in 18 months","about ₹5,600 + EMI a month"]] },
+      action:"List every loan with its interest rate. Put the highest rate on top: that is your first target.", takeaway:"Paying off a 36% loan is a guaranteed 36% return.", tool:"emi" },
+  ]},
+  { title:"How money grows", blurb:"Compounding, inflation and time: the three forces behind every money decision.", lessons:[
+    { id:"compounding", title:"Compounding: money that earns money", short:"Returns on returns. Time matters more than the amount.",
+      idea:["Compounding means your returns also start earning returns. In the early years growth looks slow; in later years most of the growth comes from past growth.",
+            "The <b>Rule of 72</b> is a quick check: 72 ÷ yearly return ≈ years to double. At 12% money doubles in about 6 years; at 6% it takes about 12."],
+      points:["Starting early beats investing more later, because the early money gets the most years.","Interrupting compounding (withdrawing, stopping SIPs) costs more than it seems.","Fees and taxes compound too, in the wrong direction.","Higher assumed returns usually mean higher risk. Use modest assumptions for planning."],
+      example:{ text:"₹1 lakh invested once, growing at an assumed 10% a year.", nums:[["After 10 years","₹2.59 lakh"],["After 20 years","₹6.73 lakh"],["After 30 years","₹17.45 lakh"]] },
+      action:"Use the Lumpsum calculator: try 10, 20 and 30 years and watch the last decade.", takeaway:"The best time to start was earlier. The next best time is now.", tool:"lumpsum" },
+    { id:"inflation", title:"Inflation: the silent salary cut", short:"Prices rise every year. Plan goals in future rupees.",
+      idea:["Inflation is the rise in prices over time. If prices rise 6% a year, ₹100 buys only about ₹94 worth of today's goods next year.",
+            "That is why a goal like college or retirement must be planned in <b>future</b> rupees, and why money sitting idle in a savings account slowly loses value."],
+      points:["Real return ≈ your return minus inflation. A 7% FD with 6% inflation grows real wealth by only about 1% (less after tax).","Education and medical costs often rise faster than general inflation.","Lifestyle inflation is the personal version: spending rises with every raise. Save a share of every increment first."],
+      example:{ text:"Household expenses of ₹50,000 a month, at an assumed 6% inflation.", nums:[["In 20 years","₹1.6 lakh a month"],["₹1 crore in 25 years","≈ ₹23 lakh in today's money"]] },
+      action:"Use the Inflation calculator on one of your goals. Note the future cost.", takeaway:"Plan in future rupees, not today's prices.", tool:"inflation" },
+    { id:"horizon", title:"Saving vs investing: match money to time", short:"When you need the money decides where it should sit.",
+      idea:["<b>Saving</b> keeps money safe for near needs. <b>Investing</b> accepts ups and downs to grow money for distant goals. Both are needed; the mistake is using the wrong one for a goal.",
+            "Risk is not only losing money. It is also needing the money exactly when markets are down."],
+      points:["Under 3 years: keep it safe (savings, FD, RD, liquid or short-term debt funds).","3–7 years: a mix of debt and some equity, depending on how flexible the goal is.","7+ years: equity funds can be considered, because there is time to recover from falls.","Move money to safer options 2–3 years before a fixed-date goal like college fees."],
+      example:{ text:"Three goals for the same family.", nums:[["New bike in 2 years","Safe options"],["Home down payment in 5 years","Mix"],["Retirement in 25 years","Mostly equity"]] },
+      action:"Write each goal with its year. Put a label next to it: safe, mix or growth.", takeaway:"Short goal, safe money. Long goal, growth money.", tool:"goal" },
+  ]},
+  { title:"Investing basics", blurb:"Mutual funds, SIPs, costs, index funds, ETFs and how to split money across assets.", lessons:[
+    { id:"mutual-funds", title:"Mutual funds in plain words", short:"A shared pot, managed for you, priced daily as NAV.",
+      idea:["A mutual fund pools money from many investors and invests it in shares, bonds or both. You own <b>units</b> of the pot. The price of one unit is the <b>NAV</b>, calculated every business day.",
+            "Funds in India are regulated by SEBI. Your money is held by a custodian, not by the fund manager, but the value of the investments can still go down."],
+      points:["Equity funds invest mainly in shares: higher growth potential, bigger swings.","Debt funds invest in bonds and deposits: steadier, lower growth, with interest-rate and credit risk.","Hybrid funds mix both.","Every scheme shows a riskometer and publishes its portfolio. Read the scheme documents before investing.","Past returns do not predict future returns."],
+      example:{ text:"You invest ₹10,000 when the NAV is ₹50.", nums:[["Units bought","200"],["If NAV becomes ₹60","₹12,000"],["If NAV falls to ₹45","₹9,000"]] },
+      action:"Open any fund's factsheet and find three things: NAV, expense ratio, riskometer.", takeaway:"You own units of a shared pot, and the pot's value moves every day.", tool:"lumpsum" },
+    { id:"sip", title:"SIP: invest a fixed amount every month", short:"A habit, not a product. Returns are never guaranteed.",
+      idea:["A SIP (systematic investment plan) invests a fixed amount into a mutual fund on a set date every month. It is a way of investing, not a type of fund.",
+            "Because the amount is fixed, you buy more units when prices are low and fewer when they are high. This is called rupee-cost averaging, and it removes the stress of timing the market."],
+      points:["Start with an amount you can continue in a bad month; consistency matters more than size.","Step up the SIP every year with your salary increase. Even 10% a year makes a big difference.","A SIP in an equity fund can still show losses for months or a year or two. That is normal.","Link every SIP to a goal and its time horizon."],
+      example:{ text:"₹5,000 a month for 20 years at an assumed 12% a year (illustrative).", nums:[["You invest","₹12 lakh"],["Possible value","₹46 lakh"],["With 10% yearly step-up","₹93 lakh"]] },
+      action:"Use the SIP calculator, then the Step-up SIP calculator with the same numbers.", takeaway:"Start small, stay regular, step up every year.", tool:"sip" },
+    { id:"costs", title:"Direct vs regular plans and expense ratio", short:"The same fund can cost you very different amounts.",
+      idea:["Every fund charges a yearly fee called the <b>expense ratio</b>, taken out of the NAV. You never see a bill, so it is easy to ignore.",
+            "Each fund has a <b>regular plan</b> (bought through a distributor, includes commission) and a <b>direct plan</b> (bought directly, no commission). Same portfolio, same manager; the direct plan has a lower expense ratio."],
+      points:["Compare expense ratios within the same category. Index funds usually cost the least.","A 1% yearly difference looks tiny but compounds over decades.","If you need advice, paying a SEBI-registered adviser a fee and investing in direct plans is one option.","Check exit loads and taxes before switching an existing investment."],
+      example:{ text:"₹10,000 a month for 25 years, assumed 12% gross return.", nums:[["Cost 0.5% a year","₹1.57 crore"],["Cost 1.5% a year","₹1.34 crore"],["Difference","₹22.9 lakh"]] },
+      action:"Find the expense ratio of each fund you own. Use the Fee impact calculator.", takeaway:"Costs are certain; returns are not. Keep costs low.", tool:"fees" },
+    { id:"index-funds", title:"Index funds: own the whole market", short:"Copy an index like the Nifty 50 at low cost.",
+      idea:["An index fund simply buys all the shares in an index, such as the Nifty 50 or the Sensex, in the same proportions. It does not try to beat the market; it tries to match it.",
+            "Active funds try to beat their index, and charge more for it. S&P's SPIVA reports regularly show that many active funds fail to beat their benchmark over long periods."],
+      points:["Low cost and easy to understand: you know what you own.","Tracking error shows how closely the fund follows its index. Lower is better.","A broad index (Nifty 50, Nifty 500) is a common core holding. Narrow sector or theme indices carry more risk.","Index funds still fall when the market falls."],
+      example:{ text:"Nifty 50 index fund vs an active large-cap fund.", nums:[["Goal","Match vs beat the index"],["Typical cost","Lower vs higher"],["Manager risk","None vs some"]] },
+      action:"Compare one index fund and one active fund in the same category on 10-year returns after costs.", takeaway:"If you can't beat the market cheaply, own it cheaply.", tool:"fees" },
+    { id:"etf", title:"ETFs: index funds that trade like shares", short:"Bought on the stock exchange through a demat account.",
+      idea:["An ETF (exchange-traded fund) holds a basket like an index fund, but its units are bought and sold on the stock exchange during market hours, like a share.",
+            "You need a demat and trading account. The price you pay is the market price, which can be slightly above or below the fund's NAV."],
+      points:["Popular types: Nifty 50 / Sensex ETFs, gold ETFs, liquid ETFs and international ETFs.","Check trading volume and the bid-ask spread. A thinly traded ETF can cost more than its expense ratio suggests.","There is brokerage and other charges on each trade.","For an automatic monthly SIP, an index mutual fund is often simpler; ETFs suit people comfortable placing orders."],
+      example:{ text:"Index fund vs ETF on the same index.", nums:[["Buy through","Fund house vs stock exchange"],["Price","NAV once a day vs live price"],["Needs demat","No vs yes"]] },
+      action:"If you have a demat account, look up a Nifty 50 ETF and note its price, NAV and volume.", takeaway:"Same basket, different wrapper. Choose the one you'll use well.", tool:"lumpsum" },
+    { id:"allocation", title:"Equity, debt and gold: splitting your money", short:"Asset allocation decides most of your risk.",
+      idea:["Different assets behave differently. <b>Equity</b> grows the most over long periods but swings the most. <b>Debt</b> is steadier. <b>Gold</b> often holds up when other assets struggle.",
+            "How you split money between them (asset allocation) matters more than which single fund you pick."],
+      points:["Decide the split per goal, based on time horizon and how much fall you can sit through.","Rebalance once a year: sell a little of what grew, add to what fell, back to your target split.","Thumb rules like '100 minus age in equity' are only rough starting points.","Real estate and your EPF/PPF also count when you look at your total split."],
+      example:{ text:"An illustrative split for a 15-year goal (not a recommendation).", nums:[["Equity","60%"],["Debt","30%"],["Gold","10%"]] },
+      action:"Add up what you own in each asset. Write down the split you'd be comfortable with.", takeaway:"Your split matters more than your fund.", tool:"goal" },
+    { id:"market-fall", title:"Market fell! What should you do?", short:"Falls are normal. Your plan decides the reaction.",
+      idea:["Big falls are part of investing in shares. The Nifty 50 fell roughly 60% from its peak in 2008 and about 38% in early 2020, and recovered both times, though nobody knew how long it would take.",
+            "Panic-selling turns a temporary fall into a permanent loss. The emergency fund and the right asset split are what let you sit tight."],
+      points:["If the goal is many years away, a fall is usually a time to continue SIPs, not stop them.","If the goal is close, the money should already have been moved to safer options.","Look at your portfolio less often during a crash.","Rebalancing after a fall means buying equity at lower prices, which is uncomfortable but useful."],
+      example:{ text:"Two investors during a 30% fall.", nums:[["Stops SIP, sells","Locks in the loss"],["Continues SIP","Buys more units cheaply"]] },
+      action:"Write one line in your notes: 'If markets fall 30%, I will…' and stick it where you'll see it.", takeaway:"Decide your crash plan before the crash.", tool:"sip" },
+  ]},
+  { title:"Goals and retirement", blurb:"Turn dreams into numbers: education, a home, retirement and investing beyond India.", lessons:[
+    { id:"goals", title:"Goal-based investing", short:"Name it, date it, price it in future rupees, then invest for it.",
+      idea:["'Save more' is a wish. 'College fees of ₹31 lakh in 12 years' is a plan. Every goal needs a name, a date and a future cost.",
+            "Then choose where to invest based on the time left, and work out the monthly amount."],
+      points:["Use goal-specific inflation: education often rises faster than general prices.","Keep separate pots (or at least separate tracking) for each goal.","Move to safer options 2–3 years before the goal date.","Review once a year and step up the amount with income."],
+      example:{ text:"College costs ₹10 lakh today, needed in 12 years, at assumed 10% education inflation and 11% return.", nums:[["Future cost","₹31.4 lakh"],["SIP needed","about ₹10,900 a month"]] },
+      action:"Pick your most important goal and run it through the Goal calculator.", takeaway:"A goal without a date and a number is just a wish.", tool:"goal" },
+    { id:"retirement", title:"Retirement: EPF, PPF and NPS", short:"The longest goal. Start early; use each product for its job.",
+      idea:["Retirement may last 25 years or more, with no salary and rising medical costs. It is the goal most families start too late.",
+            "<b>EPF</b> is built from salary deductions with an employer contribution. <b>PPF</b> is a government-backed savings scheme with a 15-year lock-in. <b>NPS</b> invests in market-linked funds and is largely locked until 60, with rules on withdrawals and annuities that change from time to time."],
+      points:["EPF and PPF give stability; equity funds (directly or via NPS) give growth. Most people need some of both.","Don't withdraw EPF when you change jobs; transfer it.","Interest rates and tax rules on these schemes change. Check the current rules before investing.","A rough target is many years of expenses at retirement, adjusted for inflation; the Money Planner works it out."],
+      example:{ text:"₹5,000 a month until 60, at an assumed 10% return.", nums:[["Start at 25","₹1.71 crore"],["Start at 35","₹62 lakh"],["Cost of waiting 10 years","₹1.09 crore"]] },
+      action:"Find your EPF balance on the EPFO portal and add it to the Money Planner.", takeaway:"For retirement, time is the biggest contributor.", tool:"planner" },
+    { id:"global", title:"Investing outside India", short:"Spread risk across countries and currencies.",
+      idea:["Indian shares are a small slice of the world market. Global investing spreads risk across countries and lets you own companies not listed in India.",
+            "Your return also depends on the currency: if the rupee weakens against the dollar, a dollar investment is worth more in rupees, and the reverse."],
+      points:["Routes: international mutual funds and fund-of-funds, international ETFs listed in India, or an overseas brokerage account under the RBI's Liberalised Remittance Scheme.","Industry-wide limits on overseas investment by Indian funds have at times stopped new money into some international funds.","Tax treatment, TCS on remittances and foreign-asset reporting are different from Indian investments. Check current rules.","An S&P 500 fund is heavy in large US companies; a Nasdaq-100 fund is concentrated in technology."],
+      example:{ text:"An illustrative way to start (not a recommendation).", nums:[["Core","Indian index fund"],["Add-on","5–15% global index"],["Review","Once a year"]] },
+      action:"Check whether any fund you own already invests abroad. Many flexi-cap funds do.", takeaway:"Diversify across countries, but understand currency and tax first.", tool:"fees" },
+  ]},
+];
+const LESSONS = MODULES.flatMap(m => m.lessons.map(l => ({ ...l, mod:m })));
+const findLesson = id => LESSONS.find(l => l.id === id);
+
+// ---------- progress (per browser) ----------
+const KEY = "psr-done";
+let done = new Set();
+try { done = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); } catch (e) {}
+function saveDone(){ try { localStorage.setItem(KEY, JSON.stringify([...done])); } catch (e) {} }
+const pctDone = () => Math.round(100 * LESSONS.filter(l => done.has(l.id)).length / LESSONS.length);
+
+// ---------- calculators ----------
+const CALCS = [
+  { id:"sip", name:"SIP", title:"SIP calculator", blurb:"What a fixed monthly investment could grow to.",
+    fields:[["amt","Monthly investment",5000,500,200000,500,"₹"],["ret","Expected return",12,1,20,0.5,"","% a year"],["yrs","Time period",15,1,40,1,"","years"]],
+    run:v => { const rows = sipRows(v.amt, v.ret, v.yrs), last = rows[rows.length - 1];
+      return { kpis:[["Invested",inr(last.inv)],["Estimated returns",inr(last.val - last.inv)],["Total value",inr(last.val),1]],
+        rows, series:[["Invested","inv","--c-inv"],["Value","val","--c-val"]], lesson:"sip",
+        note:"Assumes the amount is invested at the start of every month and the return is earned steadily. Real returns vary year to year and can be negative." }; } },
+  { id:"stepup", name:"Step-up SIP", title:"Step-up SIP calculator", blurb:"Raise your SIP every year with your salary.",
+    fields:[["amt","Starting monthly investment",5000,500,200000,500,"₹"],["step","Increase every year",10,0,30,1,"","%"],["ret","Expected return",12,1,20,0.5,"","% a year"],["yrs","Time period",20,1,40,1,"","years"]],
+    run:v => { const rows = sipRows(v.amt, v.ret, v.yrs, v.step), flat = sipRows(v.amt, v.ret, v.yrs), last = rows[rows.length - 1], f = flat[flat.length - 1];
+      rows.forEach((r, i) => r.flat = flat[i].val);
+      return { kpis:[["Invested",inr(last.inv)],["Total value",inr(last.val),1],["Without step-up",inr(f.val)],["Extra from step-up",inr(last.val - f.val)]],
+        rows, series:[["Invested","inv","--c-inv"],["Flat SIP value","flat","--muted"],["Step-up SIP value","val","--c-val"]], lesson:"sip",
+        note:`The monthly amount goes up by ${v.step}% at the start of each year, so in year ${v.yrs} you invest ${inr(v.amt * Math.pow(1 + v.step / 100, v.yrs - 1))} a month.` }; } },
+  { id:"lumpsum", name:"Lumpsum", title:"Lumpsum calculator", blurb:"Growth of a one-time investment.",
+    fields:[["amt","One-time investment",100000,5000,10000000,5000,"₹"],["ret","Expected return",12,1,20,0.5,"","% a year"],["yrs","Time period",10,1,40,1,"","years"]],
+    run:v => { const rows = lumpRows(v.amt, v.ret, v.yrs), last = rows[rows.length - 1];
+      return { kpis:[["Invested",inr(v.amt)],["Estimated returns",inr(last.val - v.amt)],["Total value",inr(last.val),1],["Doubles in about",(72 / v.ret).toFixed(1) + " years"]],
+        rows, series:[["Invested","inv","--c-inv"],["Value","val","--c-val"]], lesson:"compounding",
+        note:"Compounded once a year at a steady assumed rate. 'Doubles in about' uses the Rule of 72." }; } },
+  { id:"goal", name:"Goal", title:"Goal calculator", blurb:"How much to invest each month for a future goal.",
+    fields:[["cost","Goal cost today",1000000,10000,50000000,10000,"₹"],["yrs","Years to goal",12,1,40,1,"","years"],["infl","Cost increase (inflation)",8,0,15,0.5,"","% a year"],["ret","Expected return",11,1,20,0.5,"","% a year"],["have","Already saved for it",0,0,20000000,10000,"₹"]],
+    run:v => { const fv = v.cost * Math.pow(1 + v.infl / 100, v.yrs), haveFv = v.have * Math.pow(1 + v.ret / 100, v.yrs), gap = Math.max(0, fv - haveFv),
+        sip = sipNeeded(gap, v.ret, v.yrs), lump = gap / Math.pow(1 + v.ret / 100, v.yrs), rows = sipRows(sip, v.ret, v.yrs);
+      rows.forEach(r => { r.goal = v.cost * Math.pow(1 + v.infl / 100, r.y); r.val += v.have * Math.pow(1 + v.ret / 100, r.y); });
+      return { kpis:[["Goal cost then",inr(fv)],["Monthly SIP needed",inr(sip),1],["Or one-time today",inr(lump)],["Your savings will grow to",inr(haveFv)]],
+        rows, series:[["Goal cost (rising)","goal","--c-int"],["Your money","val","--c-val"]], lesson:"goals",
+        note:`${inr(v.cost)} today becomes ${inr(fv)} in ${v.yrs} years at ${v.infl}% a year. For goals under 3 years, use a lower, safer return.` }; } },
+  { id:"inflation", name:"Inflation", title:"Inflation calculator", blurb:"What today's cost becomes in the future.",
+    fields:[["amt","Cost today",50000,1000,10000000,1000,"₹"],["infl","Inflation",6,1,15,0.5,"","% a year"],["yrs","Years",20,1,50,1,"","years"]],
+    run:v => { const rows = []; for (let y = 1; y <= v.yrs; y++) rows.push({ y, val:v.amt * Math.pow(1 + v.infl / 100, y), inv:v.amt / Math.pow(1 + v.infl / 100, y) });
+      const last = rows[rows.length - 1];
+      return { kpis:[["Cost today",inr(v.amt)],["Same thing then",inr(last.val),1],[`${inr(v.amt)} then buys`,inr(last.inv) + " of today"]],
+        rows, series:[["Future cost","val","--c-int"],["Value of today's amount","inv","--c-inv"]], lesson:"inflation",
+        note:"Inflation compounds like returns, only against you." }; } },
+  { id:"fees", name:"Fee impact", title:"Fee impact calculator", blurb:"What a higher expense ratio costs you over time.",
+    fields:[["amt","Monthly investment",10000,500,200000,500,"₹"],["ret","Return before costs",12,1,20,0.5,"","% a year"],["a","Low-cost plan",0.5,0,3,0.05,"","% a year"],["b","High-cost plan",1.5,0,3,0.05,"","% a year"],["yrs","Time period",25,1,40,1,"","years"]],
+    run:v => { const A = sipRows(v.amt, v.ret - v.a, v.yrs), B = sipRows(v.amt, v.ret - v.b, v.yrs), la = A[A.length - 1], lb = B[B.length - 1];
+      const rows = A.map((r, i) => ({ y:r.y, inv:r.inv, val:r.val, hi:B[i].val }));
+      return { kpis:[[`Value at ${v.a}% cost`,inr(la.val),1],[`Value at ${v.b}% cost`,inr(lb.val)],["Lost to the extra cost",inr(la.val - lb.val)]],
+        rows, series:[["Invested","inv","--c-inv"],[`At ${v.b}% cost`,"hi","--c-int"],[`At ${v.a}% cost`,"val","--c-val"]], lesson:"costs",
+        note:"Simplified: the yearly cost is subtracted from the return. Direct plans, index funds and ETFs usually have the lowest costs." }; } },
+  { id:"emi", name:"EMI", title:"EMI calculator", blurb:"Monthly EMI and total interest on a loan.",
+    fields:[["amt","Loan amount",3000000,10000,50000000,10000,"₹"],["rate","Interest rate",8.5,1,40,0.1,"","% a year"],["yrs","Loan tenure",20,1,30,1,"","years"]],
+    run:v => { const e = emiOf(v.amt, v.rate, v.yrs), i = v.rate / 1200, rows = []; let bal = v.amt, paid = 0, int = 0;
+      for (let m = 1; m <= v.yrs * 12; m++) { const im = bal * i; int += im; bal = Math.max(0, bal + im - e); paid += e; if (m % 12 === 0) rows.push({ y:m / 12, val:bal, inv:int }); }
+      return { kpis:[["Monthly EMI",inr(e),1],["Total interest",inr(e * v.yrs * 12 - v.amt)],["Total paid",inr(e * v.yrs * 12)],["Interest as % of loan",pctOf(e * v.yrs * 12 - v.amt, v.amt) + "%"]],
+        rows, series:[["Loan still owed","val","--c-int"],["Interest paid so far","inv","--c-inv"]], lesson:"debt",
+        note:"Reducing-balance EMI. Prepaying early in the loan saves the most interest. Check prepayment charges first." }; } },
+];
+const calcVals = {};
+CALCS.forEach(c => { calcVals[c.id] = Object.fromEntries(c.fields.map(f => [f[0], f[2]])); });
+
+function chart(rows, series){
+  const W = 640, H = 260, L = 58, R = 12, T = 12, B = 30;
+  const max = Math.max(1, ...rows.flatMap(r => series.map(s => r[s[1]] || 0)));
+  const nice = (() => { const p = Math.pow(10, Math.floor(Math.log10(max))), f = max / p; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 5 ? 5 : 10) * p; })();
+  const X = i => L + (rows.length === 1 ? (W - L - R) / 2 : i * (W - L - R) / (rows.length - 1)), Y = v => T + (H - T - B) * (1 - v / nice);
+  const grid = [0, .25, .5, .75, 1].map(f => `<line x1="${L}" x2="${W - R}" y1="${Y(f * nice)}" y2="${Y(f * nice)}" stroke="var(--line)"/><text x="${L - 8}" y="${Y(f * nice) + 4}" text-anchor="end">${inrShort(f * nice).replace("₹", "₹")}</text>`).join("");
+  const xs = rows.map((r, i) => (rows.length <= 12 || i % Math.ceil(rows.length / 10) === 0 || i === rows.length - 1) ? `<text x="${X(i)}" y="${H - 8}" text-anchor="middle">${r.y}</text>` : "").join("");
+  const lines = series.map(([n, k, c], si) => { const pts = rows.map((r, i) => `${X(i).toFixed(1)},${Y(r[k] || 0).toFixed(1)}`).join(" ");
+    const area = si === series.length - 1 ? `<polygon points="${X(0)},${Y(0)} ${pts} ${X(rows.length - 1)},${Y(0)}" fill="var(${c})" opacity=".14"/>` : "";
+    return `${area}<polyline points="${pts}" fill="none" stroke="var(${c})" stroke-width="${si === series.length - 1 ? 3 : 2}" ${c === "--muted" ? 'stroke-dasharray="5 4"' : ""}/>`; }).join("");
+  const hits = rows.map((r, i) => `<rect x="${X(i) - (W - L - R) / rows.length / 2}" y="${T}" width="${(W - L - R) / rows.length}" height="${H - T - B}" fill="transparent"><title>Year ${r.y}\n${series.map(([n, k]) => `${n}: ${inr(r[k] || 0)}`).join("\n")}</title></rect>`).join("");
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Year by year chart">${grid}${xs}${lines}${hits}<text x="${W - R}" y="${H - 8}" text-anchor="end" opacity="0">year</text></svg>
+    <ul class="legend">${series.map(([n, k, c]) => `<li><span class="dot" style="background:var(${c})"></span>${n}</li>`).join("")}<li>Years →</li></ul>`;
+}
+
+function calcResults(c){
+  const v = calcVals[c.id], r = c.run(v);
+  return `<div class="kpis">${r.kpis.map(([k, val, hi]) => `<div class="kpi ${hi ? "hi" : ""}">${k}<b>${val}</b></div>`).join("")}</div>
+    <section class="block">${chart(r.rows, r.series)}</section>
+    <p class="cnote">${r.note}</p>
+    <details class="years block"><summary>Year-by-year table</summary><div class="tw"><table class="ytable"><thead><tr><th>Year</th>${r.series.map(s => `<th>${s[0]}</th>`).join("")}</tr></thead><tbody>
+      ${r.rows.map(row => `<tr><td>${row.y}</td>${r.series.map(s => `<td>${inr(row[s[1]] || 0)}</td>`).join("")}</tr>`).join("")}</tbody></table></div></details>
+    <p class="cnote">Learn the idea: <a href="#learn/${r.lesson}">${findLesson(r.lesson).title}</a>. Illustrative only; not a promise of returns.</p>`;
+}
+function calcView(c){
+  const f = ([k, label, d, min, max, step, pre, suf]) => `<div class="cf"><div class="cf-top"><label for="cf-${k}">${label}</label>
+      <span class="cf-box">${pre ? `<i>${pre}</i>` : ""}<input id="cf-${k}" type="number" inputmode="decimal" min="${min}" max="${max}" step="${step}" value="${calcVals[c.id][k]}" data-c="${k}">${suf ? `<i>${suf}</i>` : ""}</span></div>
+      <input type="range" min="${min}" max="${max}" step="${step}" value="${Math.min(max, calcVals[c.id][k])}" data-c="${k}" aria-label="${label}"></div>`;
+  return `<div class="page-head"><div><div class="eyebrow">Calculators</div><h2>${c.title}</h2><p class="lead">${c.blurb}</p></div></div>
+    <nav class="calc-tabs" aria-label="Calculators">${CALCS.map(x => `<a href="#calculators/${x.id}" ${x === c ? 'aria-current="page"' : ""}>${x.name}</a>`).join("")}<a href="#planner">Full family plan →</a></nav>
+    <div class="calc"><form class="cform" id="cform" data-calc="${c.id}" onsubmit="return false">${c.fields.map(f).join("")}</form>
+    <div class="cres" id="cres" aria-live="polite">${calcResults(c)}</div></div>`;
+}
+
+// ---------- pages ----------
+function home(){
+  const ex = sipRows(5000, 12, 20).pop();
+  const steps = MODULES.map(m => `<a class="step" href="#learn/${m.lessons[0].id}"><span class="num"></span><h3>${m.title}</h3><p>${m.blurb}</p><span class="meta">${m.lessons.length} lessons →</span></a>`).join("");
+  return `<section class="hero">
+    <div><div class="eyebrow">Paisa Samjho Raj</div>
+      <h1>Money, made simple for <em>Indian families.</em></h1>
+      <p class="lead">Budget, emergency fund, insurance, SIP, mutual funds, index funds, ETFs and retirement, explained in plain words with real rupee examples. Free calculators and a private Money Planner that runs only in your browser.</p>
+      <p class="hindi">Companion website to Raj's Hinglish video series "Middle-Class Family Ka Money Plan".</p>
+      <div class="hero-actions"><a class="btn brand" href="#learn">Start learning</a><a class="btn" href="#planner">Plan my family's money</a><a class="btn" href="#calculators">Calculators</a></div></div>
+    <div class="hero-card"><div class="eyebrow">The power of a habit</div>
+      <div class="big">${inrShort(ex.val)}</div>
+      <p>could be the value of ₹5,000 a month for 20 years at an assumed 12% a year. Illustrative, not guaranteed.</p>
+      <div class="row"><div>You invest<b>${inrShort(ex.inv)}</b></div><div>Growth<b>${inrShort(ex.val - ex.inv)}</b></div><div><a href="#calculators/sip">Try your numbers →</a></div></div></div>
+  </section>
+  <section class="section"><div class="section-head"><div><div class="eyebrow">Learning path</div><h2>Four steps, in this order</h2></div><a class="more" href="#learn">All ${LESSONS.length} lessons →</a></div>
+    <div class="path">${steps}</div></section>
+  <section class="section"><div class="section-head"><div><div class="eyebrow">Calculators</div><h2>Run the numbers</h2></div><a class="more" href="#calculators">All calculators →</a></div>
+    <div class="grid">${CALCS.map(c => `<a class="card" href="#calculators/${c.id}"><span class="ico">₹</span><h3>${c.title}</h3><p>${c.blurb}</p></a>`).join("")}</div></section>
+  <section class="section band"><div><div class="eyebrow">Money Planner</div><h2>Your family's plan, one bucket at a time</h2>
+    <p>Enter income, expenses, savings, loans and goals. See how your monthly surplus could be split between insurance, costly debt, the emergency fund and long-term goals. Nothing leaves your browser.</p></div>
+    <a class="btn primary" href="#planner">Open the Money Planner</a></section>`;
+}
+function learn(){
+  return `<div class="page-head"><div><div class="eyebrow">Learn</div><h1>Understand money, <em>step by step.</em></h1>
+      <p class="lead">${LESSONS.length} short lessons in four modules. Each one has the idea, the key points, a worked rupee example, one action and a calculator to try.</p></div>
+    <div class="progrow"><div class="prog"><i style="width:${pctDone()}%"></i></div>${pctDone()}% done</div></div>
+  <div class="modules">${MODULES.map((m, i) => `<section><div class="mod-head"><span class="n">${String(i + 1).padStart(2, "0")}</span><div><h2>${m.title}</h2><p>${m.blurb}</p></div></div>
+    <div class="lessons">${m.lessons.map(l => `<a class="lcard" href="#learn/${l.id}"><span class="tick ${done.has(l.id) ? "done" : ""}"></span><span><b>${l.title}</b><small>${l.short}</small></span></a>`).join("")}</div></section>`).join("")}</div>`;
+}
+function lessonView(l){
+  const i = LESSONS.indexOf(l), prev = LESSONS[i - 1], next = LESSONS[i + 1];
+  const tool = l.tool === "planner" ? ["#planner", "Open the Money Planner"] : [`#calculators/${l.tool}`, `Try the ${CALCS.find(c => c.id === l.tool).title}`];
+  const side = `<aside class="side"><div class="side-head"><a class="back" href="#learn">← All lessons</a>
+      <div class="progrow"><div class="prog"><i style="width:${pctDone()}%"></i></div>${pctDone()}%</div></div>
+    ${MODULES.map(m => `<details ${m === l.mod ? "open" : ""}><summary>${m.title}</summary><ul>${m.lessons.map(x => `<li><a href="#learn/${x.id}" ${x.id === l.id ? 'aria-current="true"' : ""}><span class="tick ${done.has(x.id) ? "done" : ""}"></span>${x.title}</a></li>`).join("")}</ul></details>`).join("")}</aside>`;
+  const body = `<article class="lesson">
+    <div><div class="eyebrow">${l.mod.title} · Lesson ${i + 1} of ${LESSONS.length}</div><h2>${l.title}</h2></div>
+    <section class="block"><h3>The idea</h3>${l.idea.map(p => `<p>${p}</p>`).join("")}</section>
+    <section class="block"><h3>Key points</h3><ul>${l.points.map(p => `<li>${p}</li>`).join("")}</ul></section>
+    <section class="block example"><h3>Worked example</h3><p>${l.example.text}</p><div class="nums">${l.example.nums.map(([k, v]) => `<div>${k}<b>${v}</b></div>`).join("")}</div>
+      <p style="margin-top:12px;font-size:13px;color:var(--muted)">Illustrative numbers with assumed returns and inflation. Not a recommendation.</p></section>
+    <section class="block try"><h3>Do this today</h3><p>${l.action}</p><p><a class="btn" href="${tool[0]}">${tool[1]} →</a></p></section>
+    <section class="block takeaway"><h3>Remember</h3><p>${l.takeaway}</p></section>
+    <div class="lesson-actions"><button class="btn ${done.has(l.id) ? "done" : "primary"}" type="button" id="mark" data-id="${l.id}">${done.has(l.id) ? "✓ Completed" : "Mark as complete"}</button>
+      <div class="navbtns"><a class="btn" href="${prev ? "#learn/" + prev.id : "#learn"}">← ${prev ? "Previous" : "All lessons"}</a><a class="btn" href="${next ? "#learn/" + next.id : "#planner"}">${next ? "Next →" : "Make your plan →"}</a></div></div>
+  </article>`;
+  return `<div class="course-view">${side}${body}</div>`;
+}
+const EPISODES = [["01", "₹1 Lakh Salary Mein Family Ka Future Kaise Banayein?", "Introduce the example family and its competing goals."], ["02", "Salary Aati Hai, Phir Gayab Kahan Ho Jaati Hai?", "Track a month of spending."], ["03", "Zaroorat, Shauk Ya Pressure?", "Separate essentials, wants and social-pressure spending."], ["04", "50-30-20 Budget Har Family Ke Liye Sahi Hai?", "Adapt budgeting to actual family obligations."], ["05", "₹30,000, ₹60,000 Aur ₹1 Lakh: Teen Family Budgets", "Compare priorities across incomes."], ["06", "School Fees Se Diwali Tak: Annual Kharch Ka Plan", "Create monthly provisions for annual expenses."], ["07", "Mehngai Aapki Salary Ko Kaise Khaati Hai?", "Explain purchasing power and inflation."], ["08", "Salary Badhi, Bachat Kyun Nahi?", "Identify lifestyle inflation."], ["09", "Couple Ka Money Meeting: Bina Jhagde Budget", "Agree shared goals and personal spending."], ["10", "Apni Financial Report Card Banao", "Calculate net worth and monthly surplus."], ["11", "Emergency Fund Kitna Hona Chahiye?", "Set a target from expenses and job stability."], ["12", "Pehla ₹50,000 Ka Safety Fund Kaise Banayein?", "Build a starter buffer."], ["13", "Emergency Ka Paisa Kahan Rakhein?", "Compare safety, liquidity and restrictions."], ["14", "Company Health Insurance Kaafi Hai?", "Examine coverage and continuity."], ["15", "Term Insurance Kitna Lena Chahiye?", "Estimate protection needs."], ["16", "Insurance Aur Investment: Dono Ko Kaise Samjhein?", "Compare protection, costs and savings benefits."], ["17", "Credit Card Ka Minimum Due: Chhota Payment, Bada Bill?", "Explain revolving interest."], ["18", "Teen Loans Hain—Pehle Kaunsa Chukayein?", "Compare debt repayment approaches."], ["19", "No-Cost EMI Sach Mein Free Hai?", "Calculate the full purchase cost."], ["20", "Job Chali Gayi Toh Family Ka Plan Kya Hoga?", "Build a job-loss response plan."], ["21", "Saving Aur Investing Mein Kya Farak Hai?", "Match money to purpose and deadline."], ["22", "Compound Interest: Paisa Kaise Badhta Hai?", "Demonstrate time, contributions and assumptions."], ["23", "FD Aur RD: Simple Products, Kya Check Karein?", "Explain maturity, tax and early withdrawal."], ["24", "EPF, PPF Aur NPS: Kaunsa Kis Kaam Ka?", "Compare purpose and access rules."], ["25", "Mutual Fund Ko Bilkul Aasaan Bhasha Mein Samjho", "Explain units, pooled investing and risk."], ["26", "SIP Kya Hai—Aur Kya Return Guaranteed Hai?", "Explain regular investing and uncertainty."], ["27", "Index Fund Ya Active Fund?", "Compare approaches and costs."], ["28", "Direct Plan, Regular Plan Aur Expense Ratio", "Show how ongoing costs affect outcomes."], ["29", "Equity, Debt Aur Gold: Paisa Kaise Baantein?", "Introduce goal-based allocation."], ["30", "Market Gir Gaya! SIP Ka Kya Karein?", "Review time horizon and risk before reacting."], ["31", "India Ke Bahar Invest Kyun Karein?", "Explain geographic diversification."], ["32", "S&P 500, Nasdaq Aur Global Index Mein Farak", "Compare concentration and exposure."], ["33", "India Se Global Investing Ke Raaste", "Compare available fund and overseas account routes."], ["34", "Dollar Badha Toh Investment Ka Kya Hoga?", "Separate market and currency returns."], ["35", "Foreign Investing Ka Asli Kharcha", "Examine costs, remittance rules and tax reporting."], ["36", "Rent Karein Ya Ghar Kharidein?", "Compare costs, flexibility and expected stay."], ["37", "Bank Kitna Dega vs Hum Kitna Afford Kar Sakte Hain?", "Calculate an affordable EMI."], ["38", "Down Payment Ke Alawa Ghar Mein Kitna Paisa Lagta Hai?", "Include transaction and ownership costs."], ["39", "20 Saal Ya 30 Saal Ka Home Loan?", "Compare EMI, total interest and rate scenarios."], ["40", "Home Loan Prepay Karein Ya SIP Badhayein?", "Compare savings, uncertainty, tax and liquidity."], ["41", "Bachchon Ki College Fees Ka Future Cost", "Model education inflation."], ["42", "Do Bachche, Do Education Funds: Planning Kaise Karein?", "Set separate deadlines and targets."], ["43", "College Paas Aa Raha Hai—Investment Kab Safe Karein?", "Reduce risk as fees approach."], ["44", "Foreign Education: Savings, Scholarship Ya Loan?", "Compare funding and currency risks."], ["45", "Parents Ki Care Aur Bachchon Ka Future: Balance Kaise Ho?", "Plan eldercare alongside family goals."], ["46", "Retirement Ke Liye ₹1 Crore Kaafi Hai?", "Estimate a spending-based retirement target."], ["47", "30, 40 Ya 50 Ki Age Mein Retirement Saving Shuru Karein?", "Show the effect of starting later."], ["48", "Retirement Mein Monthly Income Kahan Se Aayegi?", "Compare pensions, deposits and withdrawals."], ["49", "Nominee, Will Aur Family Money Folder", "Explain roles and organise financial records."], ["50", "₹1 Lakh Family Ka Complete Financial Plan", "Assemble a practical 12-month action plan."]];
+function series(){
+  return `<div class="page-head"><div><div class="eyebrow">Video series</div><h1>Middle-Class Family Ka <em>Money Plan</em></h1>
+      <p class="lead">${EPISODES.length} Hinglish episodes following one fictional family with ₹1 lakh a month take-home, from budget to retirement. Each episode gets English notes here and a matching calculator.</p>
+      <p class="hindi">Budget se investment tak, ghar se retirement tak: paise ki har baat, aasaan bhasha mein.</p></div>
+    <a class="btn brand" href="https://www.youtube.com/@SamjhowithRaj" target="_blank" rel="noopener">Watch on YouTube</a></div>
+  <ol class="timeline">${EPISODES.map(([n, t, o], i) => `<li><span class="no">${n}</span><span>${t}<small>${o}</small></span><span class="chip ${i === 0 ? "next" : ""}">${i === 0 ? "Coming next" : "Planned"}</span></li>`).join("")}</ol>`;
+}
+function about(){
+  return `<div class="about"><img src="img/raj-mark.png" alt="Samjho with Raj logo">
+  <div><div class="eyebrow">About</div><h2>Hi, I'm Raj.</h2>
+    <p>I make simple Hinglish videos on technology and money as Samjho with Raj. This website is the money side: plain-English notes, honest examples and tools you can use for your own family.</p>
+    <p>Everything here is education. I am not a SEBI-registered investment adviser, and nothing on this site is a recommendation to buy or sell anything. Examples use assumed returns; real returns can be lower or negative. For decisions about your own money, speak to a SEBI-registered adviser.</p>
+    <div class="social" data-social style="margin-top:20px"></div>
+    <p style="margin-top:24px">Questions or ideas for the next episode? <span class="mail">samjhowithraj@gmail.com</span></p>
+  </div></div>`;
+}
+
+// ---------- router ----------
+function render(){
+  const h = (location.hash || "#home").slice(1), [p, id] = h.split("/");
+  let tab = p, html, title = "Paisa Samjho Raj · Money made simple";
+  if (p === "learn" && id && findLesson(id)) { const l = findLesson(id); html = lessonView(l); title = `${l.title} · Paisa Samjho Raj`; }
+  else if (p === "learn") html = learn();
+  else if (p === "calculators") { const c = CALCS.find(x => x.id === id) || CALCS[0]; html = calcView(c); title = `${c.title} · Paisa Samjho Raj`; }
+  else if (p === "planner" || p === "tracker") { html = tracker(); tab = "planner"; title = "Money Planner · Paisa Samjho Raj"; }
+  else if (p === "series") html = series();
+  else if (p === "about") html = about();
+  else { html = home(); tab = "home"; }
+  app.innerHTML = html;
+  if (tab === "planner") fpAmtHints();
+  document.querySelectorAll(".tab").forEach(t => t.dataset.tab === tab ? t.setAttribute("aria-current", "page") : t.removeAttribute("aria-current"));
+  fillSocial(); document.title = title;
+}
+app.addEventListener("input", e => {
+  const el = e.target.closest("#cform [data-c]"); if (!el) return;
+  const c = CALCS.find(x => x.id === el.form.dataset.calc), k = el.dataset.c, f = c.fields.find(x => x[0] === k);
+  let v = parseFloat(el.value); if (!isFinite(v)) return; v = Math.max(f[3], Math.min(v, f[4] * 10));
+  calcVals[c.id][k] = v;
+  el.form.querySelectorAll(`[data-c="${k}"]`).forEach(o => { if (o !== el) o.value = Math.min(v, f[4]); });
+  document.getElementById("cres").innerHTML = calcResults(c);
+});
+app.addEventListener("click", e => {
+  const mark = e.target.closest("#mark");
+  if (mark) { const id = mark.dataset.id; done.has(id) ? done.delete(id) : done.add(id); saveDone(); const y = scrollY; render(); scrollTo(0, y); }
+});
+addEventListener("hashchange", () => { render(); scrollTo(0, 0); });
+render();
+</script>
+</body>
+</html>
