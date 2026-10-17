@@ -8,6 +8,13 @@
 <meta property="og:title" content="Paisa Samjho Raj · Money made simple">
 <meta property="og:description" content="Free lessons, calculators and a private family Money Planner. Educational, not advice.">
 <link rel="icon" href="img/raj-mark.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1d6b4f">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Paisa Samjho">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <style>
 /* Paisa Samjho Raj. Learning path inspired by Zerodha Varsity, calculators in the style of Groww / ET Money,
    same shell as techsamjhoraj.com with a money palette (forest green, gold, warm paper). */
@@ -279,13 +286,16 @@ footer .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;a
 footer p{margin:0;max-width:110ch}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 @media print{.tabs{display:none}}
+.install{font-size:13px;font-weight:700;border:1px solid var(--ink);border-radius:99px;padding:6px 12px;background:var(--ink);color:var(--paper);cursor:pointer;white-space:nowrap}
+.install[hidden]{display:none}
+.bar-right{display:flex;gap:10px;align-items:center}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap bar">
     <a class="brand" href="#home"><img src="img/raj-mark.png" alt="">Paisa <span>Samjho</span> Raj</a>
-    <div class="social" data-social></div>
+    <div class="bar-right"><div class="social" data-social></div><button class="install" id="install" type="button" hidden>Install app</button></div>
   </div>
   <nav class="wrap tabs" aria-label="Sections">
     <a class="tab" href="#home" data-tab="home">Home</a>
@@ -958,6 +968,14 @@ app.addEventListener("click", e => {
 });
 addEventListener("hashchange", () => { render(); scrollTo(0, 0); });
 render();
+
+// ---------- installable app (PWA) ----------
+if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+let installEvt = null;
+const installBtn = document.getElementById("install");
+addEventListener("beforeinstallprompt", e => { e.preventDefault(); installEvt = e; installBtn.hidden = false; });
+installBtn.addEventListener("click", async () => { if (!installEvt) return; installEvt.prompt(); await installEvt.userChoice; installEvt = null; installBtn.hidden = true; });
+addEventListener("appinstalled", () => { installBtn.hidden = true; });
 </script>
 </body>
 </html>
