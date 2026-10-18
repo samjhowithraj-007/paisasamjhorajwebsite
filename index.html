@@ -375,6 +375,17 @@ footer p{margin:0;max-width:110ch}
 .promo p{margin:0 0 10px;color:var(--muted);font-size:14.5px}
 .promo .go{font-weight:700;font-size:14px;color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 @media (max-width:600px){.promo{grid-template-columns:1fr}}
+
+.books{margin-top:34px}
+.books .bgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-top:14px}
+.book{display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:inherit}
+.book:hover{border-color:var(--ink)}
+.book .spine{height:84px;border-radius:8px;display:grid;place-items:center;font-size:34px;margin-bottom:6px}
+.book b{font-size:16px;line-height:1.3}
+.book small{color:var(--muted);font-size:13px}
+.book p{margin:0;color:var(--muted);font-size:14px;flex:1}
+.book .go{font-weight:700;font-size:13.5px;margin-top:6px;text-decoration:underline;text-underline-offset:3px}
+.books .disc{font-size:12.5px;color:var(--muted);margin-top:10px}
 </style>
 </head>
 <body>
@@ -992,6 +1003,7 @@ function home(){
   <section class="section band"><div><div class="eyebrow">Money Planner</div><h2>Your family's plan, one bucket at a time</h2>
     <p>Enter income, expenses, savings, loans and goals. See how your monthly surplus could be split between insurance, costly debt, the emergency fund and long-term goals. Nothing leaves your browser.</p></div>
     <a class="btn primary" href="#planner">Open the Money Planner</a></section>
+  ${books()}
   ${promo()}
   ${signup("New money lessons and Money Plan episodes, straight to your inbox. Free, in plain English.")}`;
 }
@@ -1000,7 +1012,8 @@ function learn(){
       <p class="lead">${LESSONS.length} short lessons in four modules. Each one has the idea, the key points, a worked rupee example, one action and a calculator to try.</p></div>
     <div class="progrow"><div class="prog"><i style="width:${pctDone()}%"></i></div>${pctDone()}% done</div></div>
   <div class="modules">${MODULES.map((m, i) => `<section><div class="mod-head"><span class="n">${String(i + 1).padStart(2, "0")}</span><div><h2>${m.title}</h2><p>${m.blurb}</p></div></div>
-    <div class="lessons">${m.lessons.map(l => `<a class="lcard" href="#learn/${l.id}"><span class="tick ${done.has(l.id) ? "done" : ""}"></span><span><b>${l.title}</b><small>${l.short}</small></span></a>`).join("")}</div></section>`).join("")}</div>`;
+    <div class="lessons">${m.lessons.map(l => `<a class="lcard" href="#learn/${l.id}"><span class="tick ${done.has(l.id) ? "done" : ""}"></span><span><b>${l.title}</b><small>${l.short}</small></span></a>`).join("")}</div></section>`).join("")}</div>
+  ${books()}`;
 }
 function lessonView(l){
   const i = LESSONS.indexOf(l), prev = LESSONS[i - 1], next = LESSONS[i + 1];
@@ -1050,6 +1063,22 @@ function about(){
 
 // ---------- router ----------
 const PAISA = true;
+// ---------- Recommended books (Amazon India) ----------
+// Paste your Amazon Associates tracking ID here (for example "samjhowithraj-21") to turn the links into affiliate links.
+const AMAZON_TAG = "";
+const BOOKS = [
+  { title:"Let's Talk Money", author:"Monika Halan", why:"An Indian guide to a simple money system: emergency fund, insurance, EPF/PPF and mutual funds.", q:"Let's Talk Money Monika Halan", icon:"🏠", bg:"#dfe9e1" },
+  { title:"The Psychology of Money", author:"Morgan Housel", why:"Short stories on why behaviour, patience and 'enough' matter more than clever picks.", q:"The Psychology of Money Morgan Housel", icon:"🧠", bg:"#efe5cb" },
+  { title:"The Little Book of Common Sense Investing", author:"John C. Bogle", why:"The case for low-cost index funds, from the man who started them.", q:"The Little Book of Common Sense Investing John Bogle", icon:"📈", bg:"#dfe3f0" },
+  { title:"Retire Rich: Invest ₹40 a Day", author:"P. V. Subramanyam", why:"Plain-spoken Indian book on starting early, avoiding traps and planning for retirement.", q:"Retire Rich Invest Rs 40 a Day P V Subramanyam", icon:"🌅", bg:"#f0ded6" },
+  { title:"The Richest Man in Babylon", author:"George S. Clason", why:"A classic set of parables about saving a part of everything you earn.", q:"The Richest Man in Babylon George Clason", icon:"🏺", bg:"#e9e2d4" },
+];
+function books(){
+  const url = b => "https://www.amazon.in/s?k=" + encodeURIComponent(b.q) + (AMAZON_TAG ? "&tag=" + encodeURIComponent(AMAZON_TAG) : "");
+  return `<section class="books" id="books"><div class="eyebrow">Keep learning</div><h2>Recommended money books</h2>
+    <div class="bgrid">${BOOKS.map(b => `<a class="book" href="${url(b)}" target="_blank" rel="noopener${AMAZON_TAG ? " sponsored" : ""}"><span class="spine" style="background:${b.bg}" aria-hidden="true">${b.icon}</span><b>${b.title}</b><small>${b.author}</small><p>${b.why}</p><span class="go">See on Amazon ↗</span></a>`).join("")}</div>
+    <p class="disc">Books for learning, not advice: Raj doesn't agree with every idea in them, and none of them tells you what to buy. ${AMAZON_TAG ? "These are affiliate links: if you buy through them, Raj may earn a small commission at no extra cost to you." : "Links open Amazon India. Raj doesn't earn anything from them."}</p></section>`;
+}
 // ---------- Featured slot (house promos and sponsors; plain links, no ad network, no tracking) ----------
 // Edit PROMOS to change what the slot shows. label: "From Raj" for your own things, "Sponsored" for a paid sponsor.
 // The home page shows the first promo; lesson pages rotate through the rest and never promote the page you're on.
@@ -1095,7 +1124,7 @@ function privacy(){
       <li>Your address is stored with our email service, Brevo, which sends the emails for us. We never sell or share it, and we never send ads.</li>
       <li>Our emails may record whether they were opened or a link was clicked, so we learn which lessons are useful.</li>
       <li>Every email has an unsubscribe link. To have your address deleted completely, write to <span class="mail">samjhowithraj@gmail.com</span>.</li></ul>
-    <h2>Featured spots</h2><p>The “Featured” card is a plain link chosen by Raj, not an ad network, so it doesn't track you. Paid sponsors are always labelled “Sponsored”, and featuring a brand is never a recommendation to buy or invest.</p>
+    <h2>Featured spots</h2><p>The “Featured” card and the book list are plain links chosen by Raj, not an ad network, so they don't track you. Book links go to Amazon India and may be affiliate links (the page says when they are). Paid sponsors are always labelled “Sponsored”, and featuring a brand is never a recommendation to buy or invest.</p>
     <h2>No tracking on this site</h2><p>No analytics, advertising or tracking cookies. The site is hosted on GitHub Pages; GitHub may keep basic technical logs (such as IP addresses) to run and protect its service. Links to YouTube, Instagram, Facebook and X follow those sites' own policies.</p>
     <h2>Questions</h2><p>Write to <span class="mail">samjhowithraj@gmail.com</span>.</p></article>`;
 }
@@ -1207,6 +1236,7 @@ askRaj({
     [["python", "coding", "tech", "ai", "chatbot"], { text: "Tech lessons live on our sister site 🤖 <a href=\"https://www.techsamjhoraj.com\" target=\"_blank\" rel=\"noopener\">techsamjhoraj.com</a>: Python with Chai, an AI chatbot course and Agentic AI.", chips: ["Where do I start?"] }],
     [["install", "app", "download", "home screen"], { text: "Tap the <b>Install</b> button at the top right to add Paisa Samjho Raj to your phone or computer like an app. 📲", chips: ["Where do I start?"] }],
     [["email", "notify", "subscribe", "newsletter", "update"], { text: "Use the <b>Get new lessons by email</b> box on the home page or at the end of any lesson. One short email per new lesson or episode; unsubscribe any time. 📬", chips: ["Where do I start?"] }],
+    [["book", "books", "read", "reading"], { text: "📚 Recommended money books are on the <a href=\"#learn\">Learn</a> page (scroll to the bottom) and the home page. They are for learning, not advice.", chips: ["Where do I start?", "Index funds"] }],
     [["menu"], { text: "☕ Aaj ka menu: 17 lessons, 7 calculators, 1 Money Planner and 50 video episodes. Kya lenge?", chips: ["Where do I start?", "Calculators", "Money Planner"] }],
     [["contact", "question", "help", "raj", "mail"], { text: "Write to <b>samjhowithraj@gmail.com</b> with your question or an idea for the next episode. 🙂 (Questions may be answered in a video, without your name.)", chips: ["Where do I start?"] }],
     [["thank", "thanks", "shukriya", "dhanyavad", "nice", "great"], { text: "Shukriya! ☕ Ek aur sawaal?", chips: ["SIP", "Emergency fund", "Money Planner"] }],
