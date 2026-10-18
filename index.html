@@ -334,6 +334,35 @@ footer p{margin:0;max-width:110ch}
 .legal h2{font-size:22px;margin:26px 0 6px}
 .legal p,.legal li{color:var(--muted);font-size:15.5px}
 .legal ul{padding-left:20px}
+.cb-fab{position:fixed;right:16px;bottom:max(16px,env(safe-area-inset-bottom));z-index:30;display:inline-flex;align-items:center;gap:8px;padding:10px 16px 10px 12px;border-radius:99px;border:1px solid #1d6b4f;background:#1d6b4f;color:#fff;font:700 14px var(--body);cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.cb-fab span{font-size:20px;line-height:1}
+.cb-fab[aria-expanded="true"]{display:none}
+.cb-panel{position:fixed;right:16px;bottom:max(16px,env(safe-area-inset-bottom));z-index:31;width:min(380px,calc(100vw - 32px));height:min(540px,calc(100vh - 110px));display:flex;flex-direction:column;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px rgba(0,0,0,.3);overflow:hidden}
+.cb-panel[hidden]{display:none}
+.cb-head{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#1d6b4f;color:#fff}
+.cb-head b{font-size:15px;display:block}
+.cb-head small{opacity:.8;font-size:12px}
+.cb-head .cb-av{width:34px;height:34px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:19px;flex:none}
+.cb-x{margin-left:auto;background:transparent;border:0;color:#fff;font-size:22px;line-height:1;cursor:pointer;padding:4px 6px}
+.cb-log{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px;overscroll-behavior:contain}
+.cb-msg{max-width:86%;padding:9px 12px;border-radius:14px;font-size:14.5px;line-height:1.45;white-space:pre-line;overflow-wrap:anywhere}
+.cb-msg.bot{background:var(--green-soft);border-bottom-left-radius:4px;align-self:flex-start}
+.cb-msg.me{background:#1d6b4f;color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.cb-msg a{color:inherit;font-weight:700}
+.cb-msg.typing{opacity:.6;font-style:italic}
+.cb-chips{display:flex;gap:6px;overflow-x:auto;padding:0 14px 10px;scrollbar-width:none}
+.cb-chips::-webkit-scrollbar{display:none}
+.cb-chips button{flex:none;border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:99px;padding:6px 11px;font-size:13px;cursor:pointer;white-space:nowrap}
+.cb-chips button:hover{border-color:var(--ink)}
+.cb-form{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line)}
+.cb-form input{flex:1;min-width:0;border:1px solid var(--line);border-radius:99px;padding:10px 14px;background:var(--paper);color:var(--ink);font:inherit;font-size:15px}
+.cb-form input:focus{outline:none;border-color:var(--ink)}
+.cb-form button{border:0;border-radius:99px;background:#1d6b4f;color:#fff;font-weight:700;padding:0 16px;cursor:pointer}
+.cb-foot{font-size:11.5px;color:var(--muted);padding:0 14px 10px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cb-fab{border-color:rgba(255,255,255,.35)}}
+:root[data-theme="dark"] .cb-fab{border-color:rgba(255,255,255,.35)}
+@media (max-width:480px){.cb-panel{right:8px;left:8px;width:auto;bottom:8px;height:min(78vh,600px)}.cb-fab b{display:none}.cb-fab{padding:12px}}
+@media print{.cb-fab,.cb-panel{display:none!important}}
 </style>
 </head>
 <body>
@@ -1067,6 +1096,90 @@ app.addEventListener("click", e => {
 });
 addEventListener("hashchange", () => { render(); scrollTo(0, 0); });
 render();
+// ---------- SamjhoBot (rule-based, runs only in this browser; nothing is sent anywhere) ----------
+// Same idea as the AI + Python course: a dictionary of keywords → replies, .lower(), and "in" checks. First match wins.
+function samjhoBot(BOT){
+  const fab = document.createElement("button"), panel = document.createElement("section");
+  fab.className = "cb-fab"; fab.type = "button"; fab.setAttribute("aria-expanded", "false"); fab.setAttribute("aria-controls", "cb-panel");
+  fab.innerHTML = '<span aria-hidden="true">☕</span><b>SamjhoBot</b>'; fab.title = "Chat with SamjhoBot";
+  panel.className = "cb-panel"; panel.id = "cb-panel"; panel.hidden = true; panel.setAttribute("aria-label", "SamjhoBot chat");
+  panel.innerHTML = `<div class="cb-head"><span class="cb-av" aria-hidden="true">☕</span><div><b>SamjhoBot</b><small>${BOT.tagline}</small></div><button class="cb-x" type="button" aria-label="Close chat">×</button></div>
+    <div class="cb-log" role="log" aria-live="polite"></div><div class="cb-chips"></div>
+    <form class="cb-form"><input name="q" autocomplete="off" placeholder="Type a message…" aria-label="Message" maxlength="200"><button type="submit">Send</button></form>
+    <div class="cb-foot">${BOT.foot}</div>`;
+  document.body.append(fab, panel);
+  const log = panel.querySelector(".cb-log"), chips = panel.querySelector(".cb-chips"), form = panel.querySelector(".cb-form");
+  const say = (html, who) => { const m = document.createElement("div"); m.className = "cb-msg " + who; m.innerHTML = html; log.append(m); log.scrollTop = log.scrollHeight; return m; };
+  const esc = s => s.replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" })[c]);
+  const setChips = list => { chips.innerHTML = list.map(c => `<button type="button">${c}</button>`).join(""); };
+  function reply(text){
+    const t = " " + text.toLowerCase().replace(/[^a-z0-9₹&+ ]/g, " ").replace(/\s+/g, " ") + " ";
+    const has = k => k.includes(" ") ? t.includes(" " + k + " ") || t.includes(k) : t.includes(" " + k + " ") || (k.length > 4 && t.includes(k));
+    for (const [keys, ans] of BOT.rules) if (keys.some(has)) return typeof ans === "function" ? ans(t) : ans;
+    return BOT.fallback;
+  }
+  function ask(text){
+    text = text.trim(); if (!text) return;
+    say(esc(text), "me");
+    const dots = say("SamjhoBot is typing…", "bot typing");
+    setTimeout(() => { dots.remove(); const r = reply(text); say(r.text || r, "bot"); if (r.chips) setChips(r.chips); }, 450);
+  }
+  let started = false;
+  const open = () => { panel.hidden = false; fab.setAttribute("aria-expanded", "true");
+    if (!started) { started = true; say(BOT.hello, "bot"); setChips(BOT.chips); }
+    if (matchMedia("(min-width:481px)").matches) form.q.focus(); };
+  const close = () => { panel.hidden = true; fab.setAttribute("aria-expanded", "false"); fab.focus(); };
+  fab.addEventListener("click", open);
+  panel.querySelector(".cb-x").addEventListener("click", close);
+  panel.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+  chips.addEventListener("click", e => { const b = e.target.closest("button"); if (b) ask(b.textContent); });
+  form.addEventListener("submit", e => { e.preventDefault(); ask(form.q.value); form.q.value = ""; });
+  log.addEventListener("click", e => { const a = e.target.closest('a[href^="#"]'); if (a && matchMedia("(max-width:480px)").matches) close(); });
+}
+const L = (id, label) => `<a href="#learn/${id}">${label || (LESSONS.find(x => x.id === id) || {}).title || id}</a>`;
+const C = (id, label) => `<a href="#calculators/${id}">${label || (CALCS.find(x => x.id === id) || {}).title || id}</a>`;
+const topic = (txt, chips) => ({ text: txt + "\n\n<small>Educational only, not advice.</small>", chips: chips || ["Emergency fund", "SIP", "Money Planner", "Calculators"] });
+samjhoBot({
+  tagline: "Chai pe paise ki baat",
+  foot: "A simple rule-based guide to this site's lessons and calculators. Educational only: no personal investment advice.",
+  hello: "Namaste! ☕ I'm SamjhoBot.\nAsk me about budgets, emergency funds, insurance, SIPs, index funds or retirement, and I'll point you to the right lesson or calculator.\n(I don't give personal investment advice.)",
+  chips: ["Where do I start?", "Emergency fund", "SIP", "Index funds", "Money Planner", "Calculators"],
+  rules: [
+    [["which fund", "best fund", "best stock", "which stock", "recommend", "should i buy", "should i sell", "kaunsa fund", "konsa fund", "tip", "tips", "guaranteed", "double my money", "crypto", "bitcoin"], { text: "I can't recommend specific funds, stocks or crypto: that would be personal advice, and Raj is not a SEBI-registered adviser. 🙏\nWhat I can do is show you how to judge options yourself: " + L("costs", "costs and expense ratio") + ", " + L("index-funds", "index funds") + " and " + L("allocation", "splitting money across equity, debt and gold") + ".\nFor your own money, speak to a SEBI-registered adviser.", chips: ["Index funds", "Expense ratio", "Money Planner"] }],
+    [["hi", "hello", "hey", "namaste", "hii", "helo"], { text: "Namaste! 🙏 Chai ready hai. What would you like to understand today?", chips: ["Where do I start?", "SIP", "Emergency fund"] }],
+    [["how are you built", "how do you work", "are you ai", "are you chatgpt", "built", "your code"], { text: "No AI inside me! I'm a list of keywords and replies, the same if-else + dictionary idea taught in the <a href=\"https://www.techsamjhoraj.com/#chatbot-3\" target=\"_blank\" rel=\"noopener\">AI + Python course</a> on our tech site. 🤖", chips: ["Where do I start?"] }],
+    [["start", "beginner", "begin", "shuru", "where", "first", "path"], topic("Follow the learning path in order: start with " + L("budget") + ", then " + L("emergency-fund") + " and " + L("insurance") + ". Safety first, then investing. All 17 lessons are under <a href=\"#learn\">Learn</a>.", ["Emergency fund", "Insurance", "SIP"])],
+    [["planner", "plan", "family", "verma", "tracker", "surplus"], topic("The <a href=\"#planner\">Money Planner</a> takes your income, expenses, savings and loans and shows how your monthly surplus could be split: insurance, costly debt, emergency fund, then goals. It runs only in your browser.")],
+    [["emergency", "safety fund", "rainy day", "job loss", "buffer"], topic(L("emergency-fund") + " explains the target (usually several months of essential expenses) and where to keep it. Try the <a href=\"#planner\">Money Planner</a> to see your own number.", ["Insurance", "Loan payoff", "SIP"])],
+    [["insurance", "term", "health cover", "policy", "lic", "mediclaim"], topic(L("insurance") + " covers how much health and term cover a family usually needs, and why insurance and investment are best kept separate.", ["Emergency fund", "Loan payoff"])],
+    [["loan", "debt", "credit card", "emi", "personal loan", "home loan", "karz"], topic(L("debt") + " shows which loan to pay off first. Run the numbers with the " + C("emi") + ".", ["Emergency fund", "Budget"])],
+    [["expense ratio", "direct", "regular", "commission", "fee", "fees", "cost"], topic(L("costs") + " explains direct vs regular plans. See how fees eat into returns with the " + C("fees") + ".", ["Index funds", "SIP"])],
+    [["budget", "salary", "expense", "kharcha", "spending", "50 30 20"], topic(L("budget") + " helps you track where the salary goes and set up a simple monthly budget.", ["Emergency fund", "Money Planner"])],
+    [["compound", "interest", "double", "rule of 72", "lumpsum", "lump sum"], topic(L("compounding") + " shows how money earns money over time. Play with the " + C("lumpsum") + ".", ["SIP", "Inflation"])],
+    [["inflation", "mehngai", "price rise", "purchasing power"], topic(L("inflation") + " explains the silent salary cut. See what today's costs become with the " + C("inflation") + ".", ["Goals", "SIP"])],
+    [["fd", "rd", "fixed deposit", "saving vs investing", "savings account", "horizon", "short term"], topic(L("horizon") + " matches money to time: short-term money stays safe, long-term money can be invested.", ["SIP", "Mutual funds"])],
+    [["step up", "stepup", "increase sip"], topic("A step-up SIP raises your monthly amount every year. Try the " + C("stepup") + " and read " + L("sip") + ".", ["SIP", "Goals"])],
+    [["sip", "monthly investment", "systematic"], topic(L("sip") + " explains investing a fixed amount every month. Try the " + C("sip") + " (returns are assumptions, never guaranteed).", ["Step up SIP", "Index funds", "Goals"])],
+    [["etf", "exchange traded"], topic(L("etf") + " explains index funds that trade like shares.", ["Index funds", "Expense ratio"])],
+    [["index", "nifty", "sensex", "passive"], topic(L("index-funds") + " explains owning the whole market at low cost.", ["ETF", "Expense ratio"])],
+    [["mutual fund", "mf", "nav", "amc", "units"], topic(L("mutual-funds") + " explains mutual funds in plain words.", ["SIP", "Index funds"])],
+    [["gold", "allocation", "equity", "debt fund", "diversif", "portfolio"], topic(L("allocation") + " explains splitting money across equity, debt and gold.", ["Market fall", "Goals"])],
+    [["crash", "fall", "fell", "down", "correction", "market fell", "loss"], topic(L("market-fall") + " covers what to check (and what not to do) when markets drop.", ["Allocation", "SIP"])],
+    [["goal", "education", "college", "child", "kids", "house", "home", "car", "wedding", "shaadi"], topic(L("goals") + " shows how to give each goal its own deadline and pot of money. Use the " + C("goal") + " for the monthly amount.", ["Retirement", "Inflation"])],
+    [["retire", "retirement", "epf", "ppf", "nps", "pension"], topic(L("retirement") + " compares EPF, PPF and NPS and how to think about a retirement target.", ["Goals", "Money Planner"])],
+    [["global", "us stocks", "nasdaq", "s&p", "sp500", "foreign", "international", "abroad"], topic(L("global") + " explains why and how Indians invest outside India, and the costs and tax to check.", ["Index funds", "Allocation"])],
+    [["calculator", "calculate", "calc"], { text: "🧮 Calculators: " + CALCS.map(c => C(c.id, c.name)).join(" · ") + "\nAll use assumptions you can change. Nothing is guaranteed.", chips: ["SIP", "Goals", "Money Planner"] }],
+    [["episode", "series", "video", "youtube", "verma family"], { text: "The 50-part video series <a href=\"#series\">Middle-Class Family Ka Money Plan</a> follows the Verma family from budget to retirement. Watch on <a href=\"https://www.youtube.com/@SamjhowithRaj\" target=\"_blank\" rel=\"noopener\">YouTube</a>.", chips: ["Where do I start?", "Money Planner"] }],
+    [["python", "coding", "tech", "ai", "chatbot"], { text: "Tech lessons live on our sister site 🤖 <a href=\"https://www.techsamjhoraj.com\" target=\"_blank\" rel=\"noopener\">techsamjhoraj.com</a>: Python with Chai, an AI chatbot course and Agentic AI.", chips: ["Where do I start?"] }],
+    [["install", "app", "download", "home screen"], { text: "Tap the <b>Install</b> button at the top right to add Paisa Samjho Raj to your phone or computer like an app. 📲", chips: ["Where do I start?"] }],
+    [["email", "notify", "subscribe", "newsletter", "update"], { text: "Use the <b>Get new lessons by email</b> box on the home page or at the end of any lesson. One short email per new lesson or episode; unsubscribe any time. 📬", chips: ["Where do I start?"] }],
+    [["menu"], { text: "☕ Aaj ka menu: 17 lessons, 7 calculators, 1 Money Planner and 50 video episodes. Kya lenge?", chips: ["Where do I start?", "Calculators", "Money Planner"] }],
+    [["contact", "question", "help", "raj", "mail"], { text: "Write to <b>samjhowithraj@gmail.com</b> with your question or an idea for the next episode. 🙂 (Questions may be answered in a video, without your name.)", chips: ["Where do I start?"] }],
+    [["thank", "thanks", "shukriya", "dhanyavad", "nice", "great"], { text: "Shukriya! ☕ Ek aur sawaal?", chips: ["SIP", "Emergency fund", "Money Planner"] }],
+    [["bye", "band", "close", "exit"], { text: "Phir milenge! 👋 Paisa samjho, aaram se.", chips: ["Where do I start?"] }],
+  ],
+  fallback: { text: "Samjha nahi! 😅 I'm a simple bot and only know money keywords.\nTry: <b>emergency fund</b>, <b>insurance</b>, <b>SIP</b>, <b>index funds</b>, <b>retirement</b> or <b>calculators</b>.", chips: ["Where do I start?", "SIP", "Calculators"] },
+});
 // ---------- installable app (PWA) ----------
 // Chrome / Edge on Android and desktop: real install prompt. iPhone, in-app browsers (WhatsApp, Instagram, Facebook)
 // and browsers without a prompt: the same button opens step-by-step help instead.
