@@ -367,6 +367,14 @@ footer p{margin:0;max-width:110ch}
 :root[data-theme="dark"] .cb-fab{border-color:rgba(255,255,255,.35)}
 @media (max-width:480px){.cb-panel{right:8px;left:8px;width:auto;bottom:8px;height:min(78vh,600px)}.cb-fab{padding:9px 14px 9px 11px;font-size:13.5px}}
 @media print{.cb-fab,.cb-panel{display:none!important}}
+.promo{display:grid;grid-template-columns:200px minmax(0,1fr);gap:18px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:26px;text-decoration:none;color:inherit}
+.promo:hover{border-color:var(--ink)}
+.promo img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;display:block;background:#0e1116}
+.promo .pl{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.promo h3{margin:4px 0;font-size:18px;text-transform:none;letter-spacing:0;color:var(--ink)}
+.promo p{margin:0 0 10px;color:var(--muted);font-size:14.5px}
+.promo .go{font-weight:700;font-size:14px;color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+@media (max-width:600px){.promo{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -984,6 +992,7 @@ function home(){
   <section class="section band"><div><div class="eyebrow">Money Planner</div><h2>Your family's plan, one bucket at a time</h2>
     <p>Enter income, expenses, savings, loans and goals. See how your monthly surplus could be split between insurance, costly debt, the emergency fund and long-term goals. Nothing leaves your browser.</p></div>
     <a class="btn primary" href="#planner">Open the Money Planner</a></section>
+  ${promo()}
   ${signup("New money lessons and Money Plan episodes, straight to your inbox. Free, in plain English.")}`;
 }
 function learn(){
@@ -1009,6 +1018,7 @@ function lessonView(l){
     <section class="block takeaway"><h3>Remember</h3><p>${l.takeaway}</p></section>
     <div class="lesson-actions"><button class="btn ${done.has(l.id) ? "done" : "primary"}" type="button" id="mark" data-id="${l.id}">${done.has(l.id) ? "✓ Completed" : "Mark as complete"}</button>
       <div class="navbtns"><a class="btn" href="${prev ? "#learn/" + prev.id : "#learn"}">← ${prev ? "Previous" : "All lessons"}</a><a class="btn" href="${next ? "#learn/" + next.id : "#planner"}">${next ? "Next →" : "Make your plan →"}</a></div></div>
+    ${promo(l.id)}
     ${signup("Liked this lesson? Get an email when the next one is out.")}
   </article>`;
   return `<div class="course-view">${side}${body}</div>`;
@@ -1034,11 +1044,25 @@ function about(){
     <p>Everything here is education. I am not a SEBI-registered investment adviser, and nothing on this site is a recommendation to buy or sell anything. Examples use assumed returns; real returns can be lower or negative. For decisions about your own money, speak to a SEBI-registered adviser.</p>
     <div class="social" data-social style="margin-top:20px"></div>
     <p style="margin-top:24px">Questions or ideas for the next episode? <span class="mail">samjhowithraj@gmail.com</span></p>
+    <p>Sponsorships: the featured spot is open to brands that fit an education site. No loan apps, trading tips, crypto or anything that reads like financial advice. Sponsored items are always labelled. <span class="mail">samjhowithraj@gmail.com</span></p>
   </div></div>`;
 }
 
 // ---------- router ----------
 const PAISA = true;
+// ---------- Featured slot (house promos and sponsors; plain links, no ad network, no tracking) ----------
+// Edit PROMOS to change what the slot shows. label: "From Raj" for your own things, "Sponsored" for a paid sponsor.
+// The home page shows the first promo; lesson pages rotate through the rest and never promote the page you're on.
+function promo(here){
+  const list = PROMOS.filter(p => p.link !== "#" + here && p.link !== "#learn/" + here); if (!list.length) return "";
+  const p = here ? list[[...here].reduce((n, c) => n + c.charCodeAt(0), 0) % list.length] : list[0];
+  const ext = /^https?:/.test(p.link), rel = ext ? ` target="_blank" rel="noopener${p.label === "Sponsored" ? " sponsored" : ""}"` : "";
+  return `<a class="promo" href="${p.link}"${rel}><img src="${p.image}" alt="" loading="lazy"><div><span class="pl">${p.label}</span><h3>${p.title}</h3><p>${p.text}</p><span class="go">${p.cta}${ext ? " ↗" : " →"}</span></div></a>`;
+}
+const PROMOS = [
+  { label:"From Raj", title:"Money Plan Part 1 is live", text:"₹1 lakh salary, two kids, seven goals: meet the Verma family and see where a plan should start.", image:"https://i.ytimg.com/vi/GyPQ-RxBRi8/hqdefault.jpg", link:"https://youtu.be/GyPQ-RxBRi8", cta:"Watch on YouTube" },
+  { label:"From Raj", title:"Learning Python and AI?", text:"Python with Chai, a chatbot you build yourself and Agentic AI, free on our sister site.", image:"https://www.techsamjhoraj.com/media/python-7.jpg", link:"https://www.techsamjhoraj.com", cta:"Open techsamjhoraj.com" },
+];
 // ---------- email updates (Brevo) ----------
 // Action URL of the Brevo sign-up form (Marketing → Forms → Paisa lessons sign-up → Share → Simple HTML). Double opt-in is on.
 // Leave it empty to hide the sign-up box everywhere.
@@ -1071,6 +1095,7 @@ function privacy(){
       <li>Your address is stored with our email service, Brevo, which sends the emails for us. We never sell or share it, and we never send ads.</li>
       <li>Our emails may record whether they were opened or a link was clicked, so we learn which lessons are useful.</li>
       <li>Every email has an unsubscribe link. To have your address deleted completely, write to <span class="mail">samjhowithraj@gmail.com</span>.</li></ul>
+    <h2>Featured spots</h2><p>The “Featured” card is a plain link chosen by Raj, not an ad network, so it doesn't track you. Paid sponsors are always labelled “Sponsored”, and featuring a brand is never a recommendation to buy or invest.</p>
     <h2>No tracking on this site</h2><p>No analytics, advertising or tracking cookies. The site is hosted on GitHub Pages; GitHub may keep basic technical logs (such as IP addresses) to run and protect its service. Links to YouTube, Instagram, Facebook and X follow those sites' own policies.</p>
     <h2>Questions</h2><p>Write to <span class="mail">samjhowithraj@gmail.com</span>.</p></article>`;
 }
