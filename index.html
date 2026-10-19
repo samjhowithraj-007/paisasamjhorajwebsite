@@ -180,6 +180,9 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.08)}
 .cf-box input{width:100%;min-width:0;border:0;background:transparent;padding:7px 9px;font:inherit;font-size:15px;color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}
 .cf-box input:focus{outline:none}
 .cf-box i{font-style:normal;color:var(--muted);padding:0 9px;font-size:13px;white-space:nowrap}
+.cf select{max-width:220px;min-width:0;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);font:inherit;font-size:14px;padding:7px 9px}
+.cbars h3{display:flex;justify-content:space-between;gap:10px;font-size:15px;margin:14px 0 6px}.cbars h3:first-child{margin-top:0}.cbars h3 span{font-variant-numeric:tabular-nums}
+.cbar{display:flex;height:16px;border-radius:6px;background:var(--line);overflow:hidden}.cbar i{display:block;height:100%}
 .cf input[type=range]{width:100%;accent-color:var(--brand)}
 .cf small{color:var(--muted);font-size:12.5px}
 .cres{display:flex;flex-direction:column;gap:18px;min-width:0}
@@ -943,7 +946,55 @@ const CALCS = [
       return { kpis:[["Monthly EMI",inr(e),1],["Total interest",inr(e * v.yrs * 12 - v.amt)],["Total paid",inr(e * v.yrs * 12)],["Interest as % of loan",pctOf(e * v.yrs * 12 - v.amt, v.amt) + "%"]],
         rows, series:[["Loan still owed","val","--c-int"],["Interest paid so far","inv","--c-inv"]], lesson:"debt",
         note:"Reducing-balance EMI. Prepaying early in the loan saves the most interest. Check prepayment charges first." }; } },
+  { id:"networth", name:"Net worth", title:"Net worth calculator", blurb:"What you own minus what you owe: your family's report card.",
+    fields:[["cash","Cash, bank and FDs",60000,0,10000000,5000,"₹"],["inv","Mutual funds and shares",0,0,20000000,10000,"₹"],["ret","EPF, PPF and NPS",400000,0,20000000,10000,"₹"],["gold","Gold (today's price)",200000,0,10000000,10000,"₹"],
+      ["prop","Home and land (market value)",0,0,50000000,100000,"₹"],["veh","Car and bike (resale value)",250000,0,5000000,10000,"₹"],
+      ["home","Home loan left",0,0,30000000,50000,"₹"],["loan","Car, personal and other loans",150000,0,10000000,10000,"₹"],["card","Credit-card dues",20000,0,2000000,1000,"₹"]],
+    run:v => { const own = [["Cash, bank, FDs",v.cash],["Funds, shares",v.inv],["EPF, PPF, NPS",v.ret],["Gold",v.gold],["Home, land",v.prop],["Vehicles",v.veh]],
+        owe = [["Home loan",v.home],["Other loans",v.loan],["Credit card",v.card]], A = own.reduce((n, x) => n + x[1], 0), D = owe.reduce((n, x) => n + x[1], 0), quick = v.cash + v.inv;
+      return { kpis:[["You own",inr(A)],["You owe",inr(D)],["Net worth",inr(A - D),1],["Owe as % of own",pctOf(D, A) + "%"]],
+        extra:bars([["What you own", own, "--c-val"], ["What you owe", owe, "--c-int"]]), lesson:"allocation",
+        note:`Use today's resale values, not purchase prices. A car loses value every year. ${v.card > 0 ? "Clear credit-card dues first: they cost up to about 45% a year. " : ""}${D > quick && D > 0 ? "Your loans are bigger than your cash and investments together. " : ""}Work it out on the same date every year and watch the trend, not one number.` }; } },
+  { id:"emergency", name:"Emergency fund", title:"Emergency fund calculator", blurb:"How many months of essentials to keep aside, and how long it takes to build.",
+    fields:[["ess","Essential monthly expenses",58000,5000,500000,1000,"₹"],["job","Income type",6,[[4,"Government or PSU job"],[6,"Private-sector salary"],[9,"Self-employed or variable"]]],
+      ["earn","Earners at home",2,[[1,"One earner"],[2,"Two or more"]]],["deps","Dependants (children, parents, non-earners)",2,0,10,1,"","people"],
+      ["have","Already saved for emergencies",60000,0,5000000,5000,"₹"],["save","You can set aside each month",15000,0,200000,1000,"₹"]],
+    run:v => { const m = Math.min(12, v.job + (v.earn <= 1 ? 1 : 0) + (v.deps >= 3 ? 1 : 0)), target = m * v.ess, gap = Math.max(0, target - v.have),
+        months = gap === 0 ? 0 : v.save > 0 ? Math.ceil(gap / v.save) : Infinity, starter = Math.max(0, 50000 - v.have), rows = [];
+      const yrs = isFinite(months) ? Math.max(1, Math.ceil(months / 12)) : 5;
+      for (let y = 0; y <= yrs; y++) rows.push({ y, val:Math.min(target, v.have + v.save * 12 * y), inv:target });
+      const why = [`${v.job} months for this income type`]; if (v.earn <= 1) why.push("+1 for a single earner"); if (v.deps >= 3) why.push("+1 for 3 or more dependants");
+      return { kpis:[["Months to keep",m + " months"],["Target",inr(target),1],["Still to save",inr(gap)],["Time to reach it",gap === 0 ? "Done" : isFinite(months) ? spanOf(months) : "Set a monthly amount"]],
+        rows, series:[["Target","inv","--c-int"],["Your emergency fund","val","--c-val"]], lesson:"emergency-fund",
+        note:`${why.join(", ")}${m === 12 ? " (capped at 12)" : ""}. Essentials are rent or EMI, food, bills, school fees, transport and insurance premiums, not shopping or trips. ${starter > 0 && v.save > 0 ? `First milestone: ₹50,000 in about ${spanOf(Math.ceil(starter / v.save))}. ` : ""}Keep it safe and quick to reach (savings account, sweep-in FD or liquid fund), not in shares.` }; } },
+  { id:"term", name:"Term cover", title:"Term insurance cover calculator", blurb:"A rough, illustrative size for term life cover.",
+    fields:[["inc","Yearly income of the earner",1200000,100000,20000000,50000,"₹"],["mult","Years of income to replace",10,5,25,1,"","× income"],["loans","Loans outstanding",1000000,0,30000000,50000,"₹"],
+      ["goals","Big goals to protect (children's education, marriage)",0,0,30000000,100000,"₹"],["sav","Savings and investments the family could use",0,0,30000000,50000,"₹"],["have","Term cover you already have",0,0,50000000,500000,"₹"]],
+    run:v => { const base = v.inc * v.mult, need = Math.max(0, base + v.loans + v.goals - v.sav), gap = Math.max(0, need - v.have);
+      return { kpis:[["Income part",inrShort(base)],["Cover needed (illustrative)",inrShort(need),1],["You have",inrShort(v.have)],["Gap",inrShort(gap)]],
+        extra:bars([["Adds up", [["Income × " + v.mult, base],["Loans", v.loans],["Goals", v.goals]], "--c-ins"], ["Already there", [["Savings", v.sav],["Existing cover", v.have]], "--c-val"]]), lesson:"insurance",
+        note:"A rule of thumb only: about 10 times yearly income plus loans is a common starting point. Count pure term plans only, not endowment or money-back policies. Each earner needs their own cover. The right amount and premium depend on age, health and the insurer, so compare plans and read the policy terms before buying." }; } },
+  { id:"card", name:"Credit card", title:"Credit card interest calculator", blurb:"Paying only the minimum due versus the full bill.",
+    fields:[["bill","Credit-card bill",50000,1000,1000000,1000,"₹"],["rate","Card interest",3.75,0.5,4.5,0.05,"","% a month"],["mad","Minimum due (part of the bill)",5,1,10,0.5,"","%"],
+      ["fix","Or pay a fixed amount each month",5000,500,200000,500,"₹"],["gst","GST on interest",18,0,28,1,"","%"]],
+    run:v => { const minPlan = cardPlan(v, (bal, chg) => Math.max(200, chg + (bal - chg) * v.mad / 100)), fixPlan = cardPlan(v, () => v.fix);
+      const rows = []; for (let y = 0; y <= Math.max(1, Math.ceil(Math.max(minPlan.months, Math.min(fixPlan.months, 600)) / 12)); y++) rows.push({ y, val:minPlan.bal[Math.min(y * 12, minPlan.bal.length - 1)], inv:fixPlan.bal[Math.min(y * 12, fixPlan.bal.length - 1)] });
+      const first = Math.max(200, v.bill * v.rate / 100 * (1 + v.gst / 100) + v.bill * v.mad / 100);
+      return { kpis:[["Pay the full bill","₹0 interest"],["Minimum due only",inr(minPlan.cost) + " interest",1],["Time with minimum due",spanOf(minPlan.months)],
+          [`Paying ${inr(v.fix)} a month`, fixPlan.never ? "Never clears" : inr(fixPlan.cost) + " in " + spanOf(fixPlan.months)]],
+        rows, series:[[`Paying ${inr(v.fix)} a month`,"inv","--c-inv"],["Paying the minimum due","val","--c-int"]], lesson:"debt",
+        note:`Interest of ${v.rate}% a month is about ${(v.rate * 12).toFixed(0)}% a year, plus ${v.gst}% GST on it. First minimum due is about ${inr(first)}. Assumes no new spending on the card, a minimum due of all interest and GST plus ${v.mad}% of the bill (at least ₹200), and interest from the statement date. In real life it is charged from each purchase date, and any unpaid balance also cancels the interest-free period on new purchases, so the true cost is higher. Rates checked 19 Oct 2026: SBI Card, HDFC Bank and ICICI Bank list up to 3.75% a month (45% a year). Check your card's MITC.` }; } },
 ];
+// Month-by-month card repayment with no new spending. pay(balanceAfterCharges, charges) → payment.
+function cardPlan(v, pay){ let bal = v.bill, cost = 0, m = 0; const out = [bal];
+  while (bal > 0.5 && m < 600) { const chg = bal * v.rate / 100 * (1 + v.gst / 100); bal += chg; cost += chg; bal -= Math.min(bal, pay(bal, chg)); m++; out.push(bal); }
+  return { months:m, cost, bal:out, never:bal > 0.5 }; }
+const spanOf = m => !isFinite(m) || m >= 600 ? "50+ years" : m < 12 ? `${m} month${m === 1 ? "" : "s"}` : `${Math.floor(m / 12)} yr${m >= 24 ? "s" : ""}${m % 12 ? ` ${m % 12} mo` : ""}`;
+// Simple horizontal bars for calculators without a year-by-year chart. groups: [[heading, [[label, amount]…], colourVar]]
+function bars(groups){ const max = Math.max(1, ...groups.map(g => g[1].reduce((n, x) => n + x[1], 0)));
+  return `<section class="block cbars">${groups.map(([h, items, c]) => { const tot = items.reduce((n, x) => n + x[1], 0);
+    return `<h3>${h} <span>${inrShort(tot)}</span></h3><div class="cbar" role="img" aria-label="${h}: ${inr(tot)}">${items.filter(x => x[1] > 0).map(([l, a], i) => `<i style="width:${(100 * a / max).toFixed(2)}%;background:var(${c});opacity:${1 - i * .14}" title="${l}: ${inr(a)}"></i>`).join("")}</div>
+      <ul class="legend">${items.filter(x => x[1] > 0).map(([l, a], i) => `<li><span class="dot" style="background:var(${c});opacity:${1 - i * .14}"></span>${l}: ${inrShort(a)}</li>`).join("")}</ul>`; }).join("")}</section>`; }
 const calcVals = {};
 CALCS.forEach(c => { calcVals[c.id] = Object.fromEntries(c.fields.map(f => [f[0], f[2]])); });
 
@@ -965,14 +1016,15 @@ function chart(rows, series){
 function calcResults(c){
   const v = calcVals[c.id], r = c.run(v);
   return `<div class="kpis">${r.kpis.map(([k, val, hi]) => `<div class="kpi ${hi ? "hi" : ""}">${k}<b>${val}</b></div>`).join("")}</div>
-    <section class="block">${chart(r.rows, r.series)}</section>
+    ${r.extra || ""}${r.rows ? `<section class="block">${chart(r.rows, r.series)}</section>` : ""}
     <p class="cnote">${r.note}</p>
-    <details class="years block"><summary>Year-by-year table</summary><div class="tw"><table class="ytable"><thead><tr><th>Year</th>${r.series.map(s => `<th>${s[0]}</th>`).join("")}</tr></thead><tbody>
-      ${r.rows.map(row => `<tr><td>${row.y}</td>${r.series.map(s => `<td>${inr(row[s[1]] || 0)}</td>`).join("")}</tr>`).join("")}</tbody></table></div></details>
-    <p class="cnote">Learn the idea: <a href="#learn/${r.lesson}">${findLesson(r.lesson).title}</a>. Illustrative only; not a promise of returns.</p>`;
+    ${r.rows ? `<details class="years block"><summary>Year-by-year table</summary><div class="tw"><table class="ytable"><thead><tr><th>Year</th>${r.series.map(s => `<th>${s[0]}</th>`).join("")}</tr></thead><tbody>
+      ${r.rows.map(row => `<tr><td>${row.y}</td>${r.series.map(s => `<td>${inr(row[s[1]] || 0)}</td>`).join("")}</tr>`).join("")}</tbody></table></div></details>` : ""}
+    <p class="cnote">Learn the idea: <a href="#learn/${r.lesson}">${findLesson(r.lesson).title}</a>. Educational and illustrative only, not financial, tax or insurance advice; not a promise of returns.</p>`;
 }
 function calcView(c){
-  const f = ([k, label, d, min, max, step, pre, suf]) => `<div class="cf"><div class="cf-top"><label for="cf-${k}">${label}</label>
+  const f = ([k, label, d, min, max, step, pre, suf]) => Array.isArray(min) ? `<div class="cf"><div class="cf-top"><label for="cf-${k}">${label}</label>
+      <select id="cf-${k}" data-c="${k}">${min.map(([val, t]) => `<option value="${val}" ${val == calcVals[c.id][k] ? "selected" : ""}>${t}</option>`).join("")}</select></div></div>` : `<div class="cf"><div class="cf-top"><label for="cf-${k}">${label}</label>
       <span class="cf-box">${pre ? `<i>${pre}</i>` : ""}<input id="cf-${k}" type="number" inputmode="decimal" min="${min}" max="${max}" step="${step}" value="${calcVals[c.id][k]}" data-c="${k}">${suf ? `<i>${suf}</i>` : ""}</span></div>
       <input type="range" min="${min}" max="${max}" step="${step}" value="${Math.min(max, calcVals[c.id][k])}" data-c="${k}" aria-label="${label}"></div>`;
   return `<div class="page-head"><div><div class="eyebrow">Calculators</div><h2>${c.title}</h2><p class="lead">${c.blurb}</p></div></div>
@@ -1148,7 +1200,7 @@ function render(){
 app.addEventListener("input", e => {
   const el = e.target.closest("#cform [data-c]"); if (!el) return;
   const c = CALCS.find(x => x.id === el.form.dataset.calc), k = el.dataset.c, f = c.fields.find(x => x[0] === k);
-  let v = parseFloat(el.value); if (!isFinite(v)) return; v = Math.max(f[3], Math.min(v, f[4] * 10));
+  let v = parseFloat(el.value); if (!isFinite(v)) return; if (!Array.isArray(f[3])) v = Math.max(f[3], Math.min(v, f[4] * 10));
   calcVals[c.id][k] = v;
   el.form.querySelectorAll(`[data-c="${k}"]`).forEach(o => { if (o !== el) o.value = Math.min(v, f[4]); });
   document.getElementById("cres").innerHTML = calcResults(c);
