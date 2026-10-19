@@ -510,6 +510,15 @@ footer h4{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing
 footer nav a{display:block;padding:4px 0;text-decoration:none;font-size:14px}
 footer nav a:hover{color:var(--ink);text-decoration:underline}
 footer .wrap.fbottom{border-top:1px solid var(--line);margin-top:18px;padding-top:16px;padding-bottom:72px;display:flex;flex-direction:column;gap:10px}
+
+/* Gullak Bhai, the money mascot (kit: brand/mascots/gullak-bhai, approved 20 Oct 2026). Light "sticker" behind him on the
+   dark theme, at least 64 px, one per page, talks only in a speech bubble, never promises returns. */
+.gb{display:flex;align-items:center;gap:12px}
+.gb img{width:64px;height:64px;flex:none;background:#fff6e6;border-radius:50%;padding:5px;box-shadow:0 0 0 2px rgba(255,255,255,.55)}
+.gb .bubble{position:relative;background:#fff6e6;color:#2b2a33;border-radius:14px;padding:9px 13px;font-size:14px;font-weight:600;line-height:1.4}
+.gb .bubble:before{content:"";position:absolute;left:-7px;top:50%;margin-top:-7px;border:7px solid transparent;border-right-color:#fff6e6;border-left:0}
+.gb .bubble small{display:block;font-weight:400;color:#5b5348;font-size:12.5px;margin-top:2px}
+.gb.tip{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
 </style>
 </head>
 <body>
@@ -1175,9 +1184,30 @@ function chart(rows, series){
     <ul class="legend">${series.map(([n, k, c]) => `<li><span class="dot" style="background:var(${c})"></span>${n}</li>`).join("")}<li>Years →</li></ul>`;
 }
 
+// Gullak Bhai's one-line tip under each calculator's results (pose follows the result; never a promise of returns).
+function gbTip(id, v){
+  let pose = "point", say = "Chhota-chhota daalo, bada-bada banao!";
+  if (id === "card") { pose = "warn"; say = "Galti mat karna! Paying only the minimum due keeps interest running on the whole bill."; }
+  else if (id === "emergency") { const m = Math.min(12, v.job + (v.earn <= 1 ? 1 : 0) + (v.deps >= 3 ? 1 : 0));
+    if (v.have >= m * v.ess) { pose = "party"; say = "Gullak full! Your emergency fund target is covered."; }
+    else { pose = "worried"; say = "Gullak abhi khaali hai. Start with ₹50,000, then build to the full target."; } }
+  else if (id === "goal") { const fv = v.cost * Math.pow(1 + v.infl / 100, v.yrs), haveFv = v.have * Math.pow(1 + v.ret / 100, v.yrs);
+    if (haveFv >= fv) { pose = "party"; say = "Gullak full! At the assumed return, what you've saved could cover this goal."; }
+    else { pose = "point"; say = "Give every goal its own gullak: a date, an amount and a monthly SIP."; } }
+  else if (id === "networth") { const own = v.cash + v.inv + v.ret + v.gold + v.prop + v.veh, owe = v.home + v.loan + v.card;
+    if (owe > own) { pose = "worried"; say = "You owe more than you own. Clear the costliest debt first."; }
+    else { pose = "full"; say = "Check this once a year on the same date and watch the trend."; } }
+  else if (id === "fees") { pose = "warn"; say = "Small yearly costs make a big difference over 20 years. Compare expense ratios."; }
+  else if (id === "inflation") { pose = "worried"; say = "Money kept idle loses buying power every year."; }
+  else if (id === "emi") { pose = "think"; say = "Prepaying early in the loan saves the most interest."; }
+  else if (id === "term") { pose = "think"; say = "Pure term cover first. Keep insurance and investment separate."; }
+  else if (id === "sip" || id === "stepup" || id === "lumpsum") { pose = "full"; say = "Time does the heavy lifting. Start early and stay regular; returns are never guaranteed."; }
+  return `<div class="gb tip"><img src="img/gullak/${pose}.svg" alt="Gullak Bhai" width="64" height="64" loading="lazy"><span class="bubble">${say}<small>Gullak Bhai · financial education, not advice</small></span></div>`;
+}
 function calcResults(c){
   const v = calcVals[c.id], r = c.run(v);
   return `<div class="kpis">${r.kpis.map(([k, val, hi]) => `<div class="kpi ${hi ? "hi" : ""}">${k}<b>${val}</b></div>`).join("")}</div>
+    ${gbTip(c.id, v)}
     ${r.extra || ""}${r.rows ? `<section class="block">${chart(r.rows, r.series)}</section>` : ""}
     <p class="cnote">${r.note}</p>
     ${r.rows ? `<details class="years block"><summary>Year-by-year table</summary><div class="tw"><table class="ytable"><thead><tr><th>Year</th>${r.series.map(s => `<th>${s[0]}</th>`).join("")}</tr></thead><tbody>
@@ -1202,6 +1232,7 @@ function calcView(c){
 let MINI_AMT = 5000;
 function miniCalc(){
   return `<div class="mini" id="mini"><div class="mini-top" aria-hidden="true"><i></i><i></i><i></i><span>sip-calculator</span></div><div class="mini-body">
+    <div class="gb"><img id="mini-gb" src="img/gullak/happy.svg" alt="Gullak Bhai, the money mascot" width="64" height="64"><span class="bubble">Chhota-chhota daalo, bada-bada banao!<small>Gullak Bhai · financial education, not advice</small></span></div>
     <label for="mini-amt">If you invest <b id="mini-amt-v">${inr(MINI_AMT)}</b> a month for 20 years</label>
     <input id="mini-amt" type="range" min="500" max="50000" step="500" value="${MINI_AMT}">
     <div><small>it could grow to about (at an assumed 12% a year)</small><div class="big" id="mini-val"></div>
@@ -1219,6 +1250,7 @@ function miniUpdate(){
   document.getElementById("mini-gr").textContent = inrShort(last.val - last.inv);
   document.getElementById("mini-bar").style.width = (100 * last.inv / last.val).toFixed(1) + "%";
   document.getElementById("mini-go").href = `#calculators/sip?amt=${MINI_AMT}&ret=12&yrs=20`;
+  const gb = document.getElementById("mini-gb"), pose = MINI_AMT >= 20000 ? "full" : "happy"; if (!gb.src.endsWith(pose + ".svg")) gb.src = `img/gullak/${pose}.svg`;
 }
 // Calculator numbers glide to their new value (skipped for reduced motion).
 const REDUCED = matchMedia("(prefers-reduced-motion: reduce)");

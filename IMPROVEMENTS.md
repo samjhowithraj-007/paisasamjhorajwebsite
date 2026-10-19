@@ -31,6 +31,7 @@ Sites studied: Groww SIP calculator, ET Money SIP calculator, Zerodha Varsity, N
 
 - ✅ **Fintech-grade redesign** (live 19 Oct 2026, same style family as techsamjhoraj.com; Lighthouse phone 97/100/100/100) ("professional and high tech"): polished hero with one CTA, card calculators with instant animated results, sticky summary, strong type scale, trust blocks; Lighthouse ≥ 90, reduced-motion, phone first, no heavy libraries. Before/after (phone + desktop) for Raj.
 - ⬜ **Shop section** (in the new design): the money book when ready, Family Money Planner + Budget/EMI tracker templates once Payments sends the links; a soft "Get the full planner sheet" link on each calculator page.
+- ⬜ **Gullak Bhai mascot** (clay piggy bank, kit in C:\samjhowithraj\brand\mascots\gullak-bhai\) once Raj approves the kit: hero, Ask Raj avatar or empty states, calculator results ("Gullak full!"), Shop. Keep the logo badge. Before/after + Raj OK before push.
 - ⬜ **Link to the Workshops page** on techsamjhoraj.com ("Money + AI workshops").
 - Never: investment, insurance or credit-card affiliate links, or AdSense (registration rules and trust).
 
