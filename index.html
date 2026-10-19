@@ -18,7 +18,9 @@
 <meta name="twitter:site" content="@samjhowithraj">
 <link rel="canonical" href="https://www.paisasamjhoraj.com/">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"Paisa Samjho Raj","url":"https://www.paisasamjhoraj.com/","inLanguage":"en-IN","description":"Free, plain-English money lessons, calculators and a private family Money Planner for Indian families. Educational, not advice."},{"@type":"Organization","name":"Samjho with Raj","url":"https://www.paisasamjhoraj.com/","logo":"https://www.paisasamjhoraj.com/img/icon-512.png","sameAs":["https://www.youtube.com/@SamjhowithRaj","https://x.com/samjhowithraj","https://www.techsamjhoraj.com/"]}]}</script>
-<link rel="icon" href="img/raj-mark.png">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
+<link rel="preload" href="img/sora-800-brand.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1d6b4f">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
@@ -61,7 +63,13 @@ header{background:var(--card);border-bottom:1px solid var(--line);position:stick
 .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
 .brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:800;font-size:20px;letter-spacing:-.5px}
 .brand img{width:40px;height:40px;border-radius:50%}
-.brand span{color:var(--gold-ink)}
+/* Wordmark (approved 19 Oct 2026): Sora 800, "Paisa" gold, "Samjho Raj" ink. The font file holds only these letters. */
+@font-face{font-family:"Sora Brand";font-weight:800;font-display:swap;src:url(img/sora-800-brand.woff2) format("woff2")}
+.brand .wm{font-family:"Sora Brand",system-ui,sans-serif;font-weight:800;letter-spacing:-.4px;color:var(--wm-ink)}
+.brand .wm b{color:var(--wm-gold);font-weight:800}
+:root{--wm-gold:#B7791F;--wm-ink:#121A2E}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--wm-gold:#F5B83D;--wm-ink:#fff}}
+:root[data-theme="dark"]{--wm-gold:#F5B83D;--wm-ink:#fff}
 .tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tab{padding:12px 16px;text-decoration:none;color:var(--muted);font-size:15px;border-bottom:3px solid transparent;white-space:nowrap}
@@ -418,7 +426,7 @@ footer p{margin:0;max-width:110ch}
 <body>
 <header>
   <div class="wrap bar">
-    <a class="brand" href="#home"><img src="img/raj-mark.png" alt="">Paisa <span>Samjho</span> Raj</a>
+    <a class="brand" href="#home" aria-label="Paisa Samjho Raj, home"><img src="img/badge-96.png" alt="" width="40" height="40"><span class="wm"><b>Paisa</b> Samjho Raj</span></a>
     <div class="bar-right"><div class="social" data-social></div><button class="install" id="install" type="button"><img src="img/icon-192.png" alt="" width="28" height="28">Install<span class="install-x"> app</span></button></div>
   </div>
   <nav class="wrap tabs" aria-label="Sections">
@@ -1139,7 +1147,7 @@ function lessonView(l){
     ${MODULES.map(m => `<details ${m === l.mod ? "open" : ""}><summary>${m.title}</summary><ul>${m.lessons.map(x => `<li><a href="#learn/${x.id}" ${x.id === l.id ? 'aria-current="true"' : ""}><span class="tick ${done.has(x.id) ? "done" : ""}"></span>${x.title}</a></li>`).join("")}</ul></details>`).join("")}</aside>`;
   const body = `<article class="lesson">
     <div><div class="eyebrow crumbs"><a href="#learn">Learn</a> › ${l.mod.title} · Lesson ${i + 1} of ${LESSONS.length}</div><h2>${l.title}</h2>
-      <p class="byline"><img src="img/raj-mark.png" alt=""><span>By <a href="#about">Raj</a>, Samjho with Raj</span><span>${readMins(l)} min read</span><span>Educational, not advice</span></p></div>
+      <p class="byline"><img src="img/badge-96.png" alt="" width="24" height="24"><span>By <a href="#about">Raj</a>, Samjho with Raj</span><span>${readMins(l)} min read</span><span>Educational, not advice</span></p></div>
     <section class="block"><h3>The idea</h3>${l.idea.map(p => `<p>${p}</p>`).join("")}</section>
     <section class="block"><h3>Key points</h3><ul>${l.points.map(p => `<li>${p}</li>`).join("")}</ul></section>
     <section class="block example"><h3>Worked example</h3><p>${l.example.text}</p><div class="nums">${l.example.nums.map(([k, v]) => `<div>${k}<b>${v}</b></div>`).join("")}</div>
@@ -1168,7 +1176,7 @@ function series(){
   ${signup("Get an email with the notes and calculator each time a new episode comes out.")}`;
 }
 function about(){
-  return `<div class="about"><img src="img/raj-mark.png" alt="Samjho with Raj logo">
+  return `<div class="about"><img src="img/badge-256.png" alt="Raj, Paisa Samjho Raj">
   <div><div class="eyebrow">About</div><h2>Hi, I'm Raj.</h2>
     <p>I make simple Hinglish videos on technology and money as Samjho with Raj. This website is the money side: plain-English notes, honest examples and tools you can use for your own family.</p>
     <p>Everything here is education. I am not a SEBI-registered investment adviser, and nothing on this site is a recommendation to buy or sell anything. Examples use assumed returns; real returns can be lower or negative. For decisions about your own money, speak to a SEBI-registered adviser.</p>

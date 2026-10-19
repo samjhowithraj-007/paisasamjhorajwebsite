@@ -1,7 +1,7 @@
 // Offline support for Paisa Samjho Raj. Bump VERSION on any change to this file or the precache list.
-const VERSION = "v22";
+const VERSION = "v23";
 const CACHE = "paisasamjhoraj-" + VERSION;
-const PRECACHE = ["./", "index.html", "manifest.webmanifest", "img/raj-mark.png", "img/icon-192.png", "img/icon-512.png", "img/apple-touch-icon.png"];
+const PRECACHE = ["./", "index.html", "manifest.webmanifest", "img/badge-96.png", "img/sora-800-brand.woff2", "img/favicon-32.png", "img/icon-192.png", "img/icon-512.png", "img/apple-touch-icon.png"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(PRECACHE)).then(() => self.skipWaiting()));
