@@ -7,6 +7,17 @@
 <meta name="description" content="Paisa Samjho Raj: free, plain-English lessons on budgeting, emergency funds, insurance, SIP, mutual funds, index funds, ETFs and retirement for Indian families, plus SIP, goal and EMI calculators and a private family Money Planner.">
 <meta property="og:title" content="Paisa Samjho Raj · Money made simple">
 <meta property="og:description" content="Free lessons, calculators and a private family Money Planner. Educational, not advice.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Paisa Samjho Raj">
+<meta property="og:url" content="https://www.paisasamjhoraj.com/">
+<meta property="og:image" content="https://www.paisasamjhoraj.com/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Paisa Samjho Raj: money, made simple for Indian families">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@samjhowithraj">
+<link rel="canonical" href="https://www.paisasamjhoraj.com/">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"Paisa Samjho Raj","url":"https://www.paisasamjhoraj.com/","inLanguage":"en-IN","description":"Free, plain-English money lessons, calculators and a private family Money Planner for Indian families. Educational, not advice."},{"@type":"Organization","name":"Samjho with Raj","url":"https://www.paisasamjhoraj.com/","logo":"https://www.paisasamjhoraj.com/img/icon-512.png","sameAs":["https://www.youtube.com/@SamjhowithRaj","https://x.com/samjhowithraj","https://www.techsamjhoraj.com/"]}]}</script>
 <link rel="icon" href="img/raj-mark.png">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1d6b4f">
@@ -171,6 +182,19 @@ a.card:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.08)}
 .calc-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
 .calc-tabs a{text-decoration:none;font-size:14px;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:7px 14px}
 .calc-tabs a:hover{border-color:var(--ink)}
+.calc-tabs .cg{display:flex;gap:8px;flex-wrap:wrap;align-items:center;width:100%}
+.calc-tabs .cg>span{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;color:var(--muted);min-width:160px}
+@media (max-width:600px){.calc-tabs .cg>span{width:100%;min-width:0;margin-top:4px}}
+.crumbs a{color:inherit;text-decoration:none;border-bottom:1px solid var(--line)}.crumbs a:hover{color:var(--ink)}
+.byline{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;font-size:13px;color:var(--muted);margin:8px 0 0}
+.byline img{width:24px;height:24px;border-radius:50%}
+.how{margin-top:28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+@media (max-width:950px){.how{grid-template-columns:minmax(0,1fr)}}
+.how h3{margin:0 0 8px;font-size:17px}.how p{margin:0 0 10px}.how .formula{font-family:Consolas,monospace;font-size:13.5px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow-x:auto;white-space:nowrap}
+.how details{border-top:1px solid var(--line);padding:10px 0}.how details:first-of-type{border-top:0;padding-top:0}.how summary{cursor:pointer;font-weight:600}.how details p{margin:8px 0 0;color:var(--muted)}
+.checked{font-size:13px;color:var(--muted);margin-top:10px}
+.share{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}.share small{color:var(--muted)}
+.cgroup{margin:22px 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:700}
 .calc-tabs a[aria-current="page"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .cform{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:18px}
 .cf{display:flex;flex-direction:column;gap:8px}
@@ -439,7 +463,7 @@ function fillSocial(){ document.querySelectorAll("[data-social]").forEach(el => 
 
 // ---------- financial tracker (runs only in this browser; nothing is sent anywhere) ----------
 const FP_KEY = "swr-tracker";
-const FP_LOANS = [["Credit card dues", 36], ["Personal loan", 14], ["Car / two-wheeler loan", 9.5], ["Education loan", 10], ["Home loan", 8.5], ["Other loan", 12]];
+const FP_LOANS = [["Credit card dues", 45], ["Personal loan", 14], ["Car / two-wheeler loan", 9.5], ["Education loan", 10], ["Home loan", 8.5], ["Other loan", 12]];
 const FP_ASSUME = { infl:6, eduInfl:10, homeInfl:6, eqRet:10, safeRet:7, epfRet:8, postRet:7, college:18, retAge:60, life:85,
   hMetro:15, hNon:10, hParent:5, hPrem:2000, pPrem:5000, termMult:10, tPrem:1200, hiRate:12, debtMonths:18, efMonths:12,
   goalFloor:20, parentFund:200000, parentYears:3 };
@@ -702,7 +726,7 @@ function fpResults(){
     <p style="margin-top:12px;color:var(--muted);font-size:13.5px">"Needed a month" is what would reach the goal if the assumed return actually happens. Returns are not guaranteed and can be lower. A gap today is normal: it shrinks as safety buckets fill, income grows and you step up your monthly amount.</p></section>`;
 
   const tips = [];
-  if (s.loans[0].amt > 0) tips.push("Credit-card dues often cost 36–42% a year. Pay the full bill, not the minimum, and stop new spending on the card until it is cleared.");
+  if (s.loans[0].amt > 0) tips.push("Credit-card dues can cost up to about 45% a year, plus GST. Pay the full bill, not the minimum, and stop new spending on the card until it is cleared.");
   if (s.savings > r.efTarget && r.hiTotal > 0) tips.push(`Your savings are ${inrShort(s.savings - r.efTarget)} above the emergency target. Using that extra to clear costly debt could be worth considering.`);
   else if (s.savings > r.efTarget * 1.25 && r.efTarget > 0) tips.push(`Your savings are ${inrShort(s.savings - r.efTarget)} above the emergency target. The extra could be moved into your goal pots.`);
   if (s.health > 0) tips.push("An employer group policy usually ends when you leave the job. A personal family floater keeps you covered between jobs.");
@@ -795,11 +819,11 @@ const MODULES = [
       example:{ text:"An earner with ₹12 lakh yearly income and a ₹10 lakh car loan.", nums:[["Term cover (10×)","₹1.2 crore"],["Plus loans","₹1.3 crore"],["Family health cover","₹10–15 lakh"]] },
       action:"Check your current cover. Is it from your employer only? Is it pure term? Note the gaps.", takeaway:"Insurance is for protection. Investments are for growth. Don't mix them.", tool:"planner" },
     { id:"debt", title:"Which loan to pay off first?", short:"Costly debt is a guaranteed negative return. Clear it before investing.",
-      idea:["A credit card charging around 3% a month costs roughly 36–42% a year. No safe investment earns that, so paying off this debt is the best 'return' you can get.",
+      idea:["Credit cards can charge up to about 3.75% a month, roughly 45% a year, plus 18% GST on the interest (SBI Card, HDFC Bank and ICICI Bank terms, checked 19 Oct 2026). No safe investment earns that, so paying off this debt is the best 'return' you can get.",
             "Low-rate loans with a clear purpose (home, education) can usually run on their normal EMI. High-rate loans (credit card, app loans, personal loans) should go first."],
       points:["Always pay the full credit-card bill. Paying only the 'minimum due' keeps interest running on the whole balance.","Avalanche method: pay extra on the highest-rate loan first. It saves the most interest.","Snowball method: clear the smallest loan first. It saves less, but quick wins keep some people going.","'No-cost EMI' can hide a processing fee or a lost cash discount. Compare the total you pay."],
-      example:{ text:"₹1 lakh of credit-card dues at 36% a year.", nums:[["Interest in a year","about ₹36,000"],["Paid off in 18 months","about ₹5,600 + EMI a month"]] },
-      action:"List every loan with its interest rate. Put the highest rate on top: that is your first target.", takeaway:"Paying off a 36% loan is a guaranteed 36% return.", tool:"emi" },
+      example:{ text:"₹1 lakh of credit-card dues at 3.75% a month, left unpaid for a year.", nums:[["Interest (simple)","about ₹45,000"],["Plus 18% GST on it","about ₹8,100"],["With monthly compounding","more than this"]] },
+      action:"List every loan with its interest rate. Put the highest rate on top: that is your first target.", takeaway:"Paying off a 45% loan is like earning a guaranteed 45%.", tool:"emi" },
   ]},
   { title:"How money grows", blurb:"Compounding, inflation and time: the three forces behind every money decision.", lessons:[
     { id:"compounding", title:"Compounding: money that earns money", short:"Returns on returns. Time matters more than the amount.",
@@ -997,6 +1021,42 @@ function bars(groups){ const max = Math.max(1, ...groups.map(g => g[1].reduce((n
       <ul class="legend">${items.filter(x => x[1] > 0).map(([l, a], i) => `<li><span class="dot" style="background:var(${c});opacity:${1 - i * .14}"></span>${l}: ${inrShort(a)}</li>`).join("")}</ul>`; }).join("")}</section>`; }
 const calcVals = {};
 CALCS.forEach(c => { calcVals[c.id] = Object.fromEntries(c.fields.map(f => [f[0], f[2]])); });
+const MATHS_CHECKED = "19 Oct 2026";
+const CALC_GROUPS = [["Grow", ["sip", "stepup", "lumpsum", "fees"]], ["Plan", ["goal", "inflation", "networth", "emergency"]], ["Protect and borrow", ["term", "emi", "card"]]];
+const groupOf = id => (CALC_GROUPS.find(g => g[1].includes(id)) || ["Calculators"])[0];
+// How each calculator works (shown under it) and two common questions. Plain maths; no product advice.
+const CALC_HOW = {
+  sip:{ how:"Each instalment goes in at the start of the month and grows at the monthly rate that equals your yearly return: (1 + yearly return)<sup>1/12</sup> − 1.", f:"Value = P × [((1 + i)<sup>n</sup> − 1) ÷ i] × (1 + i)", where:"P = monthly amount, i = monthly rate, n = number of months.",
+    faq:[["Is this return guaranteed?","No. Equity funds go up and down, and some years are negative. The 12% default is only an assumption to play with. Try 8% and 10% too."],["Why does my fund app show a slightly different number?","Apps may use yearly return ÷ 12 as the monthly rate, different dates or real past prices. Small gaps are normal."]] },
+  stepup:{ how:"Same maths as the SIP calculator, but the monthly amount goes up by your chosen percentage at the start of every year. The dotted line is the same SIP without the increase.", f:"Amount in year k = P × (1 + step)<sup>k − 1</sup>", where:"P = starting monthly amount, step = yearly increase.",
+    faq:[["How much should the step-up be?","Many people match their yearly salary rise. Pick a step you can keep up in a bad year too."],["How do I set it up?","Many fund houses offer a yearly top-up option when you start a SIP, or you can raise the amount yourself each year."]] },
+  lumpsum:{ how:"A one-time amount grows once a year at the assumed return. 'Doubles in about' uses the Rule of 72: 72 ÷ yearly return ≈ years to double.", f:"Value = A × (1 + r)<sup>years</sup>", where:"A = amount invested, r = yearly return.",
+    faq:[["Lumpsum or SIP?","Same maths, different timing. A lumpsum stays invested longer; a SIP spreads out the timing risk. Many families use both."],["Does this include tax?","No. Values are before tax. Gains are taxed when you sell, by the rules that apply then."]] },
+  goal:{ how:"First the goal's cost is grown by inflation to the target year. Your existing savings are grown at the return. The gap left is turned into a monthly SIP by running the SIP formula backwards.", f:"Cost then = cost today × (1 + inflation)<sup>years</sup>", where:"SIP needed = gap × i ÷ ([(1 + i)<sup>n</sup> − 1] × (1 + i)).",
+    faq:[["What inflation should I use?","Education and medical costs often rise faster than general prices, so try a higher number for them. Run a few values and plan for the higher one."],["My goal is less than 3 years away. What return?","Use a low, safe return, because money for a near goal is usually kept in deposits or debt funds, not shares."]] },
+  inflation:{ how:"Prices grow every year at the inflation rate you choose. The second line shows what today's amount will be worth in today's prices.", f:"Future cost = cost today × (1 + inflation)<sup>years</sup>", where:"Today's value of a future amount = amount ÷ (1 + inflation)<sup>years</sup>.",
+    faq:[["Which inflation number should I use?","Your family's own costs matter more than the national average. School fees, rent and medical bills often rise faster. Try a few values."],["Why does it matter?","Money kept idle loses buying power every year. Long goals need money that can grow faster than prices, with the risks that come with that."]] },
+  fees:{ how:"Both plans earn the same return before costs. The yearly cost (expense ratio) is subtracted from the return, and the gap compounds over the years.", f:"Return after cost = return − expense ratio", where:"Each plan then uses the SIP formula with its own return.",
+    faq:[["Where do I find the expense ratio?","In the fund's factsheet or on the fund house's website. A direct plan of a fund costs less than its regular plan because no distributor commission is paid."],["Is the cheaper option always better?","For the same fund or the same index, yes. Between different funds, cost is one factor, along with risk and how well the fund fits your goal."]] },
+  emi:{ how:"Interest is charged every month on the loan still owed (reducing balance). The EMI stays the same; early EMIs are mostly interest, later ones mostly principal.", f:"EMI = P × i × (1 + i)<sup>n</sup> ÷ ((1 + i)<sup>n</sup> − 1)", where:"P = loan, i = yearly rate ÷ 12, n = months.",
+    faq:[["Why is most of my early EMI interest?","Interest is worked out on the balance left, which is largest at the start."],["Can the bank charge me for prepaying?","RBI rules bar prepayment charges on floating-rate loans taken by individuals for non-business use. Fixed-rate loans may have charges, so check your loan papers."]] },
+  networth:{ how:"Add up what you own at today's value, then subtract the full amount you still owe on every loan and card (not the EMI).", f:"Net worth = what you own − what you owe", where:"Use resale value for cars and today's price for gold.",
+    faq:[["Should I count my house?","Count it for the full picture, but also look at the number without it: you can't easily spend the home you live in."],["How often should I check?","Once a year, on the same date. The trend matters more than any one number."]] },
+  emergency:{ how:"Target = essential monthly expenses × months. Months: 4 for a government or PSU job, 6 for a private salary, 9 for self-employed or variable income; +1 for a single earner and +1 for 3 or more dependants, up to 12. Same rule as the Money Planner.", f:"Target = essentials × months", where:"Time to reach it = (target − already saved) ÷ monthly saving.",
+    faq:[["Where should I keep it?","Somewhere safe and quick to reach: a savings account, a sweep-in FD or a liquid fund. Not in shares."],["Doesn't health insurance cover emergencies?","Only hospital bills. The emergency fund pays rent, EMIs, fees and food if income stops."]] },
+  term:{ how:"A rough size: years of income your family would need, plus loans and big goals, minus savings they could use. Cover you already have is shown separately.", f:"Cover = income × years + loans + goals − savings", where:"Gap = cover needed − cover you already have.",
+    faq:[["Why pure term and not a plan with returns?","A pure term plan pays only if the insured person dies during the term, so it gives far more cover per rupee. Endowment and money-back plans mix small cover with low returns."],["How long should the cover run?","Usually until children are independent and big loans are paid off. Your age, health and the insurer decide the premium."]] },
+  card:{ how:"Each month, interest and GST on it are added to the balance, then your payment is taken off. Minimum due = that month's interest and GST + your chosen % of the balance, at least ₹200. No new spending is assumed.", f:"Balance next month = (balance + interest + GST) − payment", where:"Interest = balance × monthly rate; GST = 18% of interest.",
+    faq:[["Do I lose the interest-free period?","Yes. If any part of the last bill is unpaid, new purchases get no interest-free days and interest runs from each purchase date. Your card's MITC (most important terms) says this."],["What if I can't pay the full bill?","Pay as much as you can, stop using the card, and ask the bank about turning the dues into an EMI at a lower rate. Clear this debt before investing."]] },
+};
+function calcHow(c){ const h = CALC_HOW[c.id]; if (!h) return "";
+  return `<div class="how"><section class="block"><h3>How this calculator works</h3><p>${h.how}</p><div class="formula">${h.f}</div><p style="margin-top:8px;font-size:13.5px;color:var(--muted)">${h.where}</p>
+      <p class="checked">Maths checked by Raj on ${MATHS_CHECKED}. Everything is worked out in your browser; nothing you type is sent anywhere.</p></section>
+    <section class="block"><h3>Common questions</h3>${h.faq.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join("")}</section></div>`; }
+// Share a calculator with the numbers filled in: #calculators/<id>?amt=5000&ret=12…
+function calcLink(c){ return location.origin + location.pathname + "#calculators/" + c.id + "?" + new URLSearchParams(calcVals[c.id]).toString(); }
+function applyCalcQuery(c, q){ if (!q) return; new URLSearchParams(q).forEach((val, k) => { const f = c.fields.find(x => x[0] === k), v = parseFloat(val);
+  if (!f || !isFinite(v)) return; calcVals[c.id][k] = Array.isArray(f[3]) ? (f[3].some(o => o[0] == v) ? v : f[2]) : Math.max(f[3], Math.min(v, f[4] * 10)); }); }
 
 function chart(rows, series){
   const W = 640, H = 260, L = 58, R = 12, T = 12, B = 30;
@@ -1027,10 +1087,13 @@ function calcView(c){
       <select id="cf-${k}" data-c="${k}">${min.map(([val, t]) => `<option value="${val}" ${val == calcVals[c.id][k] ? "selected" : ""}>${t}</option>`).join("")}</select></div></div>` : `<div class="cf"><div class="cf-top"><label for="cf-${k}">${label}</label>
       <span class="cf-box">${pre ? `<i>${pre}</i>` : ""}<input id="cf-${k}" type="number" inputmode="decimal" min="${min}" max="${max}" step="${step}" value="${calcVals[c.id][k]}" data-c="${k}">${suf ? `<i>${suf}</i>` : ""}</span></div>
       <input type="range" min="${min}" max="${max}" step="${step}" value="${Math.min(max, calcVals[c.id][k])}" data-c="${k}" aria-label="${label}"></div>`;
-  return `<div class="page-head"><div><div class="eyebrow">Calculators</div><h2>${c.title}</h2><p class="lead">${c.blurb}</p></div></div>
-    <nav class="calc-tabs" aria-label="Calculators">${CALCS.map(x => `<a href="#calculators/${x.id}" ${x === c ? 'aria-current="page"' : ""}>${x.name}</a>`).join("")}<a href="#planner">Full family plan →</a></nav>
-    <div class="calc"><form class="cform" id="cform" data-calc="${c.id}" onsubmit="return false">${c.fields.map(f).join("")}</form>
-    <div class="cres" id="cres" aria-live="polite">${calcResults(c)}</div></div>`;
+  const tab = x => `<a href="#calculators/${x.id}" ${x === c ? 'aria-current="page"' : ""}>${x.name}</a>`;
+  return `<div class="page-head"><div><div class="eyebrow crumbs"><a href="#calculators">Calculators</a> › ${groupOf(c.id)}</div><h2>${c.title}</h2><p class="lead">${c.blurb}</p></div></div>
+    <nav class="calc-tabs" aria-label="Calculators">${CALC_GROUPS.map(([g, ids]) => `<div class="cg"><span>${g}</span>${ids.map(id => tab(CALCS.find(x => x.id === id))).join("")}</div>`).join("")}<div class="cg"><span>Everything</span><a href="#planner">Full family plan →</a></div></nav>
+    <div class="calc"><div><form class="cform" id="cform" data-calc="${c.id}" onsubmit="return false">${c.fields.map(f).join("")}</form>
+      <div class="share"><button class="btn" type="button" id="share-calc">🔗 Share these numbers</button><small id="share-note">Sends a link with your inputs filled in.</small></div></div>
+    <div class="cres" id="cres" aria-live="polite">${calcResults(c)}</div></div>
+    ${calcHow(c)}`;
 }
 
 // ---------- pages ----------
@@ -1051,7 +1114,7 @@ function home(){
   <section class="section"><div class="section-head"><div><div class="eyebrow">Learning path</div><h2>Four steps, in this order</h2></div><a class="more" href="#learn">All ${LESSONS.length} lessons →</a></div>
     <div class="path">${steps}</div></section>
   <section class="section"><div class="section-head"><div><div class="eyebrow">Calculators</div><h2>Run the numbers</h2></div><a class="more" href="#calculators">All calculators →</a></div>
-    <div class="grid">${CALCS.map(c => `<a class="card" href="#calculators/${c.id}"><span class="ico">₹</span><h3>${c.title}</h3><p>${c.blurb}</p></a>`).join("")}</div></section>
+    ${CALC_GROUPS.map(([g, ids]) => `<div class="cgroup">${g}</div><div class="grid">${ids.map(id => CALCS.find(c => c.id === id)).map(c => `<a class="card" href="#calculators/${c.id}"><span class="ico">₹</span><h3>${c.title}</h3><p>${c.blurb}</p></a>`).join("")}</div>`).join("")}</section>
   <section class="section band"><div><div class="eyebrow">Money Planner</div><h2>Your family's plan, one bucket at a time</h2>
     <p>Enter income, expenses, savings, loans and goals. See how your monthly surplus could be split between insurance, costly debt, the emergency fund and long-term goals. Nothing leaves your browser.</p></div>
     <a class="btn primary" href="#planner">Open the Money Planner</a></section>
@@ -1067,6 +1130,7 @@ function learn(){
     <div class="lessons">${m.lessons.map(l => `<a class="lcard" href="#learn/${l.id}"><span class="tick ${done.has(l.id) ? "done" : ""}"></span><span><b>${l.title}</b><small>${l.short}</small></span></a>`).join("")}</div></section>`).join("")}</div>
   ${books()}`;
 }
+const readMins = l => Math.max(2, Math.round([...l.idea, ...l.points, l.example.text, l.action, l.takeaway].join(" ").replace(/<[^>]+>/g, "").split(/\s+/).length / 200 + 1));
 function lessonView(l){
   const i = LESSONS.indexOf(l), prev = LESSONS[i - 1], next = LESSONS[i + 1];
   const tool = l.tool === "planner" ? ["#planner", "Open the Money Planner"] : [`#calculators/${l.tool}`, `Try the ${CALCS.find(c => c.id === l.tool).title}`];
@@ -1074,7 +1138,8 @@ function lessonView(l){
       <div class="progrow"><div class="prog"><i style="width:${pctDone()}%"></i></div>${pctDone()}%</div></div>
     ${MODULES.map(m => `<details ${m === l.mod ? "open" : ""}><summary>${m.title}</summary><ul>${m.lessons.map(x => `<li><a href="#learn/${x.id}" ${x.id === l.id ? 'aria-current="true"' : ""}><span class="tick ${done.has(x.id) ? "done" : ""}"></span>${x.title}</a></li>`).join("")}</ul></details>`).join("")}</aside>`;
   const body = `<article class="lesson">
-    <div><div class="eyebrow">${l.mod.title} · Lesson ${i + 1} of ${LESSONS.length}</div><h2>${l.title}</h2></div>
+    <div><div class="eyebrow crumbs"><a href="#learn">Learn</a> › ${l.mod.title} · Lesson ${i + 1} of ${LESSONS.length}</div><h2>${l.title}</h2>
+      <p class="byline"><img src="img/raj-mark.png" alt=""><span>By <a href="#about">Raj</a>, Samjho with Raj</span><span>${readMins(l)} min read</span><span>Educational, not advice</span></p></div>
     <section class="block"><h3>The idea</h3>${l.idea.map(p => `<p>${p}</p>`).join("")}</section>
     <section class="block"><h3>Key points</h3><ul>${l.points.map(p => `<li>${p}</li>`).join("")}</ul></section>
     <section class="block example"><h3>Worked example</h3><p>${l.example.text}</p><div class="nums">${l.example.nums.map(([k, v]) => `<div>${k}<b>${v}</b></div>`).join("")}</div>
@@ -1182,15 +1247,16 @@ function privacy(){
 }
 
 function render(){
-  const h = (location.hash || "#home").slice(1), [p, id] = h.split("/");
+  const [h, q] = (location.hash || "#home").slice(1).split("?"), [p, id] = h.split("/");
   let tab = p, html, title = "Paisa Samjho Raj · Money made simple";
   if (p === "learn" && id && findLesson(id)) { const l = findLesson(id); html = lessonView(l); title = `${l.title} · Paisa Samjho Raj`; }
   else if (p === "learn") html = learn();
-  else if (p === "calculators") { const c = CALCS.find(x => x.id === id) || CALCS[0]; html = calcView(c); title = `${c.title} · Paisa Samjho Raj`; }
+  else if (p === "calculators") { const c = CALCS.find(x => x.id === id) || CALCS[0]; applyCalcQuery(c, q); html = calcView(c); title = `${c.title} · Paisa Samjho Raj`; }
   else if (p === "planner" || p === "tracker") { html = tracker(); tab = "planner"; title = "Money Planner · Paisa Samjho Raj"; }
   else if (p === "series") html = series();
   else if (p === "about") html = about();
   else if (p === "privacy") { html = privacy(); title = "Privacy · Paisa Samjho Raj"; }
+  else if (p === "site-index") { html = '<pre id="site-index"></pre>'; setTimeout(() => { document.getElementById("site-index").textContent = JSON.stringify(siteIndex(), null, 1); }); }
   else { html = home(); tab = "home"; }
   app.innerHTML = html;
   if (tab === "planner") fpAmtHints();
@@ -1205,7 +1271,13 @@ app.addEventListener("input", e => {
   el.form.querySelectorAll(`[data-c="${k}"]`).forEach(o => { if (o !== el) o.value = Math.min(v, f[4]); });
   document.getElementById("cres").innerHTML = calcResults(c);
 });
-app.addEventListener("click", e => {
+app.addEventListener("click", async e => {
+  const sh = e.target.closest("#share-calc");
+  if (sh) { const c = CALCS.find(x => x.id === document.getElementById("cform").dataset.calc), url = calcLink(c), note = document.getElementById("share-note");
+    try { if (navigator.share && matchMedia("(pointer:coarse)").matches) { await navigator.share({ title: c.title + " · Paisa Samjho Raj", text: "Try my numbers in the " + c.title + " (educational, not advice):", url }); return; }
+      await navigator.clipboard.writeText(url); note.textContent = "Link copied. Paste it in WhatsApp or anywhere."; }
+    catch (err) { if (err && err.name === "AbortError") return; prompt("Copy this link:", url); }
+    return; }
   const mark = e.target.closest("#mark");
   if (mark) { const id = mark.dataset.id; done.has(id) ? done.delete(id) : done.add(id); saveDone(); const y = scrollY; render(); scrollTo(0, y); }
 });
@@ -1227,17 +1299,23 @@ function askRaj(BOT){
   const say = (html, who) => { const m = document.createElement("div"); m.className = "cb-msg " + who; m.innerHTML = html; log.append(m); log.scrollTop = log.scrollHeight; return m; };
   const esc = s => s.replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" })[c]);
   const setChips = list => { chips.innerHTML = list.map(c => `<button type="button">${c}</button>`).join(""); };
-  function reply(text){
+  // Layer 1: hand-written replies. Short messages and chips use them; the first BOT.alwaysFirst rules (advice refusal,
+  // greetings, "how are you built") win for every message. Longer questions go to BOT.smart (site search, then the Worker).
+  function matchRule(text){
     const t = " " + text.toLowerCase().replace(/[^a-z0-9₹&+ ]/g, " ").replace(/\s+/g, " ") + " ";
     const has = k => k.includes(" ") ? t.includes(" " + k + " ") || t.includes(k) : t.includes(" " + k + " ") || (k.length > 4 && t.includes(k));
-    for (const [keys, ans] of BOT.rules) if (keys.some(has)) return typeof ans === "function" ? ans(t) : ans;
-    return BOT.fallback;
+    const i = BOT.rules.findIndex(([keys]) => keys.some(has)); if (i < 0) return null;
+    const ans = BOT.rules[i][1]; return { i, r: typeof ans === "function" ? ans(t) : ans };
   }
-  function ask(text){
+  async function ask(text){
     text = text.trim(); if (!text) return;
     say(esc(text), "me");
-    const dots = say("Typing…", "bot typing");
-    setTimeout(() => { dots.remove(); const r = reply(text); say(r.text || r, "bot"); if (r.chips) setChips(r.chips); }, 450);
+    const dots = say("Typing…", "bot typing"), wait = new Promise(ok => setTimeout(ok, 450));
+    const m = matchRule(text), words = text.split(/\s+/).length;
+    let r = m && (words <= 4 || m.i < (BOT.alwaysFirst || 0)) ? m.r : null;
+    if (!r && BOT.smart) { try { r = await BOT.smart(text); } catch (e) { r = null; } }
+    r = r || (m && m.r) || BOT.fallback;
+    await wait; dots.remove(); say(r.text || r, "bot"); if (r.chips) setChips(r.chips);
   }
   let started = false;
   const open = () => { panel.hidden = false; fab.setAttribute("aria-expanded", "true");
@@ -1251,18 +1329,104 @@ function askRaj(BOT){
   form.addEventListener("submit", e => { e.preventDefault(); ask(form.q.value); form.q.value = ""; });
   log.addEventListener("click", e => { const a = e.target.closest('a[href^="#"]'); if (a && matchMedia("(max-width:480px)").matches) close(); });
 }
+// ---------- Ask Raj, layer 2: search this site (Step 1) and, if set, Claude answers via the shared Worker (Step 2) ----------
+// The index is built from the same data the pages use, so it never goes stale. `node tools/build-index.mjs` saves it
+// as site-index.json before each push (published for the Worker and for checking).
+const ASK_WORKER = "";   // shared Cloudflare Worker, e.g. "https://ask-raj.<account>.workers.dev/ask". Empty = local answers only.
+const stripHtml = h => String(h).replace(/<\/(h1|h2|h3|h4|li|p|summary|dt|dd)>/gi, ". ").replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ").replace(/\s+\./g, ".").replace(/([.!?:;])(\s*\.)+/g, "$1").trim();
+function siteIndex(){
+  const items = [], add = (id, type, title, url, text, checked) => {
+    const parts = []; let cur = "";
+    for (const sn of stripHtml(text).split(/(?<=[.!?])\s+/)) { if (cur && (cur + " " + sn).length > 900) { parts.push(cur); cur = sn; } else cur = cur ? cur + " " + sn : sn; }
+    if (cur) parts.push(cur);
+    parts.forEach((t, i) => items.push({ id: parts.length > 1 ? `${id}-${i + 1}` : id, type, title, url, text: t, ...(checked ? { checked } : {}) })); };
+  LESSONS.forEach(l => add("lesson-" + l.id, "lesson", l.title, "#learn/" + l.id, [l.short, ...l.idea, "Key points: " + l.points.join(" "),
+    "Worked example: " + l.example.text + " " + l.example.nums.map(([k, v]) => `${k}: ${v}.`).join(" "), "Do this today: " + l.action, "Remember: " + l.takeaway].join(" ")));
+  CALCS.forEach(c => { const h = CALC_HOW[c.id] || {}, d = Object.fromEntries(c.fields.map(f => [f[0], f[2]]));
+    add("calc-" + c.id, "calculator", c.title, "#calculators/" + c.id, [c.blurb, h.how || "", h.f ? "Formula: " + h.f.replace(/<sup>(.*?)<\/sup>/g, "^($1)") + "." : "", h.where || "",
+      "Example with the starting numbers: " + c.run(d).kpis.map(k => `${k[0]} ${k[1]}`).join("; ") + ". " + c.run(d).note, ...(h.faq || []).map(([q, a]) => q + " " + a)].join(" "), MATHS_CHECKED); });
+  const a = FP_ASSUME;
+  add("planner", "planner", "Money Planner", "#planner", `The Money Planner takes your household, income, expenses, savings, loans and goals and shows how your monthly surplus could be split between insurance, costly debt, the emergency fund and long-term goals: safety first, then the future. Order used: insurance, then costly debt, then emergency fund, then long-term goals; while safety is being built, ${a.goalFloor}% of the surplus still goes to goals. Private: everything is calculated in your browser and nothing you type is sent anywhere; tick Remember to keep your inputs on this device only. You can load the fictional Verma family example or start blank. Rules of thumb you can change: emergency fund of 4 months for a government job, 6 for a private salary, 9 for variable income, +1 for a single earner and +1 for 3 or more dependants (up to 12). Term cover ${a.termMult} times yearly income plus loans. Family health cover ₹${a.hMetro} lakh in a metro and ₹${a.hNon} lakh elsewhere, ₹${a.hParent} lakh per parent. Loans at ${a.hiRate}% or more count as costly debt, cleared over ${a.debtMonths} months. Assumed yearly returns: equity ${a.eqRet}%, safe ${a.safeRet}%, EPF ${a.epfRet}%; inflation ${a.infl}%, education ${a.eduInfl}%. Educational and illustrative only, not advice; premiums are rough guesses.`);
+  add("series", "episode", "Middle-Class Family Ka Money Plan (video series)", "#series", "A 50-episode Hinglish video series following the fictional Verma family with ₹1 lakh a month take-home. " +
+    EPISODES.map(([n, t, o]) => `Episode ${n}: ${t}. ${o}${EP_LIVE[n] ? " Live on YouTube." : ""}`).join(" "));
+  add("about", "page", "About Raj and this site", "#about", about());
+  add("privacy", "page", "Privacy", "#privacy", privacy());
+  add("books", "book", "Recommended money books", "#learn", books());
+  add("disclaimer", "page", "Educational only (disclaimer)", "#about", document.querySelector("footer") ? document.querySelector("footer").innerHTML : "");
+  return { site: "money", built: new Date().toISOString().slice(0, 10), items };
+}
+const STOP = new Set("a an the is are was were be been to of in on for and or i my me we our you your it its this that these what how why when which who do does did can could should would will with at by as from about much many more most than then there their have has had am kya hai hain ka ki ke se mein me ko aur ya kaise kitna kitni kab kaun koi please tell explain if happen happens happened only need want know mean means also just any some get really hona chahiye chahie karna karein karu lena lene kare hota hoti hote wala wali".split(" "));
+const words = s => s.toLowerCase().replace(/[^a-z0-9₹%]+/g, " ").split(" ").filter(w => w && !STOP.has(w)).map(w => w.length > 4 ? w.replace(/(ies)$/, "y").replace(/(es|s)$/, "") : w);
+let SIDX = null;
+function siteSearch(q, k = 4){
+  if (!SIDX) { const idx = siteIndex(), docs = idx.items.map(it => words(it.title + " " + it.title + " " + it.text)), df = {};
+    docs.forEach(d => new Set(d).forEach(w => df[w] = (df[w] || 0) + 1));
+    SIDX = { items: idx.items, docs, df, avg: docs.reduce((n, d) => n + d.length, 0) / docs.length }; }
+  const qs = [...new Set(words(q))], N = SIDX.docs.length, idf = w => Math.log(1 + (N - (SIDX.df[w] || 0) + .5) / ((SIDX.df[w] || 0) + .5));
+  const out = SIDX.docs.map((d, i) => { let sc = 0;
+      for (const w of qs) { const tf = d.filter(x => x === w).length; if (!tf) continue;
+        sc += Math.log(1 + (N - SIDX.df[w] + .5) / (SIDX.df[w] + .5)) * tf * 2.2 / (tf + 1.2 * (.25 + .75 * d.length / SIDX.avg)); }
+      return { ...SIDX.items[i], score: sc }; })
+    .filter(x => x.score > 0).sort((a, b) => b.score - a.score).slice(0, k);
+  // Only answer when the best passage covers most of what was asked (by word weight); "weather today" finds nothing.
+  if (!out.length) return out;
+  const total = qs.reduce((n, w) => n + idf(w), 0), d = SIDX.docs[SIDX.items.findIndex(it => it.id === out[0].id)];
+  const covered = qs.filter(w => d.includes(w)).reduce((n, w) => n + idf(w), 0);
+  out.forEach(o => o.idf = idf);
+  return covered >= .5 * total ? out : [];
+}
+const NOT_ADVICE = "<small>Educational only, not advice. Raj is not a SEBI-registered adviser.</small>";
+function localAnswer(q, hits){
+  // Pick the single best sentence from the top 3 passages, then quote it with its neighbours for context.
+  const qs = new Set(words(q)), idf = hits[0].idf || (() => 1), howMuch = /\b(how much|how many|how long|kitna|kitni|kitne|what (is|are) the (rate|size|target))\b/i.test(q);
+  let pick = null;
+  hits.slice(0, 3).forEach((h, hi) => h.text.split(/(?<=[.!?])\s+/).forEach((t, i, all) => {
+    const sc = [...new Set(words(t))].filter(w => qs.has(w)).reduce((n, w) => n + idf(w), 0) + (howMuch && /\d/.test(t) ? .8 : 0) - hi * .3;
+    if (!pick || sc > pick.sc) pick = { sc, i, all, h }; }));
+  const best = pick && pick.sc > 0 ? pick.h : hits[0];
+  let text = best.text.slice(0, 260) + "…";
+  if (pick && pick.sc > 0) { const a = pick.all; let lo = pick.i, hi = pick.i;
+    if (a[hi].endsWith("?") && hi < a.length - 1) hi++;   // a FAQ question: quote its answer
+    while (a.slice(lo, hi + 1).join(" ").length < 300) {
+      if (hi < a.length - 1 && !a[hi + 1].endsWith("?") && a.slice(lo, hi + 2).join(" ").length <= 440) hi++;
+      else if (lo > 0 && !a[lo - 1].endsWith("?") && a.slice(lo - 1, hi + 1).join(" ").length <= 440) lo--; else break; }
+    text = a.slice(lo, hi + 1).join(" "); }
+  const more = [...new Map(hits.filter(h => h.url !== best.url).map(h => [h.url, h])).values()].slice(0, 2);
+  return { text: `From <a href="${best.url}">${best.title}</a>:\n“${text}”${best.checked ? `\n<small>Checked on ${best.checked}.</small>` : ""}\n\nRead more: <a href="${best.url}">${best.title} →</a>` +
+    (more.length ? `\nAlso see: ${more.map(h => `<a href="${h.url}">${h.title}</a>`).join(" · ")}` : "") + "\n\n" + NOT_ADVICE, chips: ["Where do I start?", "Calculators", "Money Planner"] };
+}
+const escHtml = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" })[c]);
+const safeLink = u => /^#[a-z0-9\-\/?=&.]*$/i.test(u) || /^https:\/\/www\.(paisasamjhoraj|techsamjhoraj)\.com(\/|$)/.test(u) || /^https:\/\/(youtu\.be|www\.youtube\.com)\//.test(u);
+async function aiAnswer(q, hits){
+  const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 8000);
+  try {
+    const r = await fetch(ASK_WORKER, { method: "POST", headers: { "content-type": "application/json" }, signal: ctl.signal,
+      body: JSON.stringify({ site: "money", q: q.slice(0, 300), chunks: hits.map(h => ({ id: h.id, title: h.title, url: h.url })) })   // the Worker reads the text from the published site-index.json by id });
+    if (!r.ok) throw new Error("worker " + r.status);
+    const j = await r.json(); if (!j || typeof j.answer !== "string" || !j.answer.trim()) throw new Error("empty");
+    const body = escHtml(j.answer.trim().slice(0, 1500)).replace(/\[([^\]]{1,80})\]\(([^)\s]{1,200})\)/g, (all, t, u) => safeLink(u) ? `<a href="${u}"${u[0] === "#" ? "" : ' target="_blank" rel="noopener"'}>${t}</a>` : t);
+    const src = [...new Map(hits.map(h => [h.url, h])).values()].slice(0, 3);
+    return { text: body + `\n\n<small>Answer written by AI from this site's pages: ${src.map(h => `<a href="${h.url}">${h.title}</a>`).join(" · ")}.</small>\n` + NOT_ADVICE, chips: ["Where do I start?", "Calculators", "Money Planner"] };
+  } finally { clearTimeout(timer); }
+}
+async function smartAnswer(q){
+  const hits = siteSearch(q); if (!hits.length) return null;
+  if (ASK_WORKER) { try { return await aiAnswer(q, hits); } catch (e) { /* fall back to the local passage */ } }
+  return localAnswer(q, hits);
+}
 const L = (id, label) => `<a href="#learn/${id}">${label || (LESSONS.find(x => x.id === id) || {}).title || id}</a>`;
 const C = (id, label) => `<a href="#calculators/${id}">${label || (CALCS.find(x => x.id === id) || {}).title || id}</a>`;
 const topic = (txt, chips) => ({ text: txt + "\n\n<small>Educational only, not advice.</small>", chips: chips || ["Emergency fund", "SIP", "Money Planner", "Calculators"] });
 askRaj({
   tagline: "Chai pe paise ki baat",
-  foot: "A simple rule-based guide to this site's lessons and calculators. Educational only: no personal investment advice.",
+  foot: "Answers come only from this site's lessons and calculators. Educational only: no personal investment advice.",
   hello: "Namaste! ☕ I'm Ask Raj, Raj's automated helper (not Raj himself).\nAsk me about budgets, emergency funds, insurance, SIPs, index funds or retirement, and I'll point you to the right lesson or calculator.\n(I don't give personal investment advice.)",
   chips: ["Where do I start?", "Emergency fund", "SIP", "Index funds", "Money Planner", "Calculators"],
+  smart: smartAnswer, alwaysFirst: 3,
   rules: [
     [["which fund", "best fund", "best stock", "which stock", "recommend", "should i buy", "should i sell", "kaunsa fund", "konsa fund", "tip", "tips", "guaranteed", "double my money", "crypto", "bitcoin"], { text: "I can't recommend specific funds, stocks or crypto: that would be personal advice, and Raj is not a SEBI-registered adviser. 🙏\nWhat I can do is show you how to judge options yourself: " + L("costs", "costs and expense ratio") + ", " + L("index-funds", "index funds") + " and " + L("allocation", "splitting money across equity, debt and gold") + ".\nFor your own money, speak to a SEBI-registered adviser.", chips: ["Index funds", "Expense ratio", "Money Planner"] }],
     [["hi", "hello", "hey", "namaste", "hii", "helo"], { text: "Namaste! 🙏 Chai ready hai. What would you like to understand today?", chips: ["Where do I start?", "SIP", "Emergency fund"] }],
-    [["how are you built", "how do you work", "are you ai", "are you chatgpt", "built", "your code"], { text: "No AI inside me! I'm a list of keywords and replies, the same if-else + dictionary idea taught in the <a href=\"https://www.techsamjhoraj.com/#chatbot-3\" target=\"_blank\" rel=\"noopener\">AI + Python course</a> on our tech site. 🤖", chips: ["Where do I start?"] }],
+    [["how are you built", "how do you work", "are you ai", "are you chatgpt", "built", "your code"], { text: "Two layers! First a list of keywords and replies (the if-else + dictionary idea from the <a href=\"https://www.techsamjhoraj.com/#chatbot-3\" target=\"_blank\" rel=\"noopener\">AI + Python course</a>). For longer questions I search this site's lessons and calculators and quote the best passage" + (ASK_WORKER ? ", and an AI writes a short answer from those pages only" : "") + ". 🤖", chips: ["Where do I start?"] }],
     [["start", "beginner", "begin", "shuru", "where", "first", "path"], topic("Follow the learning path in order: start with " + L("budget") + ", then " + L("emergency-fund") + " and " + L("insurance") + ". Safety first, then investing. All 17 lessons are under <a href=\"#learn\">Learn</a>.", ["Emergency fund", "Insurance", "SIP"])],
     [["planner", "plan", "family", "verma", "tracker", "surplus"], topic("The <a href=\"#planner\">Money Planner</a> takes your income, expenses, savings and loans and shows how your monthly surplus could be split: insurance, costly debt, emergency fund, then goals. It runs only in your browser.")],
     [["emergency", "safety fund", "rainy day", "job loss", "buffer"], topic(L("emergency-fund") + " explains the target (usually several months of essential expenses) and where to keep it. Try the <a href=\"#planner\">Money Planner</a> to see your own number.", ["Insurance", "Loan payoff", "SIP"])],
@@ -1289,12 +1453,12 @@ askRaj({
     [["install", "app", "download", "home screen"], { text: "Tap the <b>Install</b> button at the top right to add Paisa Samjho Raj to your phone or computer like an app. 📲", chips: ["Where do I start?"] }],
     [["email", "notify", "subscribe", "newsletter", "update"], { text: "Use the <b>Get new lessons by email</b> box on the home page or at the end of any lesson. One short email per new lesson or episode; unsubscribe any time. 📬", chips: ["Where do I start?"] }],
     [["book", "books", "read", "reading"], { text: "📚 Recommended money books are on the <a href=\"#learn\">Learn</a> page (scroll to the bottom) and the home page. They are for learning, not advice.", chips: ["Where do I start?", "Index funds"] }],
-    [["menu"], { text: "☕ Aaj ka menu: 17 lessons, 7 calculators, 1 Money Planner and 50 video episodes. Kya lenge?", chips: ["Where do I start?", "Calculators", "Money Planner"] }],
+    [["menu"], { text: "☕ Aaj ka menu: " + LESSONS.length + " lessons, " + CALCS.length + " calculators, 1 Money Planner and " + EPISODES.length + " video episodes. Kya lenge?", chips: ["Where do I start?", "Calculators", "Money Planner"] }],
     [["contact", "question", "help", "raj", "mail"], { text: "Write to <b>samjhowithraj@gmail.com</b> with your question or an idea for the next episode. 🙂 (Questions may be answered in a video, without your name.)", chips: ["Where do I start?"] }],
     [["thank", "thanks", "shukriya", "dhanyavad", "nice", "great"], { text: "Shukriya! ☕ Ek aur sawaal?", chips: ["SIP", "Emergency fund", "Money Planner"] }],
     [["bye", "band", "close", "exit"], { text: "Phir milenge! 👋 Paisa samjho, aaram se.", chips: ["Where do I start?"] }],
   ],
-  fallback: { text: "Samjha nahi! 😅 I'm a simple bot and only know money keywords.\nTry: <b>emergency fund</b>, <b>insurance</b>, <b>SIP</b>, <b>index funds</b>, <b>retirement</b> or <b>calculators</b>.", chips: ["Where do I start?", "SIP", "Calculators"] },
+  fallback: { text: "Samjha nahi! 😅 I couldn't find that on this site.\nTry: <b>emergency fund</b>, <b>insurance</b>, <b>SIP</b>, <b>index funds</b>, <b>retirement</b> or <b>calculators</b>.", chips: ["Where do I start?", "SIP", "Calculators"] },
 });
 // ---------- installable app (PWA) ----------
 // Chrome / Edge on Android and desktop: real install prompt. iPhone, in-app browsers (WhatsApp, Instagram, Facebook)

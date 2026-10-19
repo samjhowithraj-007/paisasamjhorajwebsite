@@ -1,0 +1,471 @@
+{
+ "site": "money",
+ "built": "2026-10-19",
+ "items": [
+  {
+   "id": "lesson-budget-1",
+   "type": "lesson",
+   "title": "Where does the salary go?",
+   "url": "#learn/budget",
+   "text": "Track one month, then split essentials, wants and yearly costs. Most families don't overspend on one big thing. Money leaks through dozens of small payments: UPI, delivery apps, subscriptions, EMIs. You can't plan what you haven't measured. Sort every rupee into three groups: essentials (rent, groceries, fees, bills, EMIs), wants (eating out, shopping, trips) and yearly costs (school admission, insurance renewal, Diwali, repairs). Yearly costs feel like emergencies only because nobody saved for them. Key points: Download last month's bank and card statements and tag each line. One honest month beats a perfect app. Treat the popular 50-30-20 split (needs, wants, savings) as a starting point, not a rule. In a high-rent city, needs may be 60% or more. Divide yearly costs by 12 and move that amount to a separate account every month."
+  },
+  {
+   "id": "lesson-budget-2",
+   "type": "lesson",
+   "title": "Where does the salary go?",
+   "url": "#learn/budget",
+   "text": "Pay yourself first: move savings out on salary day, then spend what is left. Worked example: The Verma family (fictional, Lucknow) takes home ₹1,00,000 a month. Essentials: ₹58,000. Yearly costs ÷ 12: ₹6,000. Leisure: ₹5,000. Left to plan: ₹31,000. Do this today: List last month's spending in the three groups. Find one want you can cut without feeling it. Remember: You can't fix what you don't measure. Track one month first."
+  },
+  {
+   "id": "lesson-emergency-fund-1",
+   "type": "lesson",
+   "title": "How big should the emergency fund be?",
+   "url": "#learn/emergency-fund",
+   "text": "4–9 months of essentials, kept safe and quick to reach. An emergency fund pays for job loss, a hospital bill or an urgent repair without a credit card or a loan. It is insurance for your plan: without it, one bad month forces you to sell investments at the wrong time. Size it on essential monthly expenses, not on income. The less stable the income, the bigger the cushion. Key points: Very stable job (government, PSU): around 4 months. Private salary: around 6. Self-employed or variable income: 9 or more. Add a month if there is only one earner or many dependants. Keep it where it is safe and quick to withdraw: a savings account, sweep-in FD or a liquid fund. Not in shares. Build it step by step: first ₹50,000, then one month, then the full target. Worked example: Verma family essentials are ₹58,000 a month, with a private-sector salary. Months: 6. Target: ₹3.48 lakh."
+  },
+  {
+   "id": "lesson-emergency-fund-2",
+   "type": "lesson",
+   "title": "How big should the emergency fund be?",
+   "url": "#learn/emergency-fund",
+   "text": "At ₹15,000 a month: about 2 years. Do this today: Write down your essential monthly cost and multiply it by your number of months. That is your target. Remember: Your emergency fund protects your investments from your emergencies."
+  },
+  {
+   "id": "lesson-insurance-1",
+   "type": "lesson",
+   "title": "Health and term insurance first",
+   "url": "#learn/insurance",
+   "text": "Insure the risk you can't afford. Keep insurance and investment separate. One hospital stay can wipe out years of savings, and the loss of an earner can end a family's plan. Insurance moves these big risks to an insurer for a small yearly cost. Health insurance pays hospital bills. Term life insurance pays your family a lump sum if you die during the policy term. It has no maturity value, which is why it is cheap. Key points: An employer group policy usually ends when you leave the job. Keep a personal family floater as well. Parents usually need their own policy; senior premiums are higher, so start early. A common rule of thumb for term cover is about 10 times yearly income plus outstanding loans. Endowment and money-back policies mix insurance with low-return saving. Usually it is better to buy pure term cover and invest separately. Disclose health conditions honestly."
+  },
+  {
+   "id": "lesson-insurance-2",
+   "type": "lesson",
+   "title": "Health and term insurance first",
+   "url": "#learn/insurance",
+   "text": "A rejected claim is worse than a higher premium. Worked example: An earner with ₹12 lakh yearly income and a ₹10 lakh car loan. Term cover (10×): ₹1.2 crore. Plus loans: ₹1.3 crore. Family health cover: ₹10–15 lakh. Do this today: Check your current cover. Is it from your employer only? Is it pure term? Note the gaps. Remember: Insurance is for protection. Investments are for growth. Don't mix them."
+  },
+  {
+   "id": "lesson-debt-1",
+   "type": "lesson",
+   "title": "Which loan to pay off first?",
+   "url": "#learn/debt",
+   "text": "Costly debt is a guaranteed negative return. Clear it before investing. Credit cards can charge up to about 3.75% a month, roughly 45% a year, plus 18% GST on the interest (SBI Card, HDFC Bank and ICICI Bank terms, checked 19 Oct 2026). No safe investment earns that, so paying off this debt is the best 'return' you can get. Low-rate loans with a clear purpose (home, education) can usually run on their normal EMI. High-rate loans (credit card, app loans, personal loans) should go first. Key points: Always pay the full credit-card bill. Paying only the 'minimum due' keeps interest running on the whole balance. Avalanche method: pay extra on the highest-rate loan first. It saves the most interest. Snowball method: clear the smallest loan first. It saves less, but quick wins keep some people going. 'No-cost EMI' can hide a processing fee or a lost cash discount. Compare the total you pay."
+  },
+  {
+   "id": "lesson-debt-2",
+   "type": "lesson",
+   "title": "Which loan to pay off first?",
+   "url": "#learn/debt",
+   "text": "Worked example: ₹1 lakh of credit-card dues at 3.75% a month, left unpaid for a year. Interest (simple): about ₹45,000. Plus 18% GST on it: about ₹8,100. With monthly compounding: more than this. Do this today: List every loan with its interest rate. Put the highest rate on top: that is your first target. Remember: Paying off a 45% loan is like earning a guaranteed 45%."
+  },
+  {
+   "id": "lesson-compounding-1",
+   "type": "lesson",
+   "title": "Compounding: money that earns money",
+   "url": "#learn/compounding",
+   "text": "Returns on returns. Time matters more than the amount. Compounding means your returns also start earning returns. In the early years growth looks slow; in later years most of the growth comes from past growth. The Rule of 72 is a quick check: 72 ÷ yearly return ≈ years to double. At 12% money doubles in about 6 years; at 6% it takes about 12. Key points: Starting early beats investing more later, because the early money gets the most years. Interrupting compounding (withdrawing, stopping SIPs) costs more than it seems. Fees and taxes compound too, in the wrong direction. Higher assumed returns usually mean higher risk. Use modest assumptions for planning. Worked example: ₹1 lakh invested once, growing at an assumed 10% a year. After 10 years: ₹2.59 lakh. After 20 years: ₹6.73 lakh. After 30 years: ₹17.45 lakh."
+  },
+  {
+   "id": "lesson-compounding-2",
+   "type": "lesson",
+   "title": "Compounding: money that earns money",
+   "url": "#learn/compounding",
+   "text": "Do this today: Use the Lumpsum calculator: try 10, 20 and 30 years and watch the last decade. Remember: The best time to start was earlier. The next best time is now."
+  },
+  {
+   "id": "lesson-inflation-1",
+   "type": "lesson",
+   "title": "Inflation: the silent salary cut",
+   "url": "#learn/inflation",
+   "text": "Prices rise every year. Plan goals in future rupees. Inflation is the rise in prices over time. If prices rise 6% a year, ₹100 buys only about ₹94 worth of today's goods next year. That is why a goal like college or retirement must be planned in future rupees, and why money sitting idle in a savings account slowly loses value. Key points: Real return ≈ your return minus inflation. A 7% FD with 6% inflation grows real wealth by only about 1% (less after tax). Education and medical costs often rise faster than general inflation. Lifestyle inflation is the personal version: spending rises with every raise. Save a share of every increment first. Worked example: Household expenses of ₹50,000 a month, at an assumed 6% inflation. In 20 years: ₹1.6 lakh a month. ₹1 crore in 25 years: ≈ ₹23 lakh in today's money. Do this today: Use the Inflation calculator on one of your goals."
+  },
+  {
+   "id": "lesson-inflation-2",
+   "type": "lesson",
+   "title": "Inflation: the silent salary cut",
+   "url": "#learn/inflation",
+   "text": "Note the future cost. Remember: Plan in future rupees, not today's prices."
+  },
+  {
+   "id": "lesson-horizon-1",
+   "type": "lesson",
+   "title": "Saving vs investing: match money to time",
+   "url": "#learn/horizon",
+   "text": "When you need the money decides where it should sit. Saving keeps money safe for near needs. Investing accepts ups and downs to grow money for distant goals. Both are needed; the mistake is using the wrong one for a goal. Risk is not only losing money. It is also needing the money exactly when markets are down. Key points: Under 3 years: keep it safe (savings, FD, RD, liquid or short-term debt funds). 3–7 years: a mix of debt and some equity, depending on how flexible the goal is. 7+ years: equity funds can be considered, because there is time to recover from falls. Move money to safer options 2–3 years before a fixed-date goal like college fees. Worked example: Three goals for the same family. New bike in 2 years: Safe options. Home down payment in 5 years: Mix. Retirement in 25 years: Mostly equity. Do this today: Write each goal with its year."
+  },
+  {
+   "id": "lesson-horizon-2",
+   "type": "lesson",
+   "title": "Saving vs investing: match money to time",
+   "url": "#learn/horizon",
+   "text": "Put a label next to it: safe, mix or growth. Remember: Short goal, safe money. Long goal, growth money."
+  },
+  {
+   "id": "lesson-mutual-funds-1",
+   "type": "lesson",
+   "title": "Mutual funds in plain words",
+   "url": "#learn/mutual-funds",
+   "text": "A shared pot, managed for you, priced daily as NAV. A mutual fund pools money from many investors and invests it in shares, bonds or both. You own units of the pot. The price of one unit is the NAV , calculated every business day. Funds in India are regulated by SEBI. Your money is held by a custodian, not by the fund manager, but the value of the investments can still go down. Key points: Equity funds invest mainly in shares: higher growth potential, bigger swings. Debt funds invest in bonds and deposits: steadier, lower growth, with interest-rate and credit risk. Hybrid funds mix both. Every scheme shows a riskometer and publishes its portfolio. Read the scheme documents before investing. Past returns do not predict future returns. Worked example: You invest ₹10,000 when the NAV is ₹50. Units bought: 200. If NAV becomes ₹60: ₹12,000. If NAV falls to ₹45: ₹9,000."
+  },
+  {
+   "id": "lesson-mutual-funds-2",
+   "type": "lesson",
+   "title": "Mutual funds in plain words",
+   "url": "#learn/mutual-funds",
+   "text": "Do this today: Open any fund's factsheet and find three things: NAV, expense ratio, riskometer. Remember: You own units of a shared pot, and the pot's value moves every day."
+  },
+  {
+   "id": "lesson-sip-1",
+   "type": "lesson",
+   "title": "SIP: invest a fixed amount every month",
+   "url": "#learn/sip",
+   "text": "A habit, not a product. Returns are never guaranteed. A SIP (systematic investment plan) invests a fixed amount into a mutual fund on a set date every month. It is a way of investing, not a type of fund. Because the amount is fixed, you buy more units when prices are low and fewer when they are high. This is called rupee-cost averaging, and it removes the stress of timing the market. Key points: Start with an amount you can continue in a bad month; consistency matters more than size. Step up the SIP every year with your salary increase. Even 10% a year makes a big difference. A SIP in an equity fund can still show losses for months or a year or two. That is normal. Link every SIP to a goal and its time horizon. Worked example: ₹5,000 a month for 20 years at an assumed 12% a year (illustrative). You invest: ₹12 lakh. Possible value: ₹46 lakh. With 10% yearly step-up: ₹93 lakh."
+  },
+  {
+   "id": "lesson-sip-2",
+   "type": "lesson",
+   "title": "SIP: invest a fixed amount every month",
+   "url": "#learn/sip",
+   "text": "Do this today: Use the SIP calculator, then the Step-up SIP calculator with the same numbers. Remember: Start small, stay regular, step up every year."
+  },
+  {
+   "id": "lesson-costs-1",
+   "type": "lesson",
+   "title": "Direct vs regular plans and expense ratio",
+   "url": "#learn/costs",
+   "text": "The same fund can cost you very different amounts. Every fund charges a yearly fee called the expense ratio , taken out of the NAV. You never see a bill, so it is easy to ignore. Each fund has a regular plan (bought through a distributor, includes commission) and a direct plan (bought directly, no commission). Same portfolio, same manager; the direct plan has a lower expense ratio. Key points: Compare expense ratios within the same category. Index funds usually cost the least. A 1% yearly difference looks tiny but compounds over decades. If you need advice, paying a SEBI-registered adviser a fee and investing in direct plans is one option. Check exit loads and taxes before switching an existing investment. Worked example: ₹10,000 a month for 25 years, assumed 12% gross return. Cost 0.5% a year: ₹1.57 crore. Cost 1.5% a year: ₹1.34 crore. Difference: ₹22.9 lakh."
+  },
+  {
+   "id": "lesson-costs-2",
+   "type": "lesson",
+   "title": "Direct vs regular plans and expense ratio",
+   "url": "#learn/costs",
+   "text": "Do this today: Find the expense ratio of each fund you own. Use the Fee impact calculator. Remember: Costs are certain; returns are not. Keep costs low."
+  },
+  {
+   "id": "lesson-index-funds-1",
+   "type": "lesson",
+   "title": "Index funds: own the whole market",
+   "url": "#learn/index-funds",
+   "text": "Copy an index like the Nifty 50 at low cost. An index fund simply buys all the shares in an index, such as the Nifty 50 or the Sensex, in the same proportions. It does not try to beat the market; it tries to match it. Active funds try to beat their index, and charge more for it. S&P's SPIVA reports regularly show that many active funds fail to beat their benchmark over long periods. Key points: Low cost and easy to understand: you know what you own. Tracking error shows how closely the fund follows its index. Lower is better. A broad index (Nifty 50, Nifty 500) is a common core holding. Narrow sector or theme indices carry more risk. Index funds still fall when the market falls. Worked example: Nifty 50 index fund vs an active large-cap fund. Goal: Match vs beat the index. Typical cost: Lower vs higher. Manager risk: None vs some."
+  },
+  {
+   "id": "lesson-index-funds-2",
+   "type": "lesson",
+   "title": "Index funds: own the whole market",
+   "url": "#learn/index-funds",
+   "text": "Do this today: Compare one index fund and one active fund in the same category on 10-year returns after costs. Remember: If you can't beat the market cheaply, own it cheaply."
+  },
+  {
+   "id": "lesson-etf-1",
+   "type": "lesson",
+   "title": "ETFs: index funds that trade like shares",
+   "url": "#learn/etf",
+   "text": "Bought on the stock exchange through a demat account. An ETF (exchange-traded fund) holds a basket like an index fund, but its units are bought and sold on the stock exchange during market hours, like a share. You need a demat and trading account. The price you pay is the market price, which can be slightly above or below the fund's NAV. Key points: Popular types: Nifty 50 / Sensex ETFs, gold ETFs, liquid ETFs and international ETFs. Check trading volume and the bid-ask spread. A thinly traded ETF can cost more than its expense ratio suggests. There is brokerage and other charges on each trade. For an automatic monthly SIP, an index mutual fund is often simpler; ETFs suit people comfortable placing orders. Worked example: Index fund vs ETF on the same index. Buy through: Fund house vs stock exchange. Price: NAV once a day vs live price. Needs demat: No vs yes."
+  },
+  {
+   "id": "lesson-etf-2",
+   "type": "lesson",
+   "title": "ETFs: index funds that trade like shares",
+   "url": "#learn/etf",
+   "text": "Do this today: If you have a demat account, look up a Nifty 50 ETF and note its price, NAV and volume. Remember: Same basket, different wrapper. Choose the one you'll use well."
+  },
+  {
+   "id": "lesson-allocation-1",
+   "type": "lesson",
+   "title": "Equity, debt and gold: splitting your money",
+   "url": "#learn/allocation",
+   "text": "Asset allocation decides most of your risk. Different assets behave differently. Equity grows the most over long periods but swings the most. Debt is steadier. Gold often holds up when other assets struggle. How you split money between them (asset allocation) matters more than which single fund you pick. Key points: Decide the split per goal, based on time horizon and how much fall you can sit through. Rebalance once a year: sell a little of what grew, add to what fell, back to your target split. Thumb rules like '100 minus age in equity' are only rough starting points. Real estate and your EPF/PPF also count when you look at your total split. Worked example: An illustrative split for a 15-year goal (not a recommendation). Equity: 60%. Debt: 30%. Gold: 10%. Do this today: Add up what you own in each asset. Write down the split you'd be comfortable with."
+  },
+  {
+   "id": "lesson-allocation-2",
+   "type": "lesson",
+   "title": "Equity, debt and gold: splitting your money",
+   "url": "#learn/allocation",
+   "text": "Remember: Your split matters more than your fund."
+  },
+  {
+   "id": "lesson-market-fall-1",
+   "type": "lesson",
+   "title": "Market fell! What should you do?",
+   "url": "#learn/market-fall",
+   "text": "Falls are normal. Your plan decides the reaction. Big falls are part of investing in shares. The Nifty 50 fell roughly 60% from its peak in 2008 and about 38% in early 2020, and recovered both times, though nobody knew how long it would take. Panic-selling turns a temporary fall into a permanent loss. The emergency fund and the right asset split are what let you sit tight. Key points: If the goal is many years away, a fall is usually a time to continue SIPs, not stop them. If the goal is close, the money should already have been moved to safer options. Look at your portfolio less often during a crash. Rebalancing after a fall means buying equity at lower prices, which is uncomfortable but useful. Worked example: Two investors during a 30% fall. Stops SIP, sells: Locks in the loss. Continues SIP: Buys more units cheaply."
+  },
+  {
+   "id": "lesson-market-fall-2",
+   "type": "lesson",
+   "title": "Market fell! What should you do?",
+   "url": "#learn/market-fall",
+   "text": "Do this today: Write one line in your notes: 'If markets fall 30%, I will…' and stick it where you'll see it. Remember: Decide your crash plan before the crash."
+  },
+  {
+   "id": "lesson-goals",
+   "type": "lesson",
+   "title": "Goal-based investing",
+   "url": "#learn/goals",
+   "text": "Name it, date it, price it in future rupees, then invest for it. 'Save more' is a wish. 'College fees of ₹31 lakh in 12 years' is a plan. Every goal needs a name, a date and a future cost. Then choose where to invest based on the time left, and work out the monthly amount. Key points: Use goal-specific inflation: education often rises faster than general prices. Keep separate pots (or at least separate tracking) for each goal. Move to safer options 2–3 years before the goal date. Review once a year and step up the amount with income. Worked example: College costs ₹10 lakh today, needed in 12 years, at assumed 10% education inflation and 11% return. Future cost: ₹31.4 lakh. SIP needed: about ₹10,900 a month. Do this today: Pick your most important goal and run it through the Goal calculator. Remember: A goal without a date and a number is just a wish."
+  },
+  {
+   "id": "lesson-retirement-1",
+   "type": "lesson",
+   "title": "Retirement: EPF, PPF and NPS",
+   "url": "#learn/retirement",
+   "text": "The longest goal. Start early; use each product for its job. Retirement may last 25 years or more, with no salary and rising medical costs. It is the goal most families start too late. EPF is built from salary deductions with an employer contribution. PPF is a government-backed savings scheme with a 15-year lock-in. NPS invests in market-linked funds and is largely locked until 60, with rules on withdrawals and annuities that change from time to time. Key points: EPF and PPF give stability; equity funds (directly or via NPS) give growth. Most people need some of both. Don't withdraw EPF when you change jobs; transfer it. Interest rates and tax rules on these schemes change. Check the current rules before investing. A rough target is many years of expenses at retirement, adjusted for inflation; the Money Planner works it out."
+  },
+  {
+   "id": "lesson-retirement-2",
+   "type": "lesson",
+   "title": "Retirement: EPF, PPF and NPS",
+   "url": "#learn/retirement",
+   "text": "Worked example: ₹5,000 a month until 60, at an assumed 10% return. Start at 25: ₹1.71 crore. Start at 35: ₹62 lakh. Cost of waiting 10 years: ₹1.09 crore. Do this today: Find your EPF balance on the EPFO portal and add it to the Money Planner. Remember: For retirement, time is the biggest contributor."
+  },
+  {
+   "id": "lesson-global-1",
+   "type": "lesson",
+   "title": "Investing outside India",
+   "url": "#learn/global",
+   "text": "Spread risk across countries and currencies. Indian shares are a small slice of the world market. Global investing spreads risk across countries and lets you own companies not listed in India. Your return also depends on the currency: if the rupee weakens against the dollar, a dollar investment is worth more in rupees, and the reverse. Key points: Routes: international mutual funds and fund-of-funds, international ETFs listed in India, or an overseas brokerage account under the RBI's Liberalised Remittance Scheme. Industry-wide limits on overseas investment by Indian funds have at times stopped new money into some international funds. Tax treatment, TCS on remittances and foreign-asset reporting are different from Indian investments. Check current rules. An S&P 500 fund is heavy in large US companies; a Nasdaq-100 fund is concentrated in technology."
+  },
+  {
+   "id": "lesson-global-2",
+   "type": "lesson",
+   "title": "Investing outside India",
+   "url": "#learn/global",
+   "text": "Worked example: An illustrative way to start (not a recommendation). Core: Indian index fund. Add-on: 5–15% global index. Review: Once a year. Do this today: Check whether any fund you own already invests abroad. Many flexi-cap funds do. Remember: Diversify across countries, but understand currency and tax first."
+  },
+  {
+   "id": "calc-sip",
+   "type": "calculator",
+   "title": "SIP calculator",
+   "url": "#calculators/sip",
+   "text": "What a fixed monthly investment could grow to. Each instalment goes in at the start of the month and grows at the monthly rate that equals your yearly return: (1 + yearly return) 1/12 − 1. Formula: Value = P × [((1 + i)^(n) − 1) ÷ i] × (1 + i). P = monthly amount, i = monthly rate, n = number of months. Example with the starting numbers: Invested ₹9,00,000; Estimated returns ₹14,79,657; Total value ₹23,79,657. Assumes the amount is invested at the start of every month and the return is earned steadily. Real returns vary year to year and can be negative. Is this return guaranteed? No. Equity funds go up and down, and some years are negative. The 12% default is only an assumption to play with. Try 8% and 10% too. Why does my fund app show a slightly different number? Apps may use yearly return ÷ 12 as the monthly rate, different dates or real past prices. Small gaps are normal.",
+   "checked": "19 Oct 2026"
+  },
+  {
+   "id": "calc-stepup",
+   "type": "calculator",
+   "title": "Step-up SIP calculator",
+   "url": "#calculators/stepup",
+   "text": "Raise your SIP every year with your salary. Same maths as the SIP calculator, but the monthly amount goes up by your chosen percentage at the start of every year. The dotted line is the same SIP without the increase. Formula: Amount in year k = P × (1 + step)^(k − 1). P = starting monthly amount, step = yearly increase. Example with the starting numbers: Invested ₹34,36,500; Total value ₹93,15,692; Without step-up ₹45,99,287; Extra from step-up ₹47,16,405. The monthly amount goes up by 10% at the start of each year, so in year 20 you invest ₹30,580 a month. How much should the step-up be? Many people match their yearly salary rise. Pick a step you can keep up in a bad year too. How do I set it up? Many fund houses offer a yearly top-up option when you start a SIP, or you can raise the amount yourself each year.",
+   "checked": "19 Oct 2026"
+  },
+  {
+   "id": "calc-lumpsum",
+   "type": "calculator",
+   "title": "Lumpsum calculator",
+   "url": "#calculators/lumpsum",
+   "text": "Growth of a one-time investment. A one-time amount grows once a year at the assumed return. 'Doubles in about' uses the Rule of 72: 72 ÷ yearly return ≈ years to double. Formula: Value = A × (1 + r)^(years). A = amount invested, r = yearly return. Example with the starting numbers: Invested ₹1,00,000; Estimated returns ₹2,10,585; Total value ₹3,10,585; Doubles in about 6.0 years. Compounded once a year at a steady assumed rate. 'Doubles in about' uses the Rule of 72. Lumpsum or SIP? Same maths, different timing. A lumpsum stays invested longer; a SIP spreads out the timing risk. Many families use both. Does this include tax? No. Values are before tax. Gains are taxed when you sell, by the rules that apply then.",
+   "checked": "19 Oct 2026"
+  },
+  {
+   "id": "calc-goal-1",
+   "type": "calculator",
+   "title": "Goal calculator",
+   "url": "#calculators/goal",
+   "text": "How much to invest each month for a future goal. First the goal's cost is grown by inflation to the target year. Your existing savings are grown at the return. The gap left is turned into a monthly SIP by running the SIP formula backwards. Formula: Cost then = cost today × (1 + inflation)^(years). SIP needed = gap × i ÷ ([(1 + i) n − 1] × (1 + i)). Example with the starting numbers: Goal cost then ₹25,18,170; Monthly SIP needed ₹8,727; Or one-time today ₹7,19,796; Your savings will grow to ₹0. ₹10,00,000 today becomes ₹25,18,170 in 12 years at 8% a year. For goals under 3 years, use a lower, safer return. What inflation should I use? Education and medical costs often rise faster than general prices, so try a higher number for them. Run a few values and plan for the higher one. My goal is less than 3 years away. What return?",
+   "checked": "19 Oct 2026"
+  },
+  {
+   "id": "calc-goal-2",
+   "type": "calculator",
+   "title": "Goal calculator",
+   "url": "#calculators/goal",
+   "text": "Use a low, safe return, because money for a near goal is usually kept in deposits or debt funds, not shares.",
+   "checked": "19 Oct 2026"
+  },
+  {
+   "id": "calc-inflation",
+   "type": "calculator",
+   "title": "Inflation calculator",
+   "url": "#calculators/inflation",
+   "text": "What today's cost becomes in the future. Prices grow every year at the inflation rate you choose. The second line shows what today's amount will be worth in today's prices. Formula: Future cost = cost today × (1 + inflation)^(years). Today's value of a future amount = amount ÷ (1 + inflation) years. Example with the starting numbers: Cost today ₹50,000; Same thing then ₹1,60,357; ₹50,000 then buys ₹15,590 of today. Inflation compounds like returns, only against you. Which inflation number should I use? Your family's own costs matter more than the national average. School fees, rent and medical bills often rise faster. Try a few values. Why does it matter? Money kept idle loses buying power every year. Long goals need money that can grow faster than prices, with the risks that come with that.",
+   "checked": "19 Oct 2026"
+  },
+  {
+   "id": "calc-fees-1",
+   "type": "calculator",
+   "title": "Fee impact calculator",
+   "url": "#calculators/fees",
+   "text": "What a higher expense ratio costs you over time. Both plans earn the same return before costs. The yearly cost (expense ratio) is subtracted from the return, and the gap compounds over the years. Formula: Return after cost = return − expense ratio. Each plan then uses the SIP formula with its own return. Example with the starting numbers: Value at 0.5% cost ₹1,57,26,133; Value at 1.5% cost ₹1,34,39,030; Lost to the extra cost ₹22,87,104. Simplified: the yearly cost is subtracted from the return. Direct plans, index funds and ETFs usually have the lowest costs. Where do I find the expense ratio? In the fund's factsheet or on the fund house's website. A direct plan of a fund costs less than its regular plan because no distributor commission is paid. Is the cheaper option always better? For the same fund or the same index, yes.",
+   "checked": "19 Oct 2026"
+  },
+  {
+   "id": "calc-fees-2",
+   "type": "calculator",
+   "title": "Fee impact calculator",
+   "url": "#calculators/fees",
+   "text": "Between different funds, cost is one factor, along with risk and how well the fund fits your goal.",
+   "checked": "19 Oct 2026"
+  },
+  {
+   "id": "calc-emi",
+   "type": "calculator",
+   "title": "EMI calculator",
+   "url": "#calculators/emi",
+   "text": "Monthly EMI and total interest on a loan. Interest is charged every month on the loan still owed (reducing balance). The EMI stays the same; early EMIs are mostly interest, later ones mostly principal. Formula: EMI = P × i × (1 + i)^(n) ÷ ((1 + i)^(n) − 1). P = loan, i = yearly rate ÷ 12, n = months. Example with the starting numbers: Monthly EMI ₹26,035; Total interest ₹32,48,327; Total paid ₹62,48,327; Interest as % of loan 108%. Reducing-balance EMI. Prepaying early in the loan saves the most interest. Check prepayment charges first. Why is most of my early EMI interest? Interest is worked out on the balance left, which is largest at the start. Can the bank charge me for prepaying? RBI rules bar prepayment charges on floating-rate loans taken by individuals for non-business use. Fixed-rate loans may have charges, so check your loan papers.",
+   "checked": "19 Oct 2026"
+  },
+  {
+   "id": "calc-networth-1",
+   "type": "calculator",
+   "title": "Net worth calculator",
+   "url": "#calculators/networth",
+   "text": "What you own minus what you owe: your family's report card. Add up what you own at today's value, then subtract the full amount you still owe on every loan and card (not the EMI). Formula: Net worth = what you own − what you owe. Use resale value for cars and today's price for gold. Example with the starting numbers: You own ₹9,10,000; You owe ₹1,70,000; Net worth ₹7,40,000; Owe as % of own 19%. Use today's resale values, not purchase prices. A car loses value every year. Clear credit-card dues first: they cost up to about 45% a year. Your loans are bigger than your cash and investments together. Work it out on the same date every year and watch the trend, not one number. Should I count my house? Count it for the full picture, but also look at the number without it: you can't easily spend the home you live in. How often should I check? Once a year, on the same date.",
+   "checked": "19 Oct 2026"
+  },
+  {
+   "id": "calc-networth-2",
+   "type": "calculator",
+   "title": "Net worth calculator",
+   "url": "#calculators/networth",
+   "text": "The trend matters more than any one number.",
+   "checked": "19 Oct 2026"
+  },
+  {
+   "id": "calc-emergency-1",
+   "type": "calculator",
+   "title": "Emergency fund calculator",
+   "url": "#calculators/emergency",
+   "text": "How many months of essentials to keep aside, and how long it takes to build. Target = essential monthly expenses × months. Months: 4 for a government or PSU job, 6 for a private salary, 9 for self-employed or variable income; +1 for a single earner and +1 for 3 or more dependants, up to 12. Same rule as the Money Planner. Formula: Target = essentials × months. Time to reach it = (target − already saved) ÷ monthly saving. Example with the starting numbers: Months to keep 6 months; Target ₹3,48,000; Still to save ₹2,88,000; Time to reach it 1 yr 8 mo. 6 months for this income type. Essentials are rent or EMI, food, bills, school fees, transport and insurance premiums, not shopping or trips. Keep it safe and quick to reach (savings account, sweep-in FD or liquid fund), not in shares. Where should I keep it?",
+   "checked": "19 Oct 2026"
+  },
+  {
+   "id": "calc-emergency-2",
+   "type": "calculator",
+   "title": "Emergency fund calculator",
+   "url": "#calculators/emergency",
+   "text": "Somewhere safe and quick to reach: a savings account, a sweep-in FD or a liquid fund. Not in shares. Doesn't health insurance cover emergencies? Only hospital bills. The emergency fund pays rent, EMIs, fees and food if income stops.",
+   "checked": "19 Oct 2026"
+  },
+  {
+   "id": "calc-term-1",
+   "type": "calculator",
+   "title": "Term insurance cover calculator",
+   "url": "#calculators/term",
+   "text": "A rough, illustrative size for term life cover. A rough size: years of income your family would need, plus loans and big goals, minus savings they could use. Cover you already have is shown separately. Formula: Cover = income × years + loans + goals − savings. Gap = cover needed − cover you already have. Example with the starting numbers: Income part ₹1.2 crore; Cover needed (illustrative) ₹1.3 crore; You have ₹0; Gap ₹1.3 crore. A rule of thumb only: about 10 times yearly income plus loans is a common starting point. Count pure term plans only, not endowment or money-back policies. Each earner needs their own cover. The right amount and premium depend on age, health and the insurer, so compare plans and read the policy terms before buying. Why pure term and not a plan with returns?",
+   "checked": "19 Oct 2026"
+  },
+  {
+   "id": "calc-term-2",
+   "type": "calculator",
+   "title": "Term insurance cover calculator",
+   "url": "#calculators/term",
+   "text": "A pure term plan pays only if the insured person dies during the term, so it gives far more cover per rupee. Endowment and money-back plans mix small cover with low returns. How long should the cover run? Usually until children are independent and big loans are paid off. Your age, health and the insurer decide the premium.",
+   "checked": "19 Oct 2026"
+  },
+  {
+   "id": "calc-card-1",
+   "type": "calculator",
+   "title": "Credit card interest calculator",
+   "url": "#calculators/card",
+   "text": "Paying only the minimum due versus the full bill. Each month, interest and GST on it are added to the balance, then your payment is taken off. Minimum due = that month's interest and GST + your chosen % of the balance, at least ₹200. No new spending is assumed. Formula: Balance next month = (balance + interest + GST) − payment. Interest = balance × monthly rate; GST = 18% of interest. Example with the starting numbers: Pay the full bill ₹0 interest; Minimum due only ₹43,178 interest; Time with minimum due 6 yrs 5 mo; Paying ₹5,000 a month ₹17,499 in 1 yr 2 mo. Interest of 3.75% a month is about 45% a year, plus 18% GST on it. First minimum due is about ₹4,713. Assumes no new spending on the card, a minimum due of all interest and GST plus 5% of the bill (at least ₹200), and interest from the statement date.",
+   "checked": "19 Oct 2026"
+  },
+  {
+   "id": "calc-card-2",
+   "type": "calculator",
+   "title": "Credit card interest calculator",
+   "url": "#calculators/card",
+   "text": "In real life it is charged from each purchase date, and any unpaid balance also cancels the interest-free period on new purchases, so the true cost is higher. Rates checked 19 Oct 2026: SBI Card, HDFC Bank and ICICI Bank list up to 3.75% a month (45% a year). Check your card's MITC. Do I lose the interest-free period? Yes. If any part of the last bill is unpaid, new purchases get no interest-free days and interest runs from each purchase date. Your card's MITC (most important terms) says this. What if I can't pay the full bill? Pay as much as you can, stop using the card, and ask the bank about turning the dues into an EMI at a lower rate. Clear this debt before investing.",
+   "checked": "19 Oct 2026"
+  },
+  {
+   "id": "planner-1",
+   "type": "planner",
+   "title": "Money Planner",
+   "url": "#planner",
+   "text": "The Money Planner takes your household, income, expenses, savings, loans and goals and shows how your monthly surplus could be split between insurance, costly debt, the emergency fund and long-term goals: safety first, then the future. Order used: insurance, then costly debt, then emergency fund, then long-term goals; while safety is being built, 20% of the surplus still goes to goals. Private: everything is calculated in your browser and nothing you type is sent anywhere; tick Remember to keep your inputs on this device only. You can load the fictional Verma family example or start blank. Rules of thumb you can change: emergency fund of 4 months for a government job, 6 for a private salary, 9 for variable income, +1 for a single earner and +1 for 3 or more dependants (up to 12). Term cover 10 times yearly income plus loans."
+  },
+  {
+   "id": "planner-2",
+   "type": "planner",
+   "title": "Money Planner",
+   "url": "#planner",
+   "text": "Family health cover ₹15 lakh in a metro and ₹10 lakh elsewhere, ₹5 lakh per parent. Loans at 12% or more count as costly debt, cleared over 18 months. Assumed yearly returns: equity 10%, safe 7%, EPF 8%; inflation 6%, education 10%. Educational and illustrative only, not advice; premiums are rough guesses."
+  },
+  {
+   "id": "series-1",
+   "type": "episode",
+   "title": "Middle-Class Family Ka Money Plan (video series)",
+   "url": "#series",
+   "text": "A 50-episode Hinglish video series following the fictional Verma family with ₹1 lakh a month take-home. Episode 01: ₹1 Lakh Salary Mein Family Ka Future Kaise Banayein? Introduce the example family and its competing goals. Live on YouTube. Episode 02: Salary Aati Hai, Phir Gayab Kahan Ho Jaati Hai? Track a month of spending. Episode 03: Zaroorat, Shauk Ya Pressure? Separate essentials, wants and social-pressure spending. Episode 04: 50-30-20 Budget Har Family Ke Liye Sahi Hai? Adapt budgeting to actual family obligations. Episode 05: ₹30,000, ₹60,000 Aur ₹1 Lakh: Teen Family Budgets. Compare priorities across incomes. Episode 06: School Fees Se Diwali Tak: Annual Kharch Ka Plan. Create monthly provisions for annual expenses. Episode 07: Mehngai Aapki Salary Ko Kaise Khaati Hai? Explain purchasing power and inflation. Episode 08: Salary Badhi, Bachat Kyun Nahi?"
+  },
+  {
+   "id": "series-2",
+   "type": "episode",
+   "title": "Middle-Class Family Ka Money Plan (video series)",
+   "url": "#series",
+   "text": "Identify lifestyle inflation. Episode 09: Couple Ka Money Meeting: Bina Jhagde Budget. Agree shared goals and personal spending. Episode 10: Apni Financial Report Card Banao. Calculate net worth and monthly surplus. Episode 11: Emergency Fund Kitna Hona Chahiye? Set a target from expenses and job stability. Episode 12: Pehla ₹50,000 Ka Safety Fund Kaise Banayein? Build a starter buffer. Episode 13: Emergency Ka Paisa Kahan Rakhein? Compare safety, liquidity and restrictions. Episode 14: Company Health Insurance Kaafi Hai? Examine coverage and continuity. Episode 15: Term Insurance Kitna Lena Chahiye? Estimate protection needs. Episode 16: Insurance Aur Investment: Dono Ko Kaise Samjhein? Compare protection, costs and savings benefits. Episode 17: Credit Card Ka Minimum Due: Chhota Payment, Bada Bill? Explain revolving interest. Episode 18: Teen Loans Hain—Pehle Kaunsa Chukayein?"
+  },
+  {
+   "id": "series-3",
+   "type": "episode",
+   "title": "Middle-Class Family Ka Money Plan (video series)",
+   "url": "#series",
+   "text": "Compare debt repayment approaches. Episode 19: No-Cost EMI Sach Mein Free Hai? Calculate the full purchase cost. Episode 20: Job Chali Gayi Toh Family Ka Plan Kya Hoga? Build a job-loss response plan. Episode 21: Saving Aur Investing Mein Kya Farak Hai? Match money to purpose and deadline. Episode 22: Compound Interest: Paisa Kaise Badhta Hai? Demonstrate time, contributions and assumptions. Episode 23: FD Aur RD: Simple Products, Kya Check Karein? Explain maturity, tax and early withdrawal. Episode 24: EPF, PPF Aur NPS: Kaunsa Kis Kaam Ka? Compare purpose and access rules. Episode 25: Mutual Fund Ko Bilkul Aasaan Bhasha Mein Samjho. Explain units, pooled investing and risk. Episode 26: SIP Kya Hai—Aur Kya Return Guaranteed Hai? Explain regular investing and uncertainty. Episode 27: Index Fund Ya Active Fund? Compare approaches and costs."
+  },
+  {
+   "id": "series-4",
+   "type": "episode",
+   "title": "Middle-Class Family Ka Money Plan (video series)",
+   "url": "#series",
+   "text": "Episode 28: Direct Plan, Regular Plan Aur Expense Ratio. Show how ongoing costs affect outcomes. Episode 29: Equity, Debt Aur Gold: Paisa Kaise Baantein? Introduce goal-based allocation. Episode 30: Market Gir Gaya! SIP Ka Kya Karein? Review time horizon and risk before reacting. Episode 31: India Ke Bahar Invest Kyun Karein? Explain geographic diversification. Episode 32: S&P 500, Nasdaq Aur Global Index Mein Farak. Compare concentration and exposure. Episode 33: India Se Global Investing Ke Raaste. Compare available fund and overseas account routes. Episode 34: Dollar Badha Toh Investment Ka Kya Hoga? Separate market and currency returns. Episode 35: Foreign Investing Ka Asli Kharcha. Examine costs, remittance rules and tax reporting. Episode 36: Rent Karein Ya Ghar Kharidein? Compare costs, flexibility and expected stay. Episode 37: Bank Kitna Dega vs Hum Kitna Afford Kar Sakte Hain?"
+  },
+  {
+   "id": "series-5",
+   "type": "episode",
+   "title": "Middle-Class Family Ka Money Plan (video series)",
+   "url": "#series",
+   "text": "Calculate an affordable EMI. Episode 38: Down Payment Ke Alawa Ghar Mein Kitna Paisa Lagta Hai? Include transaction and ownership costs. Episode 39: 20 Saal Ya 30 Saal Ka Home Loan? Compare EMI, total interest and rate scenarios. Episode 40: Home Loan Prepay Karein Ya SIP Badhayein? Compare savings, uncertainty, tax and liquidity. Episode 41: Bachchon Ki College Fees Ka Future Cost. Model education inflation. Episode 42: Do Bachche, Do Education Funds: Planning Kaise Karein? Set separate deadlines and targets. Episode 43: College Paas Aa Raha Hai—Investment Kab Safe Karein? Reduce risk as fees approach. Episode 44: Foreign Education: Savings, Scholarship Ya Loan? Compare funding and currency risks. Episode 45: Parents Ki Care Aur Bachchon Ka Future: Balance Kaise Ho? Plan eldercare alongside family goals. Episode 46: Retirement Ke Liye ₹1 Crore Kaafi Hai?"
+  },
+  {
+   "id": "series-6",
+   "type": "episode",
+   "title": "Middle-Class Family Ka Money Plan (video series)",
+   "url": "#series",
+   "text": "Estimate a spending-based retirement target. Episode 47: 30, 40 Ya 50 Ki Age Mein Retirement Saving Shuru Karein? Show the effect of starting later. Episode 48: Retirement Mein Monthly Income Kahan Se Aayegi? Compare pensions, deposits and withdrawals. Episode 49: Nominee, Will Aur Family Money Folder. Explain roles and organise financial records. Episode 50: ₹1 Lakh Family Ka Complete Financial Plan. Assemble a practical 12-month action plan."
+  },
+  {
+   "id": "about",
+   "type": "page",
+   "title": "About Raj and this site",
+   "url": "#about",
+   "text": "About Hi, I'm Raj. I make simple Hinglish videos on technology and money as Samjho with Raj. This website is the money side: plain-English notes, honest examples and tools you can use for your own family. Everything here is education. I am not a SEBI-registered investment adviser, and nothing on this site is a recommendation to buy or sell anything. Examples use assumed returns; real returns can be lower or negative. For decisions about your own money, speak to a SEBI-registered adviser. Questions or ideas for the next episode? samjhowithraj@gmail.com. Sponsorships: the featured spot is open to brands that fit an education site. No loan apps, trading tips, crypto or anything that reads like financial advice. Sponsored items are always labelled. samjhowithraj@gmail.com."
+  },
+  {
+   "id": "privacy-1",
+   "type": "page",
+   "title": "Privacy",
+   "url": "#privacy",
+   "text": "Privacy Your privacy. Last updated 18 October 2026. No account needed. Every lesson, calculator and the Money Planner is open to everyone. You never need to sign up to learn here. What stays on your device. Lesson progress, and your Money Planner inputs if you tick “Remember”, are saved in your own browser (local storage). It is never sent to us or anyone else. Clearing this site's data in your browser removes it. Email updates (only if you sign up). If you enter your email in a “Get new lessons by email” box, we use it only to tell you when a new lesson or episode is published. You are added only after you click the confirmation link we email you. Your address is stored with our email service, Brevo, which sends the emails for us. We never sell or share it, and we never send ads. Our emails may record whether they were opened or a link was clicked, so we learn which lessons are useful."
+  },
+  {
+   "id": "privacy-2",
+   "type": "page",
+   "title": "Privacy",
+   "url": "#privacy",
+   "text": "Every email has an unsubscribe link. To have your address deleted completely, write to samjhowithraj@gmail.com. Featured spots. The “Featured” card and the book list are plain links chosen by Raj, not an ad network, so they don't track you. Book links go to Amazon India and may be affiliate links (the page says when they are). Paid sponsors are always labelled “Sponsored”, and featuring a brand is never a recommendation to buy or invest. No tracking on this site. No analytics, advertising or tracking cookies. The site is hosted on GitHub Pages; GitHub may keep basic technical logs (such as IP addresses) to run and protect its service. Links to YouTube, Instagram, Facebook and X follow those sites' own policies. Questions. Write to samjhowithraj@gmail.com."
+  },
+  {
+   "id": "books-1",
+   "type": "book",
+   "title": "Recommended money books",
+   "url": "#learn",
+   "text": "Keep learning Recommended money books. 🏠 Let's Talk Money Monika Halan An Indian guide to a simple money system: emergency fund, insurance, EPF/PPF and mutual funds. See on Amazon ↗ 🧠 The Psychology of Money Morgan Housel Short stories on why behaviour, patience and 'enough' matter more than clever picks. See on Amazon ↗ 📈 The Little Book of Common Sense Investing John C. Bogle The case for low-cost index funds, from the man who started them. See on Amazon ↗ 🌅 Retire Rich: Invest ₹40 a Day P. V. Subramanyam Plain-spoken Indian book on starting early, avoiding traps and planning for retirement. See on Amazon ↗ 🏺 The Richest Man in Babylon George S. Clason A classic set of parables about saving a part of everything you earn. See on Amazon ↗ Books for learning, not advice: Raj doesn't agree with every idea in them, and none of them tells you what to buy. Links open Amazon India."
+  },
+  {
+   "id": "books-2",
+   "type": "book",
+   "title": "Recommended money books",
+   "url": "#learn",
+   "text": "Raj doesn't earn anything from them."
+  },
+  {
+   "id": "disclaimer",
+   "type": "page",
+   "title": "Educational only (disclaimer)",
+   "url": "#about",
+   "text": "© 2026 Paisa Samjho Raj, a Samjho with Raj website Educational only. Nothing on this site is financial, investment, tax or insurance advice, and Raj is not a SEBI-registered investment adviser. Examples use assumed returns and inflation; returns are never guaranteed and markets can fall. Mutual fund investments are subject to market risks; read all scheme-related documents carefully. Check current rules and speak to a SEBI-registered adviser before acting on your own money. Learning Python and AI? Visit techsamjhoraj.com. Calculator and planner inputs stay in your browser. Privacy."
+  }
+ ]
+}
