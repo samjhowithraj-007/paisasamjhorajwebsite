@@ -461,11 +461,18 @@
    "text": "Raj doesn't earn anything from them."
   },
   {
-   "id": "disclaimer",
+   "id": "disclaimer-1",
    "type": "page",
    "title": "Educational only (disclaimer)",
    "url": "#about",
-   "text": "© 2026 Paisa Samjho Raj, a Samjho with Raj website Educational only. Nothing on this site is financial, investment, tax or insurance advice, and Raj is not a SEBI-registered investment adviser. Examples use assumed returns and inflation; returns are never guaranteed and markets can fall. Mutual fund investments are subject to market risks; read all scheme-related documents carefully. Check current rules and speak to a SEBI-registered adviser before acting on your own money. Learning Python and AI? Visit techsamjhoraj.com. Calculator and planner inputs stay in your browser. Privacy."
+   "text": "Paisa Samjho Raj Free money lessons, calculators and a private family Money Planner for Indian families, from the Hinglish series \"Middle-Class Family Ka Money Plan\". Learn. All lessons Start with a budget Emergency fund Money Plan series Tools. Money Planner SIP calculator Emergency fund calculator Credit card calculator All calculators Site. About Raj Money + AI workshops ↗ Python + AI lessons ↗ Contact Privacy Educational only. Nothing on this site is financial, investment, tax or insurance advice, and Raj is not a SEBI-registered investment adviser. Examples use assumed returns and inflation; returns are never guaranteed and markets can fall. Mutual fund investments are subject to market risks; read all scheme-related documents carefully. Check current rules and speak to a SEBI-registered adviser before acting on your own money. © 2026 Paisa Samjho Raj, a Samjho with Raj website."
+  },
+  {
+   "id": "disclaimer-2",
+   "type": "page",
+   "title": "Educational only (disclaimer)",
+   "url": "#about",
+   "text": "Calculator and planner inputs stay in your browser. No tracking, no cookies."
   }
  ]
 }
