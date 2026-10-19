@@ -1401,7 +1401,8 @@ async function aiAnswer(q, hits){
   const ctl = new AbortController(), timer = setTimeout(() => ctl.abort(), 8000);
   try {
     const r = await fetch(ASK_WORKER, { method: "POST", headers: { "content-type": "application/json" }, signal: ctl.signal,
-      body: JSON.stringify({ site: "money", q: q.slice(0, 300), chunks: hits.map(h => ({ id: h.id, title: h.title, url: h.url })) })   // the Worker reads the text from the published site-index.json by id });
+      // Only ids are sent: the Worker reads each passage from the published site-index.json.
+      body: JSON.stringify({ site: "money", q: q.slice(0, 300), chunks: hits.map(h => ({ id: h.id, title: h.title, url: h.url })) }) });
     if (!r.ok) throw new Error("worker " + r.status);
     const j = await r.json(); if (!j || typeof j.answer !== "string" || !j.answer.trim()) throw new Error("empty");
     const body = escHtml(j.answer.trim().slice(0, 1500)).replace(/\[([^\]]{1,80})\]\(([^)\s]{1,200})\)/g, (all, t, u) => safeLink(u) ? `<a href="${u}"${u[0] === "#" ? "" : ' target="_blank" rel="noopener"'}>${t}</a>` : t);
