@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@samjhowithraj">
 <link rel="canonical" href="https://www.paisasamjhoraj.com/">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"Paisa Samjho Raj","url":"https://www.paisasamjhoraj.com/","inLanguage":"en-IN","description":"Free, plain-English money lessons, calculators and a private family Money Planner for Indian families. Educational, not advice."},{"@type":"Organization","name":"Samjho with Raj","url":"https://www.paisasamjhoraj.com/","logo":"https://www.paisasamjhoraj.com/img/icon-512.png","sameAs":["https://www.youtube.com/@SamjhowithRaj","https://x.com/samjhowithraj","https://www.techsamjhoraj.com/"]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"Paisa Samjho Raj","url":"https://www.paisasamjhoraj.com/","inLanguage":"en-IN","description":"Free, plain-English money lessons, calculators and a private family Money Planner for Indian families. Educational, not advice."},{"@type":"Organization","name":"Paisa Samjho Raj","url":"https://www.paisasamjhoraj.com/","logo":"https://www.paisasamjhoraj.com/img/icon-512.png","sameAs":["https://www.youtube.com/@PaisaSamjhoRaj","https://x.com/samjhowithraj"]}]}</script>
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
 <link rel="preload" href="img/sora-800-brand.woff2" as="font" type="font/woff2" crossorigin>
@@ -562,7 +562,7 @@ p.disc{font-size:13px;color:var(--muted)}
   <nav aria-label="Site"><h4>Site</h4><a href="#about">About Raj</a><a href="https://www.techsamjhoraj.com/#workshops">Money + AI workshops ↗</a><a href="https://www.techsamjhoraj.com">Python + AI lessons ↗</a><a href="mailto:samjhowithraj@gmail.com">Contact</a><a href="#privacy">Privacy</a></nav>
 </div><div class="wrap fbottom">
   <p><b>Educational only.</b> Nothing on this site is financial, investment, tax or insurance advice, and Raj is not a SEBI-registered investment adviser. Examples use assumed returns and inflation; returns are never guaranteed and markets can fall. Mutual fund investments are subject to market risks; read all scheme-related documents carefully. Check current rules and speak to a SEBI-registered adviser before acting on your own money.</p>
-  <span>© 2026 Paisa Samjho Raj, a Samjho with Raj website. Calculator and planner inputs stay in your browser. No tracking, no cookies.</span>
+  <span>© 2026 Paisa Samjho Raj. Calculator and planner inputs stay in your browser. No tracking, no cookies.</span>
 </div></footer>
 <dialog class="install-help" id="install-help" aria-labelledby="ih-title"><h3 id="ih-title">Install the app</h3><div class="ih-body"></div><button class="btn" type="button" data-close>Got it</button></dialog>
 
@@ -578,7 +578,7 @@ const ICONS = {
   x: '<path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>',
 };
 const SOCIAL = [
-  { name: "YouTube", icon: "youtube", color: "#ff0000", url: "https://www.youtube.com/@SamjhowithRaj" },
+  { name: "YouTube: Paisa Samjho Raj", icon: "youtube", color: "#ff0000", url: "https://www.youtube.com/@PaisaSamjhoRaj" },
   { name: "Instagram", icon: "instagram", color: "#e1306c", url: "https://www.instagram.com/samjhowithraj/" },
   { name: "Facebook", icon: "facebook", color: "#1877f2", url: "https://www.facebook.com/profile.php?id=61595088790170&sk=reels_tab" },
   { name: "X", icon: "x", url: "https://x.com/samjhowithraj" },
@@ -1292,7 +1292,7 @@ function home(){
       <p class="hindi">Companion website to Raj's Hinglish video series "Middle-Class Family Ka Money Plan".</p>
       <div class="cta-row"><a class="btn cta" href="#planner">Apni family ka Money Plan banao →</a><a class="btn ghost" href="#learn">Start learning free</a></div>
       <p class="cta-sub">No sign-up. Nothing you type leaves your browser. Educational, not advice.</p>
-      <p class="byline2"><img src="img/badge-96.png" alt="" width="34" height="34"><span>Made by <a href="#about">Raj</a>, Samjho with Raj. Not a SEBI-registered adviser.</span></p>
+      <p class="byline2"><img src="img/badge-96.png" alt="" width="34" height="34"><span>Made by <a href="#about">Raj</a>, Paisa Samjho Raj. Not a SEBI-registered adviser.</span></p>
       <div class="stats"><div><b>${LESSONS.length}</b>lessons</div><div><b>${CALCS.length}</b>calculators</div><div><b>${EPISODES.length}</b>video episodes</div><div><b>${pctDone()}%</b>done by you</div></div></div>
     ${miniCalc()}
   </section>
@@ -1330,7 +1330,7 @@ function lessonView(l){
     ${MODULES.map(m => `<details ${m === l.mod ? "open" : ""}><summary>${m.title}</summary><ul>${m.lessons.map(x => `<li><a href="#learn/${x.id}" ${x.id === l.id ? 'aria-current="true"' : ""}><span class="tick ${done.has(x.id) ? "done" : ""}"></span>${x.title}</a></li>`).join("")}</ul></details>`).join("")}</aside>`;
   const body = `<article class="lesson">
     <div><div class="eyebrow crumbs"><a href="#learn">Learn</a> › ${l.mod.title} · Lesson ${i + 1} of ${LESSONS.length}</div><h2>${l.title}</h2>
-      <p class="byline"><img src="img/badge-96.png" alt="" width="24" height="24"><span>By <a href="#about">Raj</a>, Samjho with Raj</span><span>${readMins(l)} min read</span><span>Educational, not advice</span></p></div>
+      <p class="byline"><img src="img/badge-96.png" alt="" width="24" height="24"><span>By <a href="#about">Raj</a>, Paisa Samjho Raj</span><span>${readMins(l)} min read</span><span>Educational, not advice</span></p></div>
     <section class="block"><h3>The idea</h3>${l.idea.map(p => `<p>${p}</p>`).join("")}</section>
     <section class="block"><h3>Key points</h3><ul>${l.points.map(p => `<li>${p}</li>`).join("")}</ul></section>
     <section class="block example"><h3>Worked example</h3><p>${l.example.text}</p><div class="nums">${l.example.nums.map(([k, v]) => `<div>${k}<b>${v}</b></div>`).join("")}</div>
@@ -1352,7 +1352,7 @@ function series(){
   return `<div class="page-head"><div><div class="eyebrow">Video series</div><h1>Middle-Class Family Ka <em>Money Plan</em></h1>
       <p class="lead">${EPISODES.length} Hinglish episodes following one fictional family with ₹1 lakh a month take-home, from budget to retirement. Each episode gets English notes here and a matching calculator.</p>
       <p class="hindi">Budget se investment tak, ghar se retirement tak: paise ki har baat, aasaan bhasha mein.</p></div>
-    <a class="btn brand" href="https://www.youtube.com/@SamjhowithRaj" target="_blank" rel="noopener">Watch on YouTube</a></div>
+    <a class="btn brand" href="https://www.youtube.com/@PaisaSamjhoRaj" target="_blank" rel="noopener">Watch on YouTube</a></div>
   <ol class="timeline">${EPISODES.map(([n, t, o], i) => { const url = EP_LIVE[n];
     return url ? `<li><span class="no">${n}</span><span><a href="${url}" target="_blank" rel="noopener">${t}</a><small>${o}</small></span><a class="chip live" href="${url}" target="_blank" rel="noopener">▶ Watch</a></li>`
       : `<li><span class="no">${n}</span><span>${t}<small>${o}</small></span><span class="chip ${i === nextEp ? "next" : ""}">${i === nextEp ? "Coming next" : "Planned"}</span></li>`; }).join("")}</ol>
@@ -1361,7 +1361,8 @@ function series(){
 function about(){
   return `<div class="about"><img src="img/badge-256.png" alt="Raj, Paisa Samjho Raj">
   <div><div class="eyebrow">About</div><h2>Hi, I'm Raj.</h2>
-    <p>I make simple Hinglish videos on technology and money as Samjho with Raj. This website is the money side: plain-English notes, honest examples and tools you can use for your own family.</p>
+    <p>I make simple Hinglish money videos as <b>Paisa Samjho Raj</b> on <a href="https://www.youtube.com/@PaisaSamjhoRaj" target="_blank" rel="noopener">YouTube</a>. This website goes with the channel: plain-English notes, honest examples and tools you can use for your own family.</p>
+    <p>Sister channels: <b>Tech Samjho Raj</b> for Python and AI (<a href="https://www.youtube.com/@SamjhowithRaj" target="_blank" rel="noopener">YouTube</a> · <a href="https://www.techsamjhoraj.com">techsamjhoraj.com</a>) and <b>Dimaag Dada</b> for reasoning puzzles (<a href="https://www.youtube.com/@DimaagDada" target="_blank" rel="noopener">YouTube</a>).</p>
     <p>Everything here is education. I am not a SEBI-registered investment adviser, and nothing on this site is a recommendation to buy or sell anything. Examples use assumed returns; real returns can be lower or negative. For decisions about your own money, speak to a SEBI-registered adviser.</p>
     <div class="social" data-social style="margin-top:20px"></div>
     <p style="margin-top:24px">Questions or ideas for the next episode? <span class="mail">samjhowithraj@gmail.com</span></p>
@@ -1682,7 +1683,7 @@ askRaj({
     [["retire", "retirement", "epf", "ppf", "nps", "pension"], topic(L("retirement") + " compares EPF, PPF and NPS and how to think about a retirement target.", ["Goals", "Money Planner"])],
     [["global", "us stocks", "nasdaq", "s&p", "sp500", "foreign", "international", "abroad"], topic(L("global") + " explains why and how Indians invest outside India, and the costs and tax to check.", ["Index funds", "Allocation"])],
     [["calculator", "calculate", "calc"], { text: "🧮 Calculators: " + CALCS.map(c => C(c.id, c.name)).join(" · ") + "\nAll use assumptions you can change. Nothing is guaranteed.", chips: ["SIP", "Goals", "Money Planner"] }],
-    [["episode", "series", "video", "youtube", "verma family"], { text: "The 50-part video series <a href=\"#series\">Middle-Class Family Ka Money Plan</a> follows the Verma family from budget to retirement. Watch on <a href=\"https://www.youtube.com/@SamjhowithRaj\" target=\"_blank\" rel=\"noopener\">YouTube</a>.", chips: ["Where do I start?", "Money Planner"] }],
+    [["episode", "series", "video", "youtube", "verma family"], { text: "The 50-part video series <a href=\"#series\">Middle-Class Family Ka Money Plan</a> follows the Verma family from budget to retirement. Watch on the <a href=\"https://www.youtube.com/@PaisaSamjhoRaj\" target=\"_blank\" rel=\"noopener\">Paisa Samjho Raj YouTube channel</a>.", chips: ["Where do I start?", "Money Planner"] }],
     [["python", "coding", "tech", "ai", "chatbot"], { text: "Tech lessons live on our sister site 🤖 <a href=\"https://www.techsamjhoraj.com\" target=\"_blank\" rel=\"noopener\">techsamjhoraj.com</a>: Python with Chai, an AI chatbot course and Agentic AI.", chips: ["Where do I start?"] }],
     [["install", "app", "download", "home screen"], { text: "Tap the <b>Install</b> button at the top right to add Paisa Samjho Raj to your phone or computer like an app. 📲", chips: ["Where do I start?"] }],
     [["email", "notify", "subscribe", "newsletter", "update"], { text: "Use the <b>Get new lessons by email</b> box on the home page or at the end of any lesson. One short email per new lesson or episode; unsubscribe any time. 📬", chips: ["Where do I start?"] }],
