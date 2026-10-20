@@ -519,6 +519,22 @@ footer .wrap.fbottom{border-top:1px solid var(--line);margin-top:18px;padding-to
 .gb .bubble:before{content:"";position:absolute;left:-7px;top:50%;margin-top:-7px;border:7px solid transparent;border-right-color:#fff6e6;border-left:0}
 .gb .bubble small{display:block;font-weight:400;color:#5b5348;font-size:12.5px;margin-top:2px}
 .gb.tip{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+
+/* Shop (paid templates on Gumroad; same card style as techsamjhoraj.com #shop) */
+.shop{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px;margin-top:8px}
+.item{display:flex;flex-direction:column;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;color:inherit;text-decoration:none}
+.item .art{height:170px;border-radius:10px;display:grid;place-items:center;font-size:46px;overflow:hidden;background:linear-gradient(135deg,#fff6e6,#e1f2e9)}
+.item .art img{width:128px;height:128px}
+.item h3{font-size:18px}.item p{margin:0;color:var(--muted);font-size:14.5px}
+.item ul{margin:0;padding-left:18px;color:var(--muted);font-size:14px;flex:1}.item li{margin:3px 0}
+.item .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.item .tag{font-size:12px;font-weight:700;padding:3px 9px;border-radius:99px;background:var(--gold);color:var(--gold-ink)}
+.item .price{font-weight:800;font-size:20px;font-variant-numeric:tabular-nums}
+.item .btn.cta{padding:11px 16px;font-size:15px}
+.item small{color:var(--muted);font-size:12.5px}
+p.disc{font-size:13px;color:var(--muted)}
+.sheet-link{font-size:13.5px;color:var(--muted);margin:10px 0 0}.sheet-link a{color:var(--green);font-weight:600}
+.tab .new{font-size:10.5px;font-weight:800;background:var(--cta);color:var(--on-cta);border-radius:99px;padding:1px 6px;margin-left:6px;vertical-align:2px}
 </style>
 </head>
 <body>
@@ -533,6 +549,7 @@ footer .wrap.fbottom{border-top:1px solid var(--line);margin-top:18px;padding-to
     <a class="tab" href="#calculators" data-tab="calculators">Calculators</a>
     <a class="tab" href="#planner" data-tab="planner">Money Planner</a>
     <a class="tab" href="#series" data-tab="series">Money Plan Series</a>
+    <a class="tab" href="#shop" data-tab="shop">Shop<span class="new">New</span></a>
     <a class="tab" href="#about" data-tab="about">About</a>
   </nav>
 </header>
@@ -850,7 +867,7 @@ function fpResults(){
   return `${kpis}${bar}${split}${checks}${goals}
     <section class="block"><h3>Things to keep in mind</h3><ul>${tips.map(t => `<li>${t}</li>`).join("")}</ul></section>
     <p class="fp-disc"><b>Educational and illustrative only.</b> This is not financial, investment, tax or insurance advice. Returns and inflation are assumptions you can change; no return is guaranteed and markets can fall. Insurance amounts are rules of thumb and premiums are rough guesses. For decisions about your own money, speak to a SEBI-registered investment adviser.</p>
-    <div class="fp-tools"><button type="button" class="btn" onclick="print()">Print or save as PDF</button></div>`;
+    <div class="fp-tools"><button type="button" class="btn" onclick="print()">Print or save as PDF</button><a class="btn" href="#shop">Get the Family Money Planner sheet · ₹199</a></div>`;
 }
 
 function tracker(){
@@ -1223,7 +1240,8 @@ function calcView(c){
   return `<div class="page-head"><div><div class="eyebrow crumbs"><a href="#calculators">Calculators</a> › ${groupOf(c.id)}</div><h2>${c.title}</h2><p class="lead">${c.blurb}</p></div></div>
     <nav class="calc-tabs" aria-label="Calculators">${CALC_GROUPS.map(([g, ids]) => `<div class="cg"><span>${g}</span>${ids.map(id => tab(CALCS.find(x => x.id === id))).join("")}</div>`).join("")}<div class="cg"><span>Everything</span><a href="#planner">Full family plan →</a></div></nav>
     <div class="calc"><div><form class="cform" id="cform" data-calc="${c.id}" onsubmit="return false">${c.fields.map(f).join("")}</form>
-      <div class="share"><button class="btn" type="button" id="share-calc">🔗 Share these numbers</button><small id="share-note">Sends a link with your inputs filled in.</small></div></div>
+      <div class="share"><button class="btn" type="button" id="share-calc">🔗 Share these numbers</button><small id="share-note">Sends a link with your inputs filled in.</small></div>
+      <p class="sheet-link">Want this in a spreadsheet? <a href="#shop">Get the full planner sheet →</a></p></div>
     <div class="cres" id="cres" aria-live="polite">${calcResults(c)}</div></div>
     ${calcHow(c)}`;
 }
@@ -1378,7 +1396,33 @@ function promo(here){
   const ext = /^https?:/.test(p.link), rel = ext ? ` target="_blank" rel="noopener${p.label === "Sponsored" ? " sponsored" : ""}"` : "";
   return `<a class="promo" href="${p.link}"${rel}><img src="${p.image}" alt="" loading="lazy"><div><span class="pl">${p.label}</span><h3>${p.title}</h3><p>${p.text}</p><span class="go">${p.cta}${ext ? " ↗" : " →"}</span></div></a>`;
 }
+// ---------- Shop: Raj's paid templates (sold on Gumroad, which handles payment). Prices set in Gumroad on 20 Oct 2026. ----------
+const SHOP = [
+  { title:"Family Money Planner", sub:"Excel + Google Sheets", price:199, link:"https://samjhowithraj.gumroad.com/l/family-money-planner", cta:"Get the sheet", pose:"full",
+    tag:"Spreadsheet", text:"A one-file family money plan from the money book, with the same emergency-fund rule as this site.",
+    points:["3 jars for your take-home pay, with a 50-30-20 check", "Yearly costs like Diwali and school fees as a monthly amount", "Emergency-fund target (4/6/9 months) and net worth", "Verma family example + a blank tab for yours"] },
+  { title:"Budget + EMI + Goals Tracker", sub:"Excel + Google Sheets", price:149, link:"https://samjhowithraj.gumroad.com/l/budget-emi-goals-tracker", cta:"Get the tracker", pose:"read",
+    tag:"Spreadsheet", text:"Track your family budget, loans and goals in one sheet.",
+    points:["Monthly budget, plan vs actual, for all 12 months", "The same 3 jars, with what's left over each month", "Loans and goals in the same file"] },
+];
+function shop(){
+  return `<div class="page-head"><div><div class="eyebrow">Shop</div><h1>Take your plan <em>offline.</em></h1>
+    <p class="lead">Ready-made sheets from Raj that follow the lessons on this site. Every purchase helps keep the lessons and calculators free.</p></div></div>
+  <div class="shop">
+    ${SHOP.map(x => `<div class="item"><div class="art"><img src="img/gullak/${x.pose}.svg" alt="" width="128" height="128" loading="lazy"></div>
+      <div class="row" style="justify-content:flex-start"><span class="tag">${x.tag}</span><span class="tag">${x.sub}</span></div>
+      <h3>${x.title}</h3><p>${x.text}</p><ul>${x.points.map(t => `<li>${t}</li>`).join("")}</ul>
+      <div class="row"><span class="price">₹${x.price}</span><a class="btn cta" href="${x.link}" target="_blank" rel="noopener">${x.cta} · ₹${x.price} ↗</a></div>
+      <small>Illustrative and educational, not financial advice.</small></div>`).join("")}
+    <a class="item" href="https://www.techsamjhoraj.com/#workshops"><div class="art"><img src="img/gullak/point.svg" alt="" width="128" height="128" loading="lazy"></div>
+      <div class="row" style="justify-content:flex-start"><span class="tag">For colleges and companies</span></div><h3>Money + AI workshops</h3>
+      <p>Raj's workshops for colleges and companies: AI for jobs, Python + AI and AI agents, as a talk or a hands-on session. Details on techsamjhoraj.com.</p>
+      <div class="row"><span class="btn ghost sm">See the workshops ↗</span></div></a>
+  </div>
+  <p class="disc" style="margin-top:18px">Payments are handled by Gumroad (you'll see the final price there, in your currency); we never see your card details. The money book "Paisa Samjho: Salary se Savings tak" is coming soon. The sheets are tools for learning and planning: they don't recommend any product and never promise returns.</p>`;
+}
 const PROMOS = [
+  { label:"From Raj", title:"Family Money Planner sheet · ₹199", text:"3 jars, a 50-30-20 check, your emergency-fund target and net worth in one Excel / Google Sheets file.", image:"img/gullak/full.svg", link:"#shop", cta:"See the sheet" },
   { label:"From Raj", title:"Money Plan Part 1 is live", text:"₹1 lakh salary, two kids, seven goals: meet the Verma family and see where a plan should start.", image:"https://i.ytimg.com/vi/GyPQ-RxBRi8/hqdefault.jpg", link:"https://youtu.be/GyPQ-RxBRi8", cta:"Watch on YouTube" },
   { label:"From Raj", title:"Learning Python and AI?", text:"Python with Chai, a chatbot you build yourself and Agentic AI, free on our sister site.", image:"https://www.techsamjhoraj.com/media/python-7.jpg", link:"https://www.techsamjhoraj.com", cta:"Open techsamjhoraj.com" },
 ];
@@ -1414,6 +1458,7 @@ function privacy(){
       <li>Your address is stored with our email service, Brevo, which sends the emails for us. We never sell or share it, and we never send ads.</li>
       <li>Our emails may record whether they were opened or a link was clicked, so we learn which lessons are useful.</li>
       <li>Every email has an unsubscribe link. To have your address deleted completely, write to <span class="mail">samjhowithraj@gmail.com</span>.</li></ul>
+    <h2>Buying a sheet</h2><p>Templates in the Shop are sold through Gumroad, which handles the payment and sends you the files. We never see your card or UPI details. Gumroad's own privacy policy applies there.</p>
     <h2>Featured spots</h2><p>The “Featured” card and the book list are plain links chosen by Raj, not an ad network, so they don't track you. Book links go to Amazon India and may be affiliate links (the page says when they are). Paid sponsors are always labelled “Sponsored”, and featuring a brand is never a recommendation to buy or invest.</p>
     <h2>No tracking on this site</h2><p>No analytics, advertising or tracking cookies. The site is hosted on GitHub Pages; GitHub may keep basic technical logs (such as IP addresses) to run and protect its service. Links to YouTube, Instagram, Facebook and X follow those sites' own policies.</p>
     <h2>Questions</h2><p>Write to <span class="mail">samjhowithraj@gmail.com</span>.</p></article>`;
@@ -1428,6 +1473,7 @@ function render(){
   else if (p === "planner" || p === "tracker") { html = tracker(); tab = "planner"; title = "Money Planner · Paisa Samjho Raj"; }
   else if (p === "series") html = series();
   else if (p === "about") html = about();
+  else if (p === "shop") { html = shop(); title = "Shop · Paisa Samjho Raj"; }
   else if (p === "privacy") { html = privacy(); title = "Privacy · Paisa Samjho Raj"; }
   else if (p === "site-index") { html = '<pre id="site-index"></pre>'; setTimeout(() => { document.getElementById("site-index").textContent = JSON.stringify(siteIndex(), null, 1); }); }
   else { html = home(); tab = "home"; }
@@ -1535,6 +1581,7 @@ function siteIndex(){
   add("series", "episode", "Middle-Class Family Ka Money Plan (video series)", "#series", "A 50-episode Hinglish video series following the fictional Verma family with ₹1 lakh a month take-home. " +
     EPISODES.map(([n, t, o]) => `Episode ${n}: ${t}. ${o}${EP_LIVE[n] ? " Live on YouTube." : ""}`).join(" "));
   add("about", "page", "About Raj and this site", "#about", about());
+  add("shop", "page", "Shop: planner and tracker sheets", "#shop", shop());
   add("privacy", "page", "Privacy", "#privacy", privacy());
   add("books", "book", "Recommended money books", "#learn", books());
   add("disclaimer", "page", "Educational only (disclaimer)", "#about", document.querySelector("footer") ? document.querySelector("footer").innerHTML : "");
@@ -1608,10 +1655,11 @@ askRaj({
   foot: "Answers come only from this site's lessons and calculators. Educational only: no personal investment advice.",
   hello: "Namaste! ☕ I'm Ask Raj, Raj's automated helper (not Raj himself).\nAsk me about budgets, emergency funds, insurance, SIPs, index funds or retirement, and I'll point you to the right lesson or calculator.\n(I don't give personal investment advice.)",
   chips: ["Where do I start?", "Emergency fund", "SIP", "Index funds", "Money Planner", "Calculators"],
-  smart: smartAnswer, alwaysFirst: 3,
+  smart: smartAnswer, alwaysFirst: 4,
   rules: [
     [["which fund", "best fund", "best stock", "which stock", "recommend", "should i buy", "should i sell", "kaunsa fund", "konsa fund", "tip", "tips", "guaranteed", "double my money", "crypto", "bitcoin"], { text: "I can't recommend specific funds, stocks or crypto: that would be personal advice, and Raj is not a SEBI-registered adviser. 🙏\nWhat I can do is show you how to judge options yourself: " + L("costs", "costs and expense ratio") + ", " + L("index-funds", "index funds") + " and " + L("allocation", "splitting money across equity, debt and gold") + ".\nFor your own money, speak to a SEBI-registered adviser.", chips: ["Index funds", "Expense ratio", "Money Planner"] }],
     [["hi", "hello", "hey", "namaste", "hii", "helo"], { text: "Namaste! 🙏 Chai ready hai. What would you like to understand today?", chips: ["Where do I start?", "SIP", "Emergency fund"] }],
+    [["shop", "sheet", "spreadsheet", "template", "excel", "google sheet"], { text: "🧾 The <a href=\"#shop\">Shop</a> has two sheets from Raj: the <b>Family Money Planner</b> (₹199) and the <b>Budget + EMI + Goals Tracker</b> (₹149), for Excel and Google Sheets. Payment is on Gumroad.\n<small>Illustrative and educational, not financial advice.</small>", chips: ["Money Planner", "Calculators"] }],
     [["how are you built", "how do you work", "are you ai", "are you chatgpt", "built", "your code"], { text: "Two layers! First a list of keywords and replies (the if-else + dictionary idea from the <a href=\"https://www.techsamjhoraj.com/#chatbot-3\" target=\"_blank\" rel=\"noopener\">AI + Python course</a>). For longer questions I search this site's lessons and calculators and quote the best passage" + (ASK_WORKER ? ", and an AI writes a short answer from those pages only" : "") + ". 🤖", chips: ["Where do I start?"] }],
     [["start", "beginner", "begin", "shuru", "where", "first", "path"], topic("Follow the learning path in order: start with " + L("budget") + ", then " + L("emergency-fund") + " and " + L("insurance") + ". Safety first, then investing. All 17 lessons are under <a href=\"#learn\">Learn</a>.", ["Emergency fund", "Insurance", "SIP"])],
     [["planner", "plan", "family", "verma", "tracker", "surplus"], topic("The <a href=\"#planner\">Money Planner</a> takes your income, expenses, savings and loans and shows how your monthly surplus could be split: insurance, costly debt, emergency fund, then goals. It runs only in your browser.")],

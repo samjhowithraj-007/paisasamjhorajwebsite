@@ -1,6 +1,6 @@
 {
  "site": "money",
- "built": "2026-10-19",
+ "built": "2026-10-20",
  "items": [
   {
    "id": "lesson-budget-1",
@@ -433,6 +433,20 @@
    "text": "About Hi, I'm Raj. I make simple Hinglish videos on technology and money as Samjho with Raj. This website is the money side: plain-English notes, honest examples and tools you can use for your own family. Everything here is education. I am not a SEBI-registered investment adviser, and nothing on this site is a recommendation to buy or sell anything. Examples use assumed returns; real returns can be lower or negative. For decisions about your own money, speak to a SEBI-registered adviser. Questions or ideas for the next episode? samjhowithraj@gmail.com. Sponsorships: the featured spot is open to brands that fit an education site. No loan apps, trading tips, crypto or anything that reads like financial advice. Sponsored items are always labelled. samjhowithraj@gmail.com."
   },
   {
+   "id": "shop-1",
+   "type": "page",
+   "title": "Shop: planner and tracker sheets",
+   "url": "#shop",
+   "text": "Shop Take your plan offline. Ready-made sheets from Raj that follow the lessons on this site. Every purchase helps keep the lessons and calculators free. Spreadsheet Excel + Google Sheets Family Money Planner. A one-file family money plan from the money book, with the same emergency-fund rule as this site. 3 jars for your take-home pay, with a 50-30-20 check. Yearly costs like Diwali and school fees as a monthly amount. Emergency-fund target (4/6/9 months) and net worth. Verma family example + a blank tab for yours. ₹199 Get the sheet · ₹199 ↗ Illustrative and educational, not financial advice. Spreadsheet Excel + Google Sheets Budget + EMI + Goals Tracker. Track your family budget, loans and goals in one sheet. Monthly budget, plan vs actual, for all 12 months. The same 3 jars, with what's left over each month. Loans and goals in the same file."
+  },
+  {
+   "id": "shop-2",
+   "type": "page",
+   "title": "Shop: planner and tracker sheets",
+   "url": "#shop",
+   "text": "₹149 Get the tracker · ₹149 ↗ Illustrative and educational, not financial advice. For colleges and companies Money + AI workshops. Raj's workshops for colleges and companies: AI for jobs, Python + AI and AI agents, as a talk or a hands-on session. Details on techsamjhoraj.com. See the workshops ↗ Payments are handled by Gumroad (you'll see the final price there, in your currency); we never see your card details. The money book \"Paisa Samjho: Salary se Savings tak\" is coming soon. The sheets are tools for learning and planning: they don't recommend any product and never promise returns."
+  },
+  {
    "id": "privacy-1",
    "type": "page",
    "title": "Privacy",
@@ -444,7 +458,14 @@
    "type": "page",
    "title": "Privacy",
    "url": "#privacy",
-   "text": "Every email has an unsubscribe link. To have your address deleted completely, write to samjhowithraj@gmail.com. Featured spots. The “Featured” card and the book list are plain links chosen by Raj, not an ad network, so they don't track you. Book links go to Amazon India and may be affiliate links (the page says when they are). Paid sponsors are always labelled “Sponsored”, and featuring a brand is never a recommendation to buy or invest. No tracking on this site. No analytics, advertising or tracking cookies. The site is hosted on GitHub Pages; GitHub may keep basic technical logs (such as IP addresses) to run and protect its service. Links to YouTube, Instagram, Facebook and X follow those sites' own policies. Questions. Write to samjhowithraj@gmail.com."
+   "text": "Every email has an unsubscribe link. To have your address deleted completely, write to samjhowithraj@gmail.com. Buying a sheet. Templates in the Shop are sold through Gumroad, which handles the payment and sends you the files. We never see your card or UPI details. Gumroad's own privacy policy applies there. Featured spots. The “Featured” card and the book list are plain links chosen by Raj, not an ad network, so they don't track you. Book links go to Amazon India and may be affiliate links (the page says when they are). Paid sponsors are always labelled “Sponsored”, and featuring a brand is never a recommendation to buy or invest. No tracking on this site. No analytics, advertising or tracking cookies. The site is hosted on GitHub Pages; GitHub may keep basic technical logs (such as IP addresses) to run and protect its service."
+  },
+  {
+   "id": "privacy-3",
+   "type": "page",
+   "title": "Privacy",
+   "url": "#privacy",
+   "text": "Links to YouTube, Instagram, Facebook and X follow those sites' own policies. Questions. Write to samjhowithraj@gmail.com."
   },
   {
    "id": "books-1",
