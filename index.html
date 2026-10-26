@@ -1374,7 +1374,7 @@ function about(){
 const PAISA = true;
 // ---------- Recommended books (Amazon India) ----------
 // Paste your Amazon Associates tracking ID here (for example "samjhowithraj-21") to turn the links into affiliate links.
-const AMAZON_TAG = "";
+const AMAZON_TAG = "000007f-21";
 const BOOKS = [
   { title:"Let's Talk Money", author:"Monika Halan", why:"An Indian guide to a simple money system: emergency fund, insurance, EPF/PPF and mutual funds.", q:"Let's Talk Money Monika Halan", icon:"🏠", bg:"#dfe9e1" },
   { title:"The Psychology of Money", author:"Morgan Housel", why:"Short stories on why behaviour, patience and 'enough' matter more than clever picks.", q:"The Psychology of Money Morgan Housel", icon:"🧠", bg:"#efe5cb" },
@@ -1386,7 +1386,7 @@ function books(){
   const url = b => "https://www.amazon.in/s?k=" + encodeURIComponent(b.q) + (AMAZON_TAG ? "&tag=" + encodeURIComponent(AMAZON_TAG) : "");
   return `<section class="books" id="books"><div class="eyebrow">Keep learning</div><h2>Recommended money books</h2>
     <div class="bgrid">${BOOKS.map(b => `<a class="book" href="${url(b)}" target="_blank" rel="noopener${AMAZON_TAG ? " sponsored" : ""}"><span class="spine" style="background:${b.bg}" aria-hidden="true">${b.icon}</span><b>${b.title}</b><small>${b.author}</small><p>${b.why}</p><span class="go">See on Amazon ↗</span></a>`).join("")}</div>
-    <p class="disc">Books for learning, not advice: Raj doesn't agree with every idea in them, and none of them tells you what to buy. ${AMAZON_TAG ? "These are affiliate links: if you buy through them, Raj may earn a small commission at no extra cost to you." : "Links open Amazon India. Raj doesn't earn anything from them."}</p></section>`;
+    <p class="disc">Books for learning, not advice: Raj doesn't agree with every idea in them, and none of them tells you what to buy. ${AMAZON_TAG ? "These are affiliate links: if you buy through them, Raj may earn a small commission at no extra cost to you. As an Amazon Associate I earn from qualifying purchases." : "Links open Amazon India. Raj doesn't earn anything from them."}</p></section>`;
 }
 // ---------- Featured slot (house promos and sponsors; plain links, no ad network, no tracking) ----------
 // Edit PROMOS to change what the slot shows. label: "From Raj" for your own things, "Sponsored" for a paid sponsor.
