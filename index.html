@@ -1375,12 +1375,15 @@ const PAISA = true;
 // ---------- Recommended books (Amazon India) ----------
 // Paste your Amazon Associates tracking ID here (for example "samjhowithraj-21") to turn the links into affiliate links.
 const AMAZON_TAG = "000007f-21";
-const BOOKS = [
-  { title:"Let's Talk Money", author:"Monika Halan", why:"An Indian guide to a simple money system: emergency fund, insurance, EPF/PPF and mutual funds.", q:"Let's Talk Money Monika Halan", icon:"🏠", bg:"#dfe9e1" },
-  { title:"The Psychology of Money", author:"Morgan Housel", why:"Short stories on why behaviour, patience and 'enough' matter more than clever picks.", q:"The Psychology of Money Morgan Housel", icon:"🧠", bg:"#efe5cb" },
-  { title:"The Little Book of Common Sense Investing", author:"John C. Bogle", why:"The case for low-cost index funds, from the man who started them.", q:"The Little Book of Common Sense Investing John Bogle", icon:"📈", bg:"#dfe3f0" },
-  { title:"Retire Rich: Invest ₹40 a Day", author:"P. V. Subramanyam", why:"Plain-spoken Indian book on starting early, avoiding traps and planning for retirement.", q:"Retire Rich Invest Rs 40 a Day P V Subramanyam", icon:"🌅", bg:"#f0ded6" },
-  { title:"The Richest Man in Babylon", author:"George S. Clason", why:"A classic set of parables about saving a part of everything you earn.", q:"The Richest Man in Babylon George Clason", icon:"🏺", bg:"#e9e2d4" },
+const BOOKS = [   // Raj's list, 26 Oct 2026 (order as he gave it)
+  { title:"The Psychology of Money", author:"Morgan Housel", why:"An easy starting point on money habits and long-term thinking.", q:"The Psychology of Money Morgan Housel", icon:"🧠", bg:"#efe5cb" },
+  { title:"Let's Talk Money", author:"Monika Halan", why:"Made for Indian families organising savings, insurance and investments.", q:"Let's Talk Money Monika Halan", icon:"🏠", bg:"#dfe9e1" },
+  { title:"Make Epic Money", author:"Ankur Warikoo", why:"A relatable first money book for young earners and beginners.", q:"Make Epic Money Ankur Warikoo", icon:"🚀", bg:"#f0ded6" },
+  { title:"The Art of Spending Money", author:"Morgan Housel", why:"A fresh look at spending well and finding satisfaction.", q:"The Art of Spending Money Morgan Housel", icon:"🛍️", bg:"#efe5cb" },
+  { title:"Let's Talk Mutual Funds", author:"Monika Halan", why:"Goes well with the SIP and mutual-fund lessons on this site.", q:"Let's Talk Mutual Funds Monika Halan", icon:"📈", bg:"#dfe3f0" },
+  { title:"Mango Millionaire", author:"Radhika Gupta with Niranjan Avasthi", why:"An approachable Indian take on managing money.", q:"Mango Millionaire Radhika Gupta", icon:"🥭", bg:"#f3e6c4" },
+  { title:"Rich Dad Poor Dad", author:"Robert T. Kiyosaki", why:"A well-known introduction to assets and money mindset. Read it alongside Indian-context lessons like the ones here.", q:"Rich Dad Poor Dad Robert Kiyosaki", icon:"💡", bg:"#e9e2d4" },
+  { title:"The Richest Man in Babylon", author:"George S. Clason", why:"Simple lessons on saving and financial discipline.", q:"The Richest Man in Babylon George Clason", icon:"🏺", bg:"#e9e2d4" },
 ];
 function books(){
   const url = b => "https://www.amazon.in/s?k=" + encodeURIComponent(b.q) + (AMAZON_TAG ? "&tag=" + encodeURIComponent(AMAZON_TAG) : "");
