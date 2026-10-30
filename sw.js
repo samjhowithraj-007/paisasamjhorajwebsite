@@ -1,5 +1,5 @@
 // Offline support for Paisa Samjho Raj. Bump VERSION on any change to this file or the precache list.
-const VERSION = "v34";
+const VERSION = "v35";
 const CACHE = "paisasamjhoraj-" + VERSION;
 const PRECACHE = ["./", "index.html", "manifest.webmanifest", "img/badge-96.png", "img/sora-800-brand.woff2", "img/favicon-32.png", "img/icon-192.png", "img/icon-512.png", "img/apple-touch-icon.png"];
 
@@ -13,7 +13,7 @@ self.addEventListener("activate", e => {
 self.addEventListener("fetch", e => {
   const req = e.request, url = new URL(req.url);
   if (req.method !== "GET" || url.origin !== location.origin) return;
-  if (/\.(mp4|webm|m4a)$/i.test(url.pathname)) return;             // videos stream from the network
+  if (/\.(mp4|webm|m4a|pdf)$/i.test(url.pathname)) return;         // videos and book PDFs come from the network
   if (req.mode === "navigate") {                                     // pages: newest when online, cached when offline
     e.respondWith(fetch(req).then(r => { const copy = r.clone(); caches.open(CACHE).then(c => c.put("index.html", copy)); return r; })
       .catch(() => caches.match("index.html")));

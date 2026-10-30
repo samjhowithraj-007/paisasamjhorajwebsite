@@ -532,6 +532,7 @@ footer .wrap.fbottom{border-top:1px solid var(--line);margin-top:18px;padding-to
 .item .price{font-weight:800;font-size:20px;font-variant-numeric:tabular-nums}
 .item .btn.cta{padding:11px 16px;font-size:15px}
 .item small{color:var(--muted);font-size:12.5px}
+.book-sample .art img{width:120px;height:170px;border-radius:4px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
 p.disc{font-size:13px;color:var(--muted)}
 .sheet-link{font-size:13.5px;color:var(--muted);margin:10px 0 0}.sheet-link a{color:var(--green);font-weight:600}
 .tab .new{font-size:10.5px;font-weight:800;background:var(--cta);color:var(--on-cta);border-radius:99px;padding:1px 6px;margin-left:6px;vertical-align:2px}
@@ -1420,10 +1421,22 @@ const SHOP = [
     tag:"Spreadsheet", text:"Track your family budget, loans and goals in one sheet.",
     points:["Monthly budget, plan vs actual, for all 12 months", "The same 3 jars, with what's left over each month", "Loans and goals in the same file"] },
 ];
+// Money Book 1: free sample PDFs. BOOK.link = the Gumroad free-sample listing; set it only after Money PM confirms it is live
+const BOOK = { title:"Paisa Samjho: Salary se Savings tak", cover:"img/book/cover-en.jpg",
+  en:"books/paisa-samjho-sample-en.pdf", hi:"books/paisa-samjho-sample-hi.pdf", link:"", when:"about 10 Nov" };
+function bookCard(){
+  return `<div class="item book-sample"><div class="art"><img src="${BOOK.cover}" alt="Cover of the money book ${BOOK.title}" width="120" height="170" loading="lazy"></div>
+      <div class="row" style="justify-content:flex-start"><span class="tag">Free sample</span><span class="tag">English + Hinglish</span></div>
+      <h3>${BOOK.title}</h3><p>Raj's money book with the Verma family and Gullak Bhai. Read the first chapters free, then decide.</p>
+      <div class="row" style="justify-content:flex-start"><a class="btn cta" href="${BOOK.en}" download>Free sample (English) ↓</a><a class="btn" href="${BOOK.hi}" download>Free sample (Hinglish) ↓</a></div>
+      ${BOOK.link ? `<div class="row"><a class="btn ghost sm" href="${BOOK.link}" target="_blank" rel="noopener">Also on Gumroad ↗</a></div>` : `<small>Full book coming ${BOOK.when}.</small>`}
+      <small>Financial education, advice nahi. No product tips and no promised returns.</small></div>`;
+}
 function shop(){
   return `<div class="page-head"><div><div class="eyebrow">Shop</div><h1>Take your plan <em>offline.</em></h1>
-    <p class="lead">Ready-made sheets from Raj that follow the lessons on this site. Every purchase helps keep the lessons and calculators free.</p></div></div>
+    <p class="lead">Raj's money book and ready-made sheets that follow the lessons on this site. Every purchase helps keep the lessons and calculators free.</p></div></div>
   <div class="shop">
+    ${bookCard()}
     ${SHOP.map(x => `<div class="item"><div class="art"><img src="img/gullak/${x.pose}.svg" alt="" width="128" height="128" loading="lazy"></div>
       <div class="row" style="justify-content:flex-start"><span class="tag">${x.tag}</span><span class="tag">${x.sub}</span></div>
       <h3>${x.title}</h3><p>${x.text}</p><ul>${x.points.map(t => `<li>${t}</li>`).join("")}</ul>
@@ -1434,9 +1447,10 @@ function shop(){
       <p>Raj's workshops for colleges and companies: AI for jobs, Python + AI and AI agents, as a talk or a hands-on session. Details on techsamjhoraj.com.</p>
       <div class="row"><span class="btn ghost sm">See the workshops ↗</span></div></a>
   </div>
-  <p class="disc" style="margin-top:18px">Payments are handled by Gumroad (you'll see the final price there, in your currency); we never see your card details. The money book "Paisa Samjho: Salary se Savings tak" is coming soon. The sheets are tools for learning and planning: they don't recommend any product and never promise returns.</p>`;
+  <p class="disc" style="margin-top:18px">Payments are handled by Gumroad (you'll see the final price there, in your currency); we never see your card details. The book sample is a free PDF, no sign-up needed. The sheets are tools for learning and planning: they don't recommend any product and never promise returns.</p>`;
 }
 const PROMOS = [
+  { label:"Free from Raj", title:"Free sample: Paisa Samjho money book", text:"Salary se Savings tak with the Verma family and Gullak Bhai. Read the first chapters free, in English or Hinglish.", image:"img/book/cover-en.jpg", link:"#shop", cta:"Get the free sample" },
   { label:"From Raj", title:"Family Money Planner sheet · ₹199", text:"3 jars, a 50-30-20 check, your emergency-fund target and net worth in one Excel / Google Sheets file.", image:"img/gullak/full.svg", link:"#shop", cta:"See the sheet" },
   { label:"From Raj", title:"Money Plan Part 1 is live", text:"₹1 lakh salary, two kids, seven goals: meet the Verma family and see where a plan should start.", image:"https://i.ytimg.com/vi/e_VlzHdWqnc/hqdefault.jpg", link:"https://youtu.be/e_VlzHdWqnc", cta:"Watch on YouTube" },
   { label:"From Raj", title:"Learning Python and AI?", text:"Python with Chai, a chatbot you build yourself and Agentic AI, free on our sister site.", image:"https://www.techsamjhoraj.com/media/python-7.jpg", link:"https://www.techsamjhoraj.com", cta:"Open techsamjhoraj.com" },
@@ -1702,7 +1716,7 @@ askRaj({
     [["python", "coding", "tech", "ai", "chatbot"], { text: "Tech lessons live on our sister site 🤖 <a href=\"https://www.techsamjhoraj.com\" target=\"_blank\" rel=\"noopener\">techsamjhoraj.com</a>: Python with Chai, an AI chatbot course and Agentic AI.", chips: ["Where do I start?"] }],
     [["install", "app", "download", "home screen"], { text: "Tap the <b>Install</b> button at the top right to add Paisa Samjho Raj to your phone or computer like an app. 📲", chips: ["Where do I start?"] }],
     [["email", "notify", "subscribe", "newsletter", "update"], { text: "Use the <b>Get new lessons by email</b> box on the home page or at the end of any lesson. One short email per new lesson or episode; unsubscribe any time. 📬", chips: ["Where do I start?"] }],
-    [["book", "books", "read", "reading"], { text: "📚 Recommended money books are on the <a href=\"#learn\">Learn</a> page (scroll to the bottom) and the home page. They are for learning, not advice.", chips: ["Where do I start?", "Index funds"] }],
+    [["book", "books", "read", "reading"], { text: "📗 Raj's own money book <b>Paisa Samjho: Salary se Savings tak</b> has a free sample (English + Hinglish) in the <a href=\"#shop\">Shop</a>. 📚 Recommended money books are on the <a href=\"#learn\">Learn</a> page (scroll to the bottom) and the home page. They are for learning, not advice.", chips: ["Where do I start?", "Index funds"] }],
     [["menu"], { text: "☕ Aaj ka menu: " + LESSONS.length + " lessons, " + CALCS.length + " calculators, 1 Money Planner and " + EPISODES.length + " video episodes. Kya lenge?", chips: ["Where do I start?", "Calculators", "Money Planner"] }],
     [["contact", "question", "help", "raj", "mail"], { text: "Write to <b>samjhowithraj@gmail.com</b> with your question or an idea for the next episode. 🙂 (Questions may be answered in a video, without your name.)", chips: ["Where do I start?"] }],
     [["thank", "thanks", "shukriya", "dhanyavad", "nice", "great"], { text: "Shukriya! ☕ Ek aur sawaal?", chips: ["SIP", "Emergency fund", "Money Planner"] }],
