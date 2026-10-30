@@ -1423,13 +1423,14 @@ const SHOP = [
 ];
 // Money Book 1: free sample PDFs. BOOK.link = the Gumroad free-sample listing; set it only after Money PM confirms it is live
 const BOOK = { title:"Paisa Samjho: Salary se Savings tak", cover:"img/book/cover-en.jpg",
-  en:"books/paisa-samjho-sample-en.pdf", hi:"books/paisa-samjho-sample-hi.pdf", link:"", when:"about 10 Nov" };
+  en:"books/paisa-samjho-sample-en.pdf", hi:"books/paisa-samjho-sample-hi.pdf", link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-free-sample", when:"about 10 Nov" };
 function bookCard(){
   return `<div class="item book-sample"><div class="art"><img src="${BOOK.cover}" alt="Cover of the money book ${BOOK.title}" width="120" height="170" loading="lazy"></div>
       <div class="row" style="justify-content:flex-start"><span class="tag">Free sample</span><span class="tag">English + Hinglish</span></div>
       <h3>${BOOK.title}</h3><p>Raj's money book with the Verma family and Gullak Bhai. Read the first chapters free, then decide.</p>
       <div class="row" style="justify-content:flex-start"><a class="btn cta" href="${BOOK.en}" download>Free sample (English) ↓</a><a class="btn" href="${BOOK.hi}" download>Free sample (Hinglish) ↓</a></div>
-      ${BOOK.link ? `<div class="row"><a class="btn ghost sm" href="${BOOK.link}" target="_blank" rel="noopener">Also on Gumroad ↗</a></div>` : `<small>Full book coming ${BOOK.when}.</small>`}
+      ${BOOK.link ? `<div class="row"><a class="btn ghost sm" href="${BOOK.link}" target="_blank" rel="noopener">Also on Gumroad ↗</a></div>` : ""}
+      <small>Full book coming ${BOOK.when}.</small>
       <small>Financial education, advice nahi. No product tips and no promised returns.</small></div>`;
 }
 function shop(){
