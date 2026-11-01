@@ -1483,7 +1483,7 @@ function signup(lead){
   if (!SIGNUP.action) return "";
   const diwali = Date.now() <= Date.parse(DIWALI.ends);
   const head = diwali ? "🪔 Diwali gift: 10% off the book" : "Get new lessons by email";
-  const text = diwali ? `Sign up and Raj emails you a private Diwali code (10% off any edition of <b>${BOOK.title}</b>, valid until 15 Nov) and a free one-page <b>Diwali Money Cheat Sheet</b> (festival budget, no-cost EMI check, card and UPI fraud rules), before Diwali (8 Nov). Plus new lessons.<br><small class="tip">Tip: our emails sometimes land in Promotions or Spam. Learning with a friend? Send them this page too.</small>` : lead;
+  const text = diwali ? `Sign up and Raj emails you a private Diwali code (10% off any edition of <b>${BOOK.title}</b>, valid 10 to 15 Nov) and a free one-page <b>Diwali Money Cheat Sheet</b> (festival budget, no-cost EMI check, card and UPI fraud rules), before Diwali (8 Nov). Plus new lessons.<br><small class="tip">Tip: our emails sometimes land in Promotions or Spam. Learning with a friend? Send them this page too.</small>` : lead;
   return `<section class="signup${diwali ? " diwali" : ""}"><div><h3>${head}</h3><p>${text}</p></div>
     <form class="signup-form" novalidate><input type="email" name="email" required placeholder="you@example.com" aria-label="Your email address" autocomplete="email">
       <button class="btn primary" type="submit">Notify me</button>
