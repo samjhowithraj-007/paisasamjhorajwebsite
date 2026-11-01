@@ -1430,8 +1430,15 @@ const BOOK = { title:"Paisa Samjho: Salary se Savings tak", cover:"img/book/cove
   buy:[{ label:"English", price:199, link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-en" },
        { label:"Hinglish", price:199, link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-hinglish" },
        { label:"Both editions", price:299, link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-both" }],
-  code:"", codeEnds:"" }; // public launch code dropped 1 Nov 2026 (launch discount goes to sign-ups only)
+  code:"", codeEnds:"", // public launch code dropped 1 Nov 2026 (launch discount goes to sign-ups only)
+  live:false, launch:"Tue 10 Nov" }; // set live:true only after Payments confirms the 3 Gumroad books are on sale
 function buyCard(){
+  if (!BOOK.live) return `<div class="item book-sample"><div class="art"><img src="${BOOK.fullCover}" alt="Cover of the money book ${BOOK.title}" width="120" height="170" loading="lazy"></div>
+      <div class="row" style="justify-content:flex-start"><span class="tag">Coming ${BOOK.launch}</span><span class="tag">PDF · 20 chapters</span></div>
+      <h3>${BOOK.title}</h3><p>Full book: ${BOOK.launch} · free sample now · Notify me for the launch discount.</p>
+      <p>English ₹199 · Hinglish ₹199 · both editions ₹299.</p>
+      <div class="row buy-row"><button class="btn cta" type="button" onclick="document.querySelector('.signup')?.scrollIntoView({behavior:'smooth',block:'center'})">Notify me for the launch discount ↓</button></div>
+      <small>Financial education, advice nahi. No product tips and no promised returns.</small></div>`;
   const launch = BOOK.code && Date.now() <= Date.parse(BOOK.codeEnds);
   return `<div class="item book-sample"><div class="art"><img src="${BOOK.fullCover}" alt="Cover of the money book ${BOOK.title}" width="120" height="170" loading="lazy"></div>
       <div class="row" style="justify-content:flex-start"><span class="tag">New book</span><span class="tag">PDF · 20 chapters</span></div>
@@ -1465,6 +1472,7 @@ function shop(){
       <p>Raj's workshops for colleges and companies: AI for jobs, Python + AI and AI agents, as a talk or a hands-on session. Details on techsamjhoraj.com.</p>
       <div class="row"><span class="btn ghost sm">See the workshops ↗</span></div></a>
   </div>
+  ${BOOK.live ? "" : signup("Get the launch discount for the money book, plus new lessons.")}
   <p class="disc" style="margin-top:18px">Payments are handled by Gumroad (you'll see the final price there, in your currency); we never see your card details. The book sample is a free PDF, no sign-up needed. The sheets are tools for learning and planning: they don't recommend any product and never promise returns.</p>`;
 }
 const PROMOS = [
@@ -1739,7 +1747,7 @@ askRaj({
     [["python", "coding", "tech", "ai", "chatbot"], { text: "Tech lessons live on our sister site 🤖 <a href=\"https://www.techsamjhoraj.com\" target=\"_blank\" rel=\"noopener\">techsamjhoraj.com</a>: Python with Chai, an AI chatbot course and Agentic AI.", chips: ["Where do I start?"] }],
     [["install", "app", "download", "home screen"], { text: "Tap the <b>Install</b> button at the top right to add Paisa Samjho Raj to your phone or computer like an app. 📲", chips: ["Where do I start?"] }],
     [["email", "notify", "subscribe", "newsletter", "update"], { text: "Use the <b>Get new lessons by email</b> box on the home page or at the end of any lesson. One short email per new lesson or episode; unsubscribe any time. 📬", chips: ["Where do I start?"] }],
-    [["book", "books", "read", "reading"], { text: "📗 Raj's own money book <b>Paisa Samjho: Salary se Savings tak</b> is out: English ₹199, Hinglish ₹199 or both for ₹299 (PDF, paid on Gumroad), with a free sample of chapters 1 to 3, all in the <a href=\"#shop\">Shop</a>. Financial education, advice nahi. 📚 Recommended money books are on the <a href=\"#learn\">Learn</a> page (scroll to the bottom) and the home page. They are for learning, not advice.", chips: ["Where do I start?", "Index funds"] }],
+    [["book", "books", "read", "reading"], { text: "📗 Raj's own money book <b>Paisa Samjho: Salary se Savings tak</b> comes out on Tue 10 Nov: English ₹199, Hinglish ₹199 or both for ₹299 (PDF, on Gumroad). The free sample (chapters 1 to 3) is in the <a href=\"#shop\">Shop</a> now; sign up with Notify me there for the launch discount. Financial education, advice nahi. 📚 Recommended money books are on the <a href=\"#learn\">Learn</a> page (scroll to the bottom) and the home page. They are for learning, not advice.", chips: ["Where do I start?", "Index funds"] }],
     [["menu"], { text: "☕ Aaj ka menu: " + LESSONS.length + " lessons, " + CALCS.length + " calculators, 1 Money Planner and " + EPISODES.length + " video episodes. Kya lenge?", chips: ["Where do I start?", "Calculators", "Money Planner"] }],
     [["contact", "question", "help", "raj", "mail"], { text: "Write to <b>samjhowithraj@gmail.com</b> with your question or an idea for the next episode. 🙂 (Questions may be answered in a video, without your name.)", chips: ["Where do I start?"] }],
     [["thank", "thanks", "shukriya", "dhanyavad", "nice", "great"], { text: "Shukriya! ☕ Ek aur sawaal?", chips: ["SIP", "Emergency fund", "Money Planner"] }],
