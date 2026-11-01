@@ -1477,13 +1477,13 @@ const PROMOS = [
 // Action URL of the Brevo sign-up form (Marketing → Forms → Paisa lessons sign-up → Share → Simple HTML). Double opt-in is on.
 // Leave it empty to hide the sign-up box everywhere.
 const SIGNUP = { action: "https://b84d134c.sibforms.com/serve/MUIFANGQ3k0ewk2aDao8EXJ1KILF1fEPNoIEVLDupdbchMJLQs5lID06s-_DtCaCymKqHkKRGIibFrFBKpvh5D2GEBKqfyFMaUOJl47w3vmbwLF3YxTej2fMR9hbp5x_JyNYn7Z5GjKdAW1fJWLSFSwonEG7XQAXAvQtii6NuvvS4lgkwMobhFz8MB-wiPDReZy-iti4Eyoy-fvpww==" };
-// Diwali gift: the sign-up box swaps its heading and text until Diwali (8 Nov 2026, end of day IST)
-const DIWALI = { ends:"2026-11-08T23:59:59+05:30", sheet:"books/diwali-money-cheat-sheet.pdf" };
+// Diwali gift: the sign-up box swaps its heading and text until the code ends (15 Nov 2026, end of day IST)
+const DIWALI = { ends:"2026-11-15T23:59:59+05:30", sheet:"books/diwali-money-cheat-sheet.pdf" };
 function signup(lead){
   if (!SIGNUP.action) return "";
   const diwali = Date.now() <= Date.parse(DIWALI.ends);
   const head = diwali ? "🪔 Diwali gift: 10% off the book" : "Get new lessons by email";
-  const text = diwali ? `Sign up and Raj emails you a private Diwali code (10% off any edition of <b>${BOOK.title}</b>) and a free one-page <b>Diwali Money Cheat Sheet</b> (festival budget, no-cost EMI check, card and UPI fraud rules), before Diwali (8 Nov). Plus new lessons.<br><small class="tip">Tip: our emails sometimes land in Promotions or Spam. Learning with a friend? Send them this page too.</small>` : lead;
+  const text = diwali ? `Sign up and Raj emails you a private Diwali code (10% off any edition of <b>${BOOK.title}</b>, valid until 15 Nov) and a free one-page <b>Diwali Money Cheat Sheet</b> (festival budget, no-cost EMI check, card and UPI fraud rules), before Diwali (8 Nov). Plus new lessons.<br><small class="tip">Tip: our emails sometimes land in Promotions or Spam. Learning with a friend? Send them this page too.</small>` : lead;
   return `<section class="signup${diwali ? " diwali" : ""}"><div><h3>${head}</h3><p>${text}</p></div>
     <form class="signup-form" novalidate><input type="email" name="email" required placeholder="you@example.com" aria-label="Your email address" autocomplete="email">
       <button class="btn primary" type="submit">Notify me</button>
