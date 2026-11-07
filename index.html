@@ -1001,10 +1001,21 @@ function kcRedraw(full){
 function kcSync(){ const kr = document.getElementById("kc-res"); if (!kr) return; kr.innerHTML = kcResults();
   const si = document.querySelector('[data-kc="save"]'); if (si && kcLink && !kc.saveOwn && document.activeElement !== si) si.value = kcN(kcSave()); }
 // Kharcha check -> plan link: real saving after leak, pressure and wants above the leisure budget. Illustrative only, browser-only.
-function kcMonths(g, pmt){ if (pmt <= 0) return Infinity;
-  const i = Math.pow(1 + g.ret / 100, 1 / 12) - 1, N = Math.round(g.years * 12), fvT = i > 0 ? g.sip * (Math.pow(1 + i, N) - 1) / i : g.sip * N;
-  return i > 0 ? Math.log(1 + fvT * i / pmt) / Math.log(1 + i) : fvT / pmt; }
+// Same assumed return as the main plan. fv of a monthly amount over n months, and months for pmt to reach a value.
+const kcRate = g => Math.pow(1 + g.ret / 100, 1 / 12) - 1;
+const kcFv = (pmt, n, i) => i > 0 ? pmt * (Math.pow(1 + i, n) - 1) / i : pmt * n;
+const kcNper = (v, pmt, i) => pmt <= 0 ? Infinity : i > 0 ? Math.log(1 + v * i / pmt) / Math.log(1 + i) : v / pmt;
 const kcLater = m => m < 1 ? kcL("plan jaisa hi", "same as the plan") : m < 24 ? kcL(`lagbhag ${Math.round(m)} mahine late`, `about ${Math.round(m)} months later`) : kcL(`lagbhag ${(m / 12).toFixed(1)} saal late`, `about ${(m / 12).toFixed(1)} years later`);
+// Fixed-date goals (college, home, parents' fund): shortfall at the target date. Retirement (flexible): how much later the
+// smaller amount reaches the same pot the plan reaches at the retirement age.
+function kcEffect(g, g2, a){
+  const i = kcRate(g), N = Math.round(g.years * 12), less = g.got - g2.got;
+  const lessTxt = `<small>${inr(less)} ${kcL("kam har mahine", "less a month")}</small>`;
+  if (g.key === "ret") { const v = kcFv(g.got, N, i), late = kcNper(v, g2.got, i) - N;
+    return `${g2.got < 1 ? kcL("is goal ke liye kuch nahi bachta", "nothing left for this goal") : kcL(`retire ${kcLater(late)}`, `retire ${kcLater(late)}`)}${lessTxt}<small>${kcL(`ya ${a.retAge} par ${inrShort(kcFv(less, N, i))} kam`, `or ${inrShort(kcFv(less, N, i))} short at ${a.retAge}`)}</small>`; }
+  const when = g.key === "edu" ? kcL(`${a.college} ki umar par`, `at ${a.college}`) : kcL(`${g.years} saal mein`, `in ${g.years} years`);
+  return `${kcL(`${inrShort(kcFv(less, N, i))} kam padega ${when}`, `${inrShort(kcFv(less, N, i))} short ${when}`)}${lessTxt}`;
+}
 function fpReal(r){
   const sw = `<label class="kc-sw"><input type="checkbox" data-kclink ${kcLink ? "checked" : ""}> ${kcL("Mera kharcha check plan mein include karo", "Include my kharcha check in the plan")}</label>`;
   const head = `<section class="block kc-link"><h3>${kcL("Asli saving: kharcha check ke baad", "Real saving: after your kharcha check")}</h3>${sw}`;
@@ -1021,15 +1032,14 @@ function fpReal(r){
   const rule = `<p class="kc-note">${kcL("Leak aur pressure saving se katte hain. Shauk ka sirf leisure budget se upar wala hissa katta hai. Zaroorat pehle se essentials mein hai, isliye dobara nahi gina.", "Leak and pressure come out of saving. A want counts only for the part above your leisure budget. Needs are already in essentials, so they are not counted again.")}</p>`;
   const gs = r.goals.map((g, i) => ({ g, g2:r2.goals[i] })).filter(x => !x.g.dueNow && x.g.sip > 0);
   const eff = ({ g, g2 }) => g.got < 1 ? kcL("plan mein abhi paisa nahi", "no money in the plan yet")
-    : g2.got < 1 ? kcL("asli saving mein is goal ke liye kuch nahi bachta", "nothing left for this goal at real saving")
-    : `${kcLater(kcMonths(g, g2.got) - kcMonths(g, g.got))}<small>${inr(g.got - g2.got)} ${kcL("kam har mahine", "less a month")}</small>`;
+    : kcEffect(g, g2, fp.a);
   const table = gs.length ? `<div class="fp-tw"><table class="fp-table"><thead><tr><th>${kcL("Goal: plan → asli saving", "Goal: plan → real saving")}</th><th class="r">${kcL("Asar", "Effect")}</th></tr></thead><tbody>
     ${gs.map(x => `<tr><td><b>${x.g.name}</b><small>${inr(x.g.got)} → ${inr(x.g2.got)} ${kcL("har mahine", "a month")}</small></td><td class="r">${eff(x)}</td></tr>`).join("")}</tbody></table></div>` : "";
   const safe = q => q.buckets.filter(x => ["ins", "debt", "ef"].includes(x.key)).reduce((n, x) => n + x.amt, 0), sd = safe(r) - safe(r2);
   const safety = sd >= 1 ? `<p class="kc-note">${kcL(`Safety buckets (insurance, mehenga loan, emergency fund) ko har mahine ${inr(sd)} kam milta hai, toh woh der se bharenge.`, `Safety buckets (insurance, costly debt, emergency fund) get ${inr(sd)} less a month, so they fill later.`)}</p>` : "";
   const neg = k.real < 0 ? `<p class="kc-note"><b>${kcL("Dhyan do:", "Note:")}</b> ${kcL("yeh kharche planned saving se zyada hain.", "these spends are more than your planned saving.")}</p>` : "";
   return `${head}${steps}${neg}${rule}${table}${safety}
-    <p class="kc-note">${kcL("Goal ka asar ek seedha andaaza hai: wahi assumed return, kam monthly amount. Illustrative only. Financial education, advice nahi.", "The goal effect is a simple estimate: same assumed return, smaller monthly amount. Illustrative only. Financial education, not advice.")}${r.safetyOpen ? " " + kcL("Yeh Stage 1 ke numbers hain: safety bharne ke baad goals ko zyada milega, toh asli deri kam ho sakti hai.", "These are Stage 1 numbers: once safety is built, goals get more, so the real delay can be shorter.") : ""} <a href="#kc" data-kcgo="kc">${kcL("Kharcha check badlo ↓", "Change the kharcha check ↓")}</a></p></section>`;
+    <p class="kc-note">${kcL("Goal ka asar ek seedha andaaza hai: plan wala hi assumed return, kam monthly amount. Fixed date wale goals par us din ki kami; retirement par wahi rakam kitni der se banegi. Illustrative only. Financial education, advice nahi.", "The goal effect is a simple estimate: same assumed return as the plan, smaller monthly amount. Fixed-date goals show the shortfall on that date; retirement shows how much later the same pot is reached. Illustrative only. Financial education, not advice.")}${r.safetyOpen ? " " + kcL("Yeh Stage 1 ke numbers hain: safety bharne ke baad goals ko zyada milega, toh asli deri kam ho sakti hai.", "These are Stage 1 numbers: once safety is built, goals get more, so the real delay can be shorter.") : ""} <a href="#kc" data-kcgo="kc">${kcL("Kharcha check badlo ↓", "Change the kharcha check ↓")}</a></p></section>`;
 }
 app.addEventListener("input", e => {
   const el = e.target.closest("[data-kc]"); if (!el) return;
