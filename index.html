@@ -283,6 +283,22 @@ details.years summary{cursor:pointer;font-weight:600;font-size:14.5px}
 .fp-in input:focus,.fp-in select:focus{outline:none}
 .fp-in i{font-style:normal;color:var(--muted);padding:0 10px;font-size:13px;white-space:nowrap}
 .fp-in i:first-child{padding-right:0}
+.kc{margin-top:40px;padding-top:28px;border-top:1px solid var(--line)}
+.kc>h2{margin:4px 0 6px}.kc>.lead{margin-bottom:14px}.kc>.fp-tools,.kc>.fp-banner{margin-bottom:12px}
+.kc .fp-res{display:flex;flex-direction:column;gap:14px}
+.kc-list{display:flex;flex-direction:column;gap:12px;padding:0 18px 18px}
+.kc-item{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto auto;gap:8px;align-items:end;padding-bottom:12px;border-bottom:1px dashed var(--line)}
+@media (max-width:560px){.kc-item{grid-template-columns:minmax(0,1fr) auto auto}.kc-item>label:first-child{grid-column:1/-1}}
+.kc-item .fp-x{width:38px;height:38px;padding:0;align-self:end;justify-self:end}
+.kc-tags{display:flex;gap:4px}
+.kc-t{border:1px solid var(--line);background:var(--paper);color:var(--muted);border-radius:8px;min-width:38px;height:38px;font:inherit;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.kc-t span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.kc-t.on{color:#fff;border-color:transparent}
+.kc-t.kc-Z.on,.kc-bar .kc-Z,.kc-legend .kc-Z{background:#2f7d57}.kc-t.kc-S.on,.kc-bar .kc-S,.kc-legend .kc-S{background:#c98a1b}.kc-t.kc-P.on,.kc-bar .kc-P,.kc-legend .kc-P{background:#c2412d}
+.kc-bar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--line);margin-bottom:8px}.kc-bar i{display:block;height:100%}
+.kc-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13.5px;color:var(--muted);margin-bottom:12px}.kc-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+.kc-note{font-size:13.5px;color:var(--muted);margin:12px 0 0!important}
+.kc-sum{border:2px solid var(--green)}.kc-sum ul{padding-left:18px}
 .fp-f small{color:var(--muted);font-size:12px;line-height:1.35}
 .fp-full{grid-column:1/-1}
 .fp-sub{grid-column:1/-1;font-size:12px;text-transform:uppercase;letter-spacing:1.4px;font-weight:700;color:var(--muted);margin-top:6px;border-top:1px solid var(--line);padding-top:12px}
@@ -888,13 +904,94 @@ function fpResults(){
     <div class="fp-tools"><button type="button" class="btn" onclick="print()">Print or save as PDF</button><a class="btn" href="#shop">Get the Family Money Planner sheet · ₹199</a></div>`;
 }
 
+// ---------- Kharcha check: leak finder (Money Plan Part 2) + zaroorat / shauk / pressure (Part 3). In-browser only, never saved or sent. ----------
+const KC_LEAK = [["delivery", "Food delivery (Swiggy, Zomato)"], ["shopping", "Online shopping"], ["upi", "Chhote UPI kharche (chai, snacks, auto)"], ["subs", "Subscriptions (OTT, apps, gym)"]];
+const KC_TAGS = { Z:["Zaroorat", "need"], S:["Shauk", "want"], P:["Pressure", "others expect it / FOMO"] };
+const kcVerma = () => ({ example:true, save:31000, leak:{ delivery:2800, shopping:3200, upi:1900, subs:1100 },
+  items:[{ name:"Aarav's school trip", amt:2500, tag:"Z" }, { name:"Neha's new phone (EMI)", amt:3000, tag:"S" },
+    { name:"Cousin's wedding: gift + new outfit", amt:6000, tag:"P" }, { name:"Birthday party return gifts", amt:1500, tag:"P" },
+    { name:"Weekend mall + movie", amt:2000, tag:"S" }] });
+const kcBlank = () => ({ example:false, save:0, leak:{ delivery:0, shopping:0, upi:0, subs:0 }, items:[{ name:"", amt:0, tag:"Z" }, { name:"", amt:0, tag:"P" }] });
+let kc = kcVerma();
+const kcEsc = t => String(t).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" })[c]);
+const kcN = n => n ? Math.round(n).toLocaleString("en-IN") : "";
+const kcAmt = (k, label, v) => `<label class="fp-f"><span>${label}</span><span class="fp-in"><i>₹</i><input type="text" inputmode="numeric" data-kc="${k}" value="${kcN(v)}" placeholder="0"><i>/ month</i></span></label>`;
+function kcCalc(){
+  const leak = Object.values(kc.leak).reduce((a, x) => a + x, 0), by = { Z:0, S:0, P:0 };
+  kc.items.forEach(x => by[x.tag] += x.amt);
+  const half = by.P / 2;
+  return { leak, leakDay:leak / 30, leakYear:leak * 12, saved:Math.max(0, kc.save - leak), by, pYear:by.P * 12, half, halfYear:half * 12 };
+}
+function kcResults(){
+  const r = kcCalc(), all = r.by.Z + r.by.S + r.by.P, inc = fp.income || 0;
+  const bar = all ? `<div class="kc-bar">${["Z", "S", "P"].map(t => r.by[t] ? `<i class="kc-${t}" style="width:${100 * r.by[t] / all}%" title="${KC_TAGS[t][0]}: ${inr(r.by[t])}"></i>` : "").join("")}</div>` : "";
+  const months = kc.save > 0 && r.halfYear > 0 ? ` That is about <b>${(r.halfYear / kc.save).toFixed(1)} months</b> of your planned saving.` : "";
+  return `<section class="block kc-card"><h3>Chhote kharche: the leak</h3>
+      <div class="kpis"><div class="kpi hi">Leak per month<b>${inr(r.leak)}</b>${inc ? `${pctOf(r.leak, inc)}% of take-home` : "small spends added up"}</div>
+        <div class="kpi">Leak per day<b>${inr(r.leakDay)}</b>about ÷ 30 days</div>
+        <div class="kpi">Leak per year<b>${inr(r.leakYear)}</b>if it repeats every month</div>
+        ${kc.save ? `<div class="kpi">Saving left this month<b>${inr(r.saved)}</b>planned ${inr(kc.save)} − leak</div>` : ""}</div>
+      <p class="kc-note">Ek ek karke koi kharcha bura nahi lagta, total bada hota hai. Write every spend for 30 days, even ₹20, once a day at night.</p></section>
+    <section class="block kc-card"><h3>Zaroorat, shauk ya pressure?</h3>
+      ${bar}<div class="kc-legend">${["Z", "S", "P"].map(t => `<span><i class="kc-${t}"></i>${KC_TAGS[t][0]} ${inr(r.by[t])}</span>`).join("")}</div>
+      <div class="kpis"><div class="kpi hi">Pressure per month<b>${inr(r.by.P)}</b>spends you didn't really want</div>
+        <div class="kpi">Pressure per year<b>${inr(r.pYear)}</b>if it happens every month</div>
+        <div class="kpi">If pressure halves<b>${inr(r.half)}</b>saved a month · ${inr(r.halfYear)} a year</div></div>
+      <p class="kc-note"><b>24-ghante rule:</b> any spend over ₹2,000 that isn't a need waits 24 hours. Then ask: zaroorat, shauk ya pressure?${months} Shauk is fine when it is planned inside your fun budget.</p></section>
+    <section class="block kc-sum"><h3>Your kharcha check</h3>
+      <ul><li>Leak: <b>${inr(r.leak)}</b> a month = <b>${inr(r.leakDay)}</b> a day = <b>${inr(r.leakYear)}</b> a year.</li>
+        <li>Pressure: <b>${inr(r.by.P)}</b> a month = <b>${inr(r.pYear)}</b> a year.</li>
+        <li>Halve the leak and the pressure: about <b>${inr((r.leak + r.by.P) / 2)}</b> back each month, <b>${inr((r.leak + r.by.P) * 6)}</b> a year.</li></ul>
+      <p class="kc-note">Illustrative only. Financial education, advice nahi.</p>
+      <div class="fp-tools"><button type="button" class="btn" onclick="print()">Print or save as PDF</button></div></section>`;
+}
+function kcSection(){
+  const items = kc.items.map((x, i) => `<div class="kc-item"><label class="fp-f"><span>Kharcha ${i + 1}</span><span class="fp-in"><input type="text" data-kc="items.${i}.name" value="${kcEsc(x.name)}" placeholder="e.g. wedding gift"></span></label>
+      <label class="fp-f"><span>₹ this month</span><span class="fp-in"><i>₹</i><input type="text" inputmode="numeric" data-kc="items.${i}.amt" value="${kcN(x.amt)}" placeholder="0"></span></label>
+      <div class="kc-tags" role="radiogroup" aria-label="Kharcha ${i + 1} type">${Object.entries(KC_TAGS).map(([t, [n, h]]) => `<button type="button" class="kc-t kc-${t}${x.tag === t ? " on" : ""}" data-kct="${i}:${t}" aria-pressed="${x.tag === t}" title="${n}: ${h}">${t}<span>${n}</span></button>`).join("")}</div>
+      <button type="button" class="fp-x" data-kcdel="${i}" aria-label="Remove kharcha ${i + 1}">×</button></div>`).join("");
+  return `<section class="kc" id="kc"><div class="eyebrow">Money Plan Part 2 + 3</div><h2>Kharcha check: leak finder + zaroorat, shauk ya pressure</h2>
+    <p class="lead">Find the "chhote-chhote" spends that eat your saving, then tag each big spend Z, S or P.</p>
+    <div class="fp-tools"><button type="button" class="btn" data-kcb="verma">Verma family example</button><button type="button" class="btn" data-kcb="clear">Start blank</button></div>
+    ${kc.example ? `<div class="fp-banner">Verma family (fictional), from Money Plan Part 2 and Part 3. Change any number to make it yours.</div>` : ""}
+    <div class="fp"><form class="fp-form" onsubmit="return false">
+      <details class="fp-sec" open><summary>1 · Chhote-chhote kharche (one month)</summary><div class="fp-grid">${KC_LEAK.map(([k, l]) => kcAmt(`leak.${k}`, l, kc.leak[k])).join("")}
+        <label class="fp-f fp-full"><span>Planned saving per month</span><span class="fp-in"><i>₹</i><input type="text" inputmode="numeric" data-kc="save" value="${kcN(kc.save)}" placeholder="0"></span></label></div></details>
+      <details class="fp-sec" open><summary>2 · Is mahine ke bade kharche: Z, S ya P?</summary><div class="kc-list">${items}
+        <button type="button" class="btn" data-kcb="add">+ Add a kharcha</button>
+        <p class="kc-note"><b>Z</b> Zaroorat: you need it. <b>S</b> Shauk: you want it, and that's okay if planned. <b>P</b> Pressure: others expect it, or FOMO.</p></div></details>
+    </form><div class="fp-res" id="kc-res" aria-live="polite">${kcResults()}</div></div></section>`;
+}
+function kcRedraw(full){
+  if (full) { const y = scrollY; document.getElementById("kc").outerHTML = kcSection(); scrollTo(0, y); }
+  else document.getElementById("kc-res").innerHTML = kcResults();
+}
+app.addEventListener("input", e => {
+  const el = e.target.closest("[data-kc]"); if (!el) return;
+  const ks = el.dataset.kc.split("."), last = ks.pop(), o = ks.reduce((a, k) => a[k], kc);
+  o[last] = last === "name" ? el.value.slice(0, 60) : Math.min(+el.value.replace(/[^\d]/g, "") || 0, 1e9);
+  if (kc.example) { kc.example = false; document.querySelector("#kc .fp-banner")?.remove(); }
+  kcRedraw(false);
+});
+app.addEventListener("focusout", e => { const el = e.target.closest("[data-kc]"); if (el && el.inputMode === "numeric") el.value = kcN(+el.value.replace(/[^\d]/g, "")); });
+app.addEventListener("click", e => {
+  const b = e.target.closest("[data-kcb],[data-kct],[data-kcdel]"); if (!b) return;
+  if (b.dataset.kcb === "verma") kc = kcVerma();
+  else if (b.dataset.kcb === "clear") kc = kcBlank();
+  else if (b.dataset.kcb === "add") { if (kc.items.length < 12) kc.items.push({ name:"", amt:0, tag:"Z" }); }
+  else if (b.dataset.kct) { const [i, t] = b.dataset.kct.split(":"); kc.items[i].tag = t; kc.example = false; }
+  else kc.items.splice(+b.dataset.kcdel, 1);
+  kcRedraw(true);
+});
+
 function tracker(){
   return `<div class="page-head"><div><div class="eyebrow">Money Planner</div>
       <h1>Your family's <em>money plan</em>, one bucket at a time.</h1>
-      <p class="lead">Enter your household, income and expenses. See how much of your monthly surplus could go to the emergency fund, insurance, costly debt and long-term goals: safety first, then the future.</p>
+      <p class="lead">New: <a href="#planner" onclick="document.getElementById('kc')?.scrollIntoView({behavior:'smooth'});return false">Kharcha check: leak finder + zaroorat, shauk ya pressure ↓</a><br>Enter your household, income and expenses. See how much of your monthly surplus could go to the emergency fund, insurance, costly debt and long-term goals: safety first, then the future.</p>
       <p class="hindi">Companion to the "Middle-Class Family Ka Money Plan" video series.</p></div></div>
     <p class="fp-disc"><b>Private:</b> everything is calculated in your browser. Nothing you type is sent anywhere. <b>Educational only:</b> the numbers are illustrations based on assumptions you can change, not advice.</p>
-    <div class="fp">${fpForm()}<div class="fp-res" id="fp-res" aria-live="polite">${fpResults()}</div></div>`;
+    <div class="fp">${fpForm()}<div class="fp-res" id="fp-res" aria-live="polite">${fpResults()}</div></div>
+    ${kcSection()}`;
 }
 function fpAmtHints(){ document.querySelectorAll("[data-amt]").forEach(el => { const v = +fpGet(el.dataset.amt) || 0; el.textContent = v >= 1e5 ? inrShort(v) : ""; });
   const ef = document.querySelector('#fp-form [data-k="efMonths"]'); if (ef) ef.placeholder = "auto: " + fpCalc(fp).efAuto; }
