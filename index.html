@@ -413,6 +413,7 @@ footer p{margin:0;max-width:110ch}
 .cb-fab span{font-size:20px;line-height:1}
 .cb-fab img{width:26px;height:26px;border-radius:50%;display:block;flex:none}
 .cb-fab[aria-expanded="true"]{display:none}
+@media (max-width:600px){.cb-fab{padding:8px;bottom:max(12px,env(safe-area-inset-bottom))}.cb-fab b{display:none}#app{padding-bottom:72px}}
 .cb-panel{position:fixed;right:16px;bottom:max(16px,env(safe-area-inset-bottom));z-index:31;width:min(380px,calc(100vw - 32px));height:min(540px,calc(100vh - 110px));display:flex;flex-direction:column;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px rgba(0,0,0,.3);overflow:hidden}
 .cb-panel[hidden]{display:none}
 .cb-head{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#1d6b4f;color:#fff}
@@ -1620,7 +1621,7 @@ const SHOP = [
     points:["Monthly budget, plan vs actual, for all 12 months", "The same 3 jars, with what's left over each month", "Loans and goals in the same file"] },
 ];
 // Money Book 1: free sample PDFs. BOOK.link = the Gumroad free-sample listing; set it only after Money PM confirms it is live
-const BOOK = { title:"Paisa Samjho: Salary se Savings tak", cover:"img/book/cover-en.jpg?v=3",
+const BOOK = { title:"Paisa Samjho: Salary se Savings tak", cover:"img/book/cover-en.jpg?v=3", coverHing:"img/book/cover-hinglish.jpg?v=1", coverHindi:"img/book/cover-hindi.jpg?v=1",
   en:"books/paisa-samjho-sample-en.pdf", hi:"books/paisa-samjho-sample-hi.pdf", hindi:"books/paisa-samjho-sample-hindi.pdf", link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-free-sample", fullCover:"img/book/full-en.jpg?v=3",
   // Prices from Raj, 10 Nov 2026: ₹249 per edition, ₹199 in launch week (7 days from the sale day; Raj 11 Nov). Set launchEnds = sale day + 7 days when it goes live. Hindi + all-3 bundle (₹449, launch ₹349) added after Hindi QC.
   launchEnds:"",
@@ -1628,15 +1629,17 @@ const BOOK = { title:"Paisa Samjho: Salary se Savings tak", cover:"img/book/cove
        { label:"Hinglish", price:249, launch:199, link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-hinglish" }],
   code:"", codeEnds:"", // public launch code dropped 1 Nov 2026 (launch discount goes to sign-ups only)
   live:false, launch:"soon" }; // set live:true only after Payments confirms the 3 Gumroad books are on sale
+// Shop cover follows the site language (Hindi / Hinglish editions have their own covers).
+const bookCover = full => LANG === "hi" ? BOOK.coverHindi : LANG === "hing" ? BOOK.coverHing : full ? BOOK.fullCover : BOOK.cover;
 function buyCard(){
-  if (!BOOK.live) return `<div class="item book-sample"><div class="art"><img src="${BOOK.fullCover}" alt="Cover of the money book ${BOOK.title}" width="120" height="170" loading="lazy"></div>
+  if (!BOOK.live) return `<div class="item book-sample"><div class="art"><img src="${bookCover(1)}" alt="Cover of the money book ${BOOK.title}" width="120" height="170" loading="lazy"></div>
       <div class="row" style="justify-content:flex-start"><span class="tag">Coming soon</span><span class="tag">PDF · 20 chapters</span></div>
       <h3>${BOOK.title}</h3><p>Full book: coming soon · free sample now · Notify me when it is out.</p>
       <p>English ₹249 · Hinglish ₹249 · launch week (first 7 days) ₹199 each. Hindi edition and all-3 bundle (₹449, launch ₹349): coming soon.</p>
       <div class="row buy-row"><button class="btn cta" type="button" onclick="document.querySelector('.signup')?.scrollIntoView({behavior:'smooth',block:'center'})">Notify me when it is out ↓</button></div>
       <small>Financial education, advice nahi. No product tips and no promised returns.</small></div>`;
   const launch = BOOK.code && Date.now() <= Date.parse(BOOK.codeEnds), lw = !!BOOK.launchEnds && Date.now() <= Date.parse(BOOK.launchEnds);
-  return `<div class="item book-sample"><div class="art"><img src="${BOOK.fullCover}" alt="Cover of the money book ${BOOK.title}" width="120" height="170" loading="lazy"></div>
+  return `<div class="item book-sample"><div class="art"><img src="${bookCover(1)}" alt="Cover of the money book ${BOOK.title}" width="120" height="170" loading="lazy"></div>
       <div class="row" style="justify-content:flex-start"><span class="tag">New book</span><span class="tag">PDF · 20 chapters</span></div>
       <h3>${BOOK.title}</h3><p>The full money book: the Verma family's plan, worked rupee examples, practice with answers and a worksheet in every chapter.</p>
       ${launch ? `<p class="code-line">Launch week: code <b>${BOOK.code}</b> (₹50 off English or Hinglish, until 9 Nov)</p>` : ""}
@@ -1646,7 +1649,7 @@ function buyCard(){
       <small>Payment on Gumroad. Financial education, advice nahi. No product tips and no promised returns.</small></div>`;
 }
 function bookCard(){
-  return `<div class="item book-sample"><div class="art"><img src="${BOOK.cover}" alt="Cover of the money book ${BOOK.title}" width="120" height="170" loading="lazy"></div>
+  return `<div class="item book-sample"><div class="art"><img src="${bookCover(0)}" alt="Cover of the money book ${BOOK.title}" width="120" height="170" loading="lazy"></div>
       <div class="row" style="justify-content:flex-start"><span class="tag">Free sample</span><span class="tag">English · Hinglish · हिंदी</span></div>
       <h3>${BOOK.title}</h3><p>Raj's money book with the Verma family and Gullak Bhai. Read the first chapters free, then decide.</p>
       <div class="row" style="justify-content:flex-start"><a class="btn cta" href="${BOOK.en}" download>Free sample (English) ↓</a><a class="btn" href="${BOOK.hi}" download>Free sample (Hinglish) ↓</a><a class="btn" href="${BOOK.hindi}" download>Free sample (हिंदी) ↓</a></div>
@@ -1964,8 +1967,211 @@ const I18N_RX = [
   [/^(₹[\d.,]+) lakh each$/, ["$1 lakh har ek", "$1 लाख हर एक"]],
   [/^(₹[\d.,]+) lakh$/, ["$1 lakh", "$1 लाख"]], [/^(₹[\d.,]+) crore$/, ["$1 crore", "$1 करोड़"]],
 ];
+// Phase 2 (11 Nov 2026): calculators. Long notes are split into sentences by tr(), so each sentence is its own entry.
+Object.assign(I18N, {
+"› Grow":["› Badhao","› बढ़ाओ"],"› Plan":["› Plan","› प्लान"],"› Protect and borrow":["› Suraksha aur loan","› सुरक्षा और लोन"],
+"SIP":["SIP","SIP"],"Step-up SIP":["Step-up SIP","स्टेप-अप SIP"],"Lumpsum":["Lumpsum","एकमुश्त"],"Fee impact":["Fees ka asar","फ़ीस का असर"],"Inflation":["Mehngai","महँगाई"],
+"Net worth":["Net worth","कुल संपत्ति"],"EMI":["EMI","EMI"],"Credit card":["Credit card","क्रेडिट कार्ड"],"Everything":["Sab kuch","सब कुछ"],"Full family plan →":["Poora family plan →","पूरा परिवार प्लान →"],
+"Monthly investment":["Monthly investment","मासिक निवेश"],"Expected return":["Expected return","अनुमानित रिटर्न"],"Time period":["Samay","समय अवधि"],"years":["saal","साल"],
+"🔗 Share these numbers":["🔗 Ye numbers share karo","🔗 ये आँकड़े शेयर करें"],"Sends a link with your inputs filled in.":["Aapke numbers bhare hue link bhejta hai.","आपके भरे हुए आँकड़ों वाला लिंक भेजता है।"],
+"Want this in a spreadsheet?":["Ye spreadsheet mein chahiye?","यह स्प्रेडशीट में चाहिए?"],"Get the full planner sheet →":["Poori planner sheet lo →","पूरी प्लानर शीट लें →"],
+"New calculators and episodes first:":["Naye calculators aur episodes sabse pehle:","नए कैलकुलेटर और एपिसोड सबसे पहले:"],
+"Invested":["Lagaya","लगाया"],"Estimated returns":["Anumaanit returns","अनुमानित रिटर्न"],"Total value":["Kul value","कुल मूल्य"],
+"Time does the heavy lifting. Start early and stay regular; returns are never guaranteed.":["Asli kaam samay karta hai. Jaldi shuru karo aur regular raho; returns kabhi guaranteed nahi hote.","असली काम समय करता है। जल्दी शुरू करें और नियमित रहें; रिटर्न कभी गारंटीड नहीं होते।"],
+"Value":["Value","मूल्य"],"Years →":["Saal →","साल →"],"Year-by-year table":["Saal-dar-saal table","साल-दर-साल तालिका"],"Year":["Saal","साल"],
+"Assumes the amount is invested at the start of every month and the return is earned steadily.":["Maana gaya hai ki paisa har mahine ki shuruaat mein lagta hai aur return ek jaisa milta hai.","माना गया है कि रकम हर महीने की शुरुआत में लगती है और रिटर्न एक-सा मिलता है।"],
+"Real returns vary year to year and can be negative.":["Asli returns har saal badalte hain aur negative bhi ho sakte hain.","असली रिटर्न हर साल बदलते हैं और नेगेटिव भी हो सकते हैं।"],
+"Learn the idea:":["Idea samjho:","आइडिया समझें:"],"SIP: invest a fixed amount every month":["SIP: har mahine ek fixed amount lagao","SIP: हर महीने एक तय रकम लगाएँ"],
+". Educational and illustrative only, not financial, tax or insurance advice; not a promise of returns.":[". Sirf seekhne aur samjhane ke liye, financial, tax ya insurance advice nahi; returns ka vaada nahi.","। सिर्फ़ सीखने और समझाने के लिए, वित्तीय, टैक्स या बीमा सलाह नहीं; रिटर्न का वादा नहीं।"],
+"How this calculator works":["Ye calculator kaise kaam karta hai","यह कैलकुलेटर कैसे काम करता है"],
+"Each instalment goes in at the start of the month and grows at the monthly rate that equals your yearly return: (1 + yearly return)":["Har kisht mahine ki shuruaat mein lagti hai aur us monthly rate se badhti hai jo aapke saalana return ke barabar hai: (1 + saalana return)","हर किस्त महीने की शुरुआत में लगती है और उस मासिक दर से बढ़ती है जो आपके सालाना रिटर्न के बराबर है: (1 + सालाना रिटर्न)"],
+"Value = P × [((1 + i)":["Value = P × [((1 + i)","मूल्य = P × [((1 + i)"],
+"P = monthly amount, i = monthly rate, n = number of months.":["P = monthly amount, i = monthly rate, n = mahinon ki ginti.","P = मासिक रकम, i = मासिक दर, n = महीनों की संख्या।"],
+"Maths checked by Raj on 19 Oct 2026.":["Maths Raj ne 19 Oct 2026 ko check kiya.","गणित राज ने 19 अक्टूबर 2026 को जाँचा।"],
+"Everything is worked out in your browser; nothing you type is sent anywhere.":["Sab kuch aapke browser mein hi calculate hota hai; aap jo bharte ho woh kahin nahi jaata.","सब कुछ आपके ब्राउज़र में ही गिना जाता है; आप जो भरते हैं वह कहीं नहीं जाता।"],
+"Common questions":["Aam sawaal","आम सवाल"],"Is this return guaranteed?":["Kya ye return guaranteed hai?","क्या यह रिटर्न गारंटीड है?"],
+"No. Equity funds go up and down, and some years are negative.":["Nahi. Equity funds upar-neeche hote hain, aur kuch saal negative bhi hote hain.","नहीं। इक्विटी फ़ंड ऊपर-नीचे होते हैं, और कुछ साल नेगेटिव भी होते हैं।"],
+"The 12% default is only an assumption to play with.":["12% default sirf ek andaaza hai, khelne ke liye.","12% डिफ़ॉल्ट सिर्फ़ एक अनुमान है, आज़माने के लिए।"],"Try 8% and 10% too.":["8% aur 10% bhi try karo.","8% और 10% भी आज़माएँ।"],
+"Why does my fund app show a slightly different number?":["Mera fund app thoda alag number kyun dikhata hai?","मेरा फ़ंड ऐप थोड़ा अलग आँकड़ा क्यों दिखाता है?"],
+"Apps may use yearly return ÷ 12 as the monthly rate, different dates or real past prices.":["Apps saalana return ÷ 12 ko monthly rate maan sakte hain, alag dates ya asli purane prices le sakte hain.","ऐप सालाना रिटर्न ÷ 12 को मासिक दर मान सकते हैं, अलग तारीख़ें या असली पुरानी क़ीमतें ले सकते हैं।"],
+"Small gaps are normal.":["Chhota farak normal hai.","छोटा फ़र्क़ सामान्य है।"],
+"Starting monthly investment":["Shuruaati monthly investment","शुरुआती मासिक निवेश"],"Increase every year":["Har saal badhao","हर साल बढ़ोतरी"],"Without step-up":["Bina step-up","बिना स्टेप-अप"],
+"Extra from step-up":["Step-up se extra","स्टेप-अप से अतिरिक्त"],"Flat SIP value":["Flat SIP value","सामान्य SIP मूल्य"],"Step-up SIP value":["Step-up SIP value","स्टेप-अप SIP मूल्य"],
+"Same maths as the SIP calculator, but the monthly amount goes up by your chosen percentage at the start of every year.":["SIP calculator jaisa hi maths, bas monthly amount har saal ki shuruaat mein aapke chune hue percent se badhta hai.","SIP कैलकुलेटर जैसा ही गणित, बस मासिक रकम हर साल की शुरुआत में आपके चुने प्रतिशत से बढ़ती है।"],
+"The dotted line is the same SIP without the increase.":["Dotted line wahi SIP hai bina badhotri ke.","बिंदीदार रेखा वही SIP है, बिना बढ़ोतरी के।"],
+"Amount in year k = P × (1 + step)":["Saal k mein amount = P × (1 + step)","साल k में रकम = P × (1 + step)"],"P = starting monthly amount, step = yearly increase.":["P = shuruaati monthly amount, step = saalana badhotri.","P = शुरुआती मासिक रकम, step = सालाना बढ़ोतरी।"],
+"How much should the step-up be?":["Step-up kitna hona chahiye?","स्टेप-अप कितना होना चाहिए?"],"Many people match their yearly salary rise.":["Kai log ise apni saalana salary badhotri ke barabar rakhte hain.","कई लोग इसे अपनी सालाना सैलरी बढ़ोतरी के बराबर रखते हैं।"],
+"Pick a step you can keep up in a bad year too.":["Itna chuno jo bure saal mein bhi chal sake.","इतना चुनें जो बुरे साल में भी चल सके।"],"How do I set it up?":["Ise set kaise karein?","इसे कैसे सेट करें?"],
+"Many fund houses offer a yearly top-up option when you start a SIP, or you can raise the amount yourself each year.":["Kai fund houses SIP shuru karte waqt yearly top-up option dete hain, ya aap khud har saal amount badha sakte ho.","कई फ़ंड हाउस SIP शुरू करते समय सालाना टॉप-अप विकल्प देते हैं, या आप ख़ुद हर साल रकम बढ़ा सकते हैं।"],
+"One-time investment":["Ek baar ka investment","एकमुश्त निवेश"],"Doubles in about":["Lagbhag double hoga","लगभग दोगुना होगा"],
+"Compounded once a year at a steady assumed rate.":["Saal mein ek baar, ek jaisi maani hui rate par compound hota hai.","साल में एक बार, एक-सी मानी गई दर पर चक्रवृद्धि होती है।"],"'Doubles in about' uses the Rule of 72.":["'Lagbhag double' Rule of 72 se nikalta hai.","'लगभग दोगुना' 72 के नियम से निकलता है।"],
+"Compounding: money that earns money":["Compounding: paisa jo paisa kamaata hai","चक्रवृद्धि: पैसा जो पैसा कमाता है"],
+"A one-time amount grows once a year at the assumed return.":["Ek baar ki rakam saal mein ek baar maane hue return se badhti hai.","एकमुश्त रकम साल में एक बार माने गए रिटर्न से बढ़ती है।"],
+"'Doubles in about' uses the Rule of 72: 72 ÷ yearly return ≈ years to double.":["'Lagbhag double' Rule of 72 se: 72 ÷ saalana return ≈ double hone ke saal.","'लगभग दोगुना' 72 के नियम से: 72 ÷ सालाना रिटर्न ≈ दोगुना होने के साल।"],
+"Value = A × (1 + r)":["Value = A × (1 + r)","मूल्य = A × (1 + r)"],"A = amount invested, r = yearly return.":["A = lagaya paisa, r = saalana return.","A = लगाई रकम, r = सालाना रिटर्न।"],
+"Lumpsum or SIP?":["Lumpsum ya SIP?","एकमुश्त या SIP?"],"Same maths, different timing.":["Maths same, timing alag.","गणित वही, समय अलग।"],
+"A lumpsum stays invested longer; a SIP spreads out the timing risk.":["Lumpsum zyada der invested rehta hai; SIP timing ka risk baant deta hai.","एकमुश्त ज़्यादा समय निवेशित रहता है; SIP समय का जोखिम बाँट देता है।"],"Many families use both.":["Kai families dono use karti hain.","कई परिवार दोनों अपनाते हैं।"],
+"Does this include tax?":["Kya ismein tax shaamil hai?","क्या इसमें टैक्स शामिल है?"],"No. Values are before tax.":["Nahi. Values tax se pehle ki hain.","नहीं। मूल्य टैक्स से पहले के हैं।"],
+"Gains are taxed when you sell, by the rules that apply then.":["Bechne par fayde par tax lagta hai, us waqt ke rules ke hisaab se.","बेचने पर मुनाफ़े पर टैक्स लगता है, उस समय के नियमों के हिसाब से।"],
+"Goal cost today":["Goal ka aaj ka kharcha","लक्ष्य की आज की लागत"],"Years to goal":["Goal tak saal","लक्ष्य तक साल"],"Cost increase (inflation)":["Kharche ki badhotri (mehngai)","लागत में बढ़ोतरी (महँगाई)"],
+"Already saved for it":["Iske liye pehle se bachaya","इसके लिए पहले से बचाया"],"Goal cost then":["Tab goal ka kharcha","तब लक्ष्य की लागत"],"Monthly SIP needed":["Zaroori monthly SIP","ज़रूरी मासिक SIP"],
+"Or one-time today":["Ya aaj ek baar mein","या आज एकमुश्त"],"Your savings will grow to":["Aapki bachat badhkar hogi","आपकी बचत बढ़कर होगी"],
+"Give every goal its own gullak: a date, an amount and a monthly SIP.":["Har goal ki apni gullak: ek date, ek amount aur ek monthly SIP.","हर लक्ष्य की अपनी गुल्लक: एक तारीख़, एक रकम और एक मासिक SIP।"],
+"Gullak full! At the assumed return, what you've saved could cover this goal.":["Gullak full! Maane hue return par, aapki bachat is goal ko cover kar sakti hai.","गुल्लक भरी! माने गए रिटर्न पर, आपकी बचत इस लक्ष्य को पूरा कर सकती है।"],
+"Goal cost (rising)":["Goal ka kharcha (badhta hua)","लक्ष्य की लागत (बढ़ती हुई)"],"Your money":["Aapka paisa","आपका पैसा"],
+"For goals under 3 years, use a lower, safer return.":["3 saal se kam ke goals ke liye kam, surakshit return lo.","3 साल से कम के लक्ष्यों के लिए कम, सुरक्षित रिटर्न लें।"],
+"Goal-based investing":["Goal-based investing","लक्ष्य-आधारित निवेश"],
+"First the goal's cost is grown by inflation to the target year.":["Pehle goal ka kharcha mehngai se target saal tak badhaya jaata hai.","पहले लक्ष्य की लागत को महँगाई से लक्ष्य वाले साल तक बढ़ाया जाता है।"],
+"Your existing savings are grown at the return.":["Aapki maujooda bachat return se badhayi jaati hai.","आपकी मौजूदा बचत रिटर्न से बढ़ाई जाती है।"],
+"The gap left is turned into a monthly SIP by running the SIP formula backwards.":["Jo gap bachta hai use SIP formula ulta chala kar monthly SIP banaya jaata hai.","जो कमी बचती है उसे SIP फ़ॉर्मूला उल्टा चलाकर मासिक SIP बनाया जाता है।"],
+"Cost then = cost today × (1 + inflation)":["Tab ka kharcha = aaj ka kharcha × (1 + mehngai)","तब की लागत = आज की लागत × (1 + महँगाई)"],"SIP needed = gap × i ÷ ([(1 + i)":["Zaroori SIP = gap × i ÷ ([(1 + i)","ज़रूरी SIP = कमी × i ÷ ([(1 + i)"],
+"What inflation should I use?":["Kaunsi mehngai daalein?","कौन-सी महँगाई दर लें?"],
+"Education and medical costs often rise faster than general prices, so try a higher number for them.":["Padhai aur ilaaj ka kharcha aam keemton se tez badhta hai, isliye unke liye bada number try karo.","पढ़ाई और इलाज का खर्च आम क़ीमतों से तेज़ बढ़ता है, इसलिए उनके लिए बड़ा आँकड़ा आज़माएँ।"],
+"Run a few values and plan for the higher one.":["Kuch values chala ke dekho aur bade wale ke hisaab se plan karo.","कुछ आँकड़े चलाकर देखें और बड़े वाले के हिसाब से प्लान करें।"],
+"My goal is less than 3 years away. What return?":["Mera goal 3 saal se kam door hai. Kaunsa return?","मेरा लक्ष्य 3 साल से कम दूर है। कौन-सा रिटर्न?"],
+"Use a low, safe return, because money for a near goal is usually kept in deposits or debt funds, not shares.":["Kam, surakshit return lo, kyunki paas ke goal ka paisa aam taur par deposits ya debt funds mein rehta hai, shares mein nahi.","कम, सुरक्षित रिटर्न लें, क्योंकि पास के लक्ष्य का पैसा आमतौर पर डिपॉज़िट या डेट फ़ंड में रखा जाता है, शेयरों में नहीं।"],
+"Cost today":["Aaj ka kharcha","आज की लागत"],"Years":["Saal","साल"],"Same thing then":["Wahi cheez tab","वही चीज़ तब"],
+"Money kept idle loses buying power every year.":["Pada hua paisa har saal apni kharid-shakti khota hai.","पड़ा हुआ पैसा हर साल अपनी ख़रीदने की ताक़त खोता है।"],
+"Future cost":["Aage ka kharcha","भविष्य की लागत"],"Value of today's amount":["Aaj ki rakam ki value","आज की रकम का मूल्य"],
+"Inflation compounds like returns, only against you.":["Mehngai bhi returns ki tarah compound hoti hai, bas aapke khilaaf.","महँगाई भी रिटर्न की तरह चक्रवृद्धि होती है, बस आपके ख़िलाफ़।"],
+"Inflation: the silent salary cut":["Mehngai: chupchaap salary cut","महँगाई: चुपचाप सैलरी कटौती"],
+"Prices grow every year at the inflation rate you choose.":["Keemtein har saal aapki chuni mehngai rate se badhti hain.","क़ीमतें हर साल आपकी चुनी महँगाई दर से बढ़ती हैं।"],
+"The second line shows what today's amount will be worth in today's prices.":["Doosri line dikhati hai ki aaj ki rakam aaj ki keemton mein kitni ki rahegi.","दूसरी रेखा दिखाती है कि आज की रकम आज की क़ीमतों में कितने की रहेगी।"],
+"Future cost = cost today × (1 + inflation)":["Aage ka kharcha = aaj ka kharcha × (1 + mehngai)","भविष्य की लागत = आज की लागत × (1 + महँगाई)"],
+"Today's value of a future amount = amount ÷ (1 + inflation)":["Aage ki rakam ki aaj ki value = rakam ÷ (1 + mehngai)","भविष्य की रकम का आज का मूल्य = रकम ÷ (1 + महँगाई)"],
+"Which inflation number should I use?":["Kaunsa mehngai number lein?","कौन-सी महँगाई दर लें?"],
+"Your family's own costs matter more than the national average.":["Aapki family ke apne kharche national average se zyada maayne rakhte hain.","आपके परिवार के अपने खर्च राष्ट्रीय औसत से ज़्यादा मायने रखते हैं।"],
+"School fees, rent and medical bills often rise faster.":["School fees, kiraya aur medical bills aksar tez badhte hain.","स्कूल फ़ीस, किराया और मेडिकल बिल अक्सर तेज़ बढ़ते हैं।"],"Try a few values.":["Kuch values try karo.","कुछ आँकड़े आज़माएँ।"],
+"Why does it matter?":["Ye kyun zaroori hai?","यह क्यों मायने रखता है?"],
+"Long goals need money that can grow faster than prices, with the risks that come with that.":["Lambe goals ke liye aisa paisa chahiye jo keemton se tez badh sake, uske saath aane wale risk ke saath.","लंबे लक्ष्यों के लिए ऐसा पैसा चाहिए जो क़ीमतों से तेज़ बढ़ सके, उसके साथ आने वाले जोखिम के साथ।"],
+"Return before costs":["Kharchon se pehle return","खर्चों से पहले रिटर्न"],"Low-cost plan":["Kam kharche wala plan","कम खर्च वाला प्लान"],"High-cost plan":["Zyada kharche wala plan","ज़्यादा खर्च वाला प्लान"],
+"Lost to the extra cost":["Extra kharche mein gaya","अतिरिक्त खर्च में गया"],"Compare expense ratios.":["Expense ratios compare karo.","एक्सपेंस रेशियो की तुलना करें।"],
+"Simplified: the yearly cost is subtracted from the return.":["Aasaan bhasha mein: saalana kharcha return se ghataya jaata hai.","सरल रूप में: सालाना खर्च रिटर्न से घटाया जाता है।"],
+"Direct plans, index funds and ETFs usually have the lowest costs.":["Direct plans, index funds aur ETFs ka kharcha aam taur par sabse kam hota hai.","डायरेक्ट प्लान, इंडेक्स फ़ंड और ETF का खर्च आमतौर पर सबसे कम होता है।"],
+"Direct vs regular plans and expense ratio":["Direct vs regular plans aur expense ratio","डायरेक्ट बनाम रेगुलर प्लान और एक्सपेंस रेशियो"],
+"Both plans earn the same return before costs.":["Dono plans kharchon se pehle same return kamaate hain.","दोनों प्लान खर्चों से पहले एक ही रिटर्न कमाते हैं।"],
+"The yearly cost (expense ratio) is subtracted from the return, and the gap compounds over the years.":["Saalana kharcha (expense ratio) return se ghatta hai, aur ye farak saalon mein compound hota hai.","सालाना खर्च (एक्सपेंस रेशियो) रिटर्न से घटता है, और यह फ़र्क़ सालों में चक्रवृद्धि होता है।"],
+"Return after cost = return − expense ratio":["Kharche ke baad return = return − expense ratio","खर्च के बाद रिटर्न = रिटर्न − एक्सपेंस रेशियो"],"Each plan then uses the SIP formula with its own return.":["Phir har plan apne return ke saath SIP formula lagata hai.","फिर हर प्लान अपने रिटर्न के साथ SIP फ़ॉर्मूला लगाता है।"],
+"Where do I find the expense ratio?":["Expense ratio kahan milega?","एक्सपेंस रेशियो कहाँ मिलेगा?"],"In the fund's factsheet or on the fund house's website.":["Fund ki factsheet mein ya fund house ki website par.","फ़ंड की फ़ैक्टशीट में या फ़ंड हाउस की वेबसाइट पर।"],
+"A direct plan of a fund costs less than its regular plan because no distributor commission is paid.":["Fund ka direct plan regular plan se sasta hota hai kyunki distributor commission nahi diya jaata.","फ़ंड का डायरेक्ट प्लान रेगुलर प्लान से सस्ता होता है क्योंकि डिस्ट्रीब्यूटर कमीशन नहीं दिया जाता।"],
+"Is the cheaper option always better?":["Kya sasta option hamesha behtar hai?","क्या सस्ता विकल्प हमेशा बेहतर है?"],"For the same fund or the same index, yes.":["Same fund ya same index ke liye, haan.","एक ही फ़ंड या एक ही इंडेक्स के लिए, हाँ।"],
+"Between different funds, cost is one factor, along with risk and how well the fund fits your goal.":["Alag funds ke beech, kharcha ek factor hai, risk aur fund aapke goal mein kitna fit hai uske saath.","अलग फ़ंडों के बीच, खर्च एक पहलू है, जोखिम और फ़ंड आपके लक्ष्य में कितना फ़िट है, उसके साथ।"],
+"Loan amount":["Loan amount","लोन की रकम"],"Interest rate":["Interest rate","ब्याज दर"],"Loan tenure":["Loan ki avadhi","लोन की अवधि"],"Monthly EMI":["Monthly EMI","मासिक EMI"],"Total interest":["Kul byaaj","कुल ब्याज"],"Total paid":["Kul chukaya","कुल भुगतान"],
+"Interest as % of loan":["Loan ka kitna % byaaj","लोन का कितना % ब्याज"],"Prepaying early in the loan saves the most interest.":["Loan ki shuruaat mein prepay karne se sabse zyada byaaj bachta hai.","लोन की शुरुआत में प्रीपे करने से सबसे ज़्यादा ब्याज बचता है।"],
+"Loan still owed":["Bacha hua loan","बचा हुआ लोन"],"Interest paid so far":["Ab tak diya byaaj","अब तक दिया ब्याज"],"Reducing-balance EMI.":["Reducing-balance EMI.","घटते बैलेंस वाली EMI।"],"Check prepayment charges first.":["Pehle prepayment charges check karo.","पहले प्रीपेमेंट शुल्क जाँचें।"],
+"Which loan to pay off first?":["Pehle kaunsa loan chukayein?","पहले कौन-सा लोन चुकाएँ?"],
+"Interest is charged every month on the loan still owed (reducing balance).":["Byaaj har mahine bache hue loan par lagta hai (reducing balance).","ब्याज हर महीने बचे हुए लोन पर लगता है (घटता बैलेंस)।"],
+"The EMI stays the same; early EMIs are mostly interest, later ones mostly principal.":["EMI same rehti hai; shuru ki EMIs mein zyada byaaj, baad wali mein zyada principal.","EMI वही रहती है; शुरुआती EMI में ज़्यादातर ब्याज, बाद वाली में ज़्यादातर मूलधन।"],
+"EMI = P × i × (1 + i)":["EMI = P × i × (1 + i)","EMI = P × i × (1 + i)"],"P = loan, i = yearly rate ÷ 12, n = months.":["P = loan, i = saalana rate ÷ 12, n = mahine.","P = लोन, i = सालाना दर ÷ 12, n = महीने।"],
+"Why is most of my early EMI interest?":["Shuru ki EMI mein zyada byaaj kyun?","शुरुआती EMI में ज़्यादातर ब्याज क्यों?"],"Interest is worked out on the balance left, which is largest at the start.":["Byaaj bache balance par lagta hai, jo shuru mein sabse bada hota hai.","ब्याज बचे बैलेंस पर लगता है, जो शुरू में सबसे बड़ा होता है।"],
+"Can the bank charge me for prepaying?":["Kya bank prepay karne ka charge le sakta hai?","क्या बैंक प्रीपे करने का शुल्क ले सकता है?"],
+"RBI rules bar prepayment charges on floating-rate loans taken by individuals for non-business use.":["RBI ke rules ke hisaab se, logon ke non-business floating-rate loans par prepayment charge nahi lag sakta.","RBI के नियमों के अनुसार, व्यक्तियों के ग़ैर-व्यावसायिक फ़्लोटिंग-रेट लोन पर प्रीपेमेंट शुल्क नहीं लग सकता।"],
+"Fixed-rate loans may have charges, so check your loan papers.":["Fixed-rate loans par charges ho sakte hain, isliye loan papers check karo.","फ़िक्स्ड-रेट लोन पर शुल्क हो सकता है, इसलिए लोन के काग़ज़ जाँचें।"],
+"Cash, bank and FDs":["Cash, bank aur FDs","नक़द, बैंक और FD"],"Mutual funds and shares":["Mutual funds aur shares","म्यूचुअल फ़ंड और शेयर"],"EPF, PPF and NPS":["EPF, PPF aur NPS","EPF, PPF और NPS"],
+"Gold (today's price)":["Sona (aaj ki keemat)","सोना (आज की क़ीमत)"],"Home and land (market value)":["Ghar aur zameen (market value)","घर और ज़मीन (बाज़ार मूल्य)"],"Car and bike (resale value)":["Car aur bike (resale value)","कार और बाइक (दोबारा बिक्री मूल्य)"],
+"Home loan left":["Bacha home loan","बचा होम लोन"],"Car, personal and other loans":["Car, personal aur baaki loans","कार, पर्सनल और बाक़ी लोन"],"Credit-card dues":["Credit-card ka baaki","क्रेडिट-कार्ड बकाया"],
+"You own":["Aapke paas","आपके पास"],"You owe":["Aap par baaki","आप पर बकाया"],"Owe as % of own":["Baaki, paas ka kitna %","बकाया, संपत्ति का कितना %"],
+"Check this once a year on the same date and watch the trend.":["Saal mein ek baar same date par check karo aur trend dekho.","साल में एक बार एक ही तारीख़ पर जाँचें और रुझान देखें।"],
+"You owe more than you own. Clear the costliest debt first.":["Aap par jitna baaki hai woh aapke paas se zyada hai. Sabse mehenga karz pehle chukao.","आप पर बकाया आपकी संपत्ति से ज़्यादा है। सबसे महँगा कर्ज़ पहले चुकाएँ।"],
+"What you own":["Jo aapke paas hai","जो आपके पास है"],"What you owe":["Jo aap par baaki hai","जो आप पर बकाया है"],
+"Use today's resale values, not purchase prices.":["Aaj ki resale value lo, kharid ki keemat nahi.","आज का दोबारा बिक्री मूल्य लें, ख़रीद की क़ीमत नहीं।"],"A car loses value every year.":["Car har saal value khoti hai.","कार हर साल मूल्य खोती है।"],
+"Clear credit-card dues first: they cost up to about 45% a year.":["Pehle credit-card ka baaki chukao: uska kharcha saal ka lagbhag 45% tak hai.","पहले क्रेडिट-कार्ड बकाया चुकाएँ: उसका खर्च सालाना लगभग 45% तक है।"],
+"Your loans are bigger than your cash and investments together.":["Aapke loans aapke cash aur investments dono milakar se bade hain.","आपके लोन आपके नक़द और निवेश दोनों मिलाकर से बड़े हैं।"],
+"Work it out on the same date every year and watch the trend, not one number.":["Har saal same date par nikalo aur trend dekho, ek number nahi.","हर साल एक ही तारीख़ पर निकालें और रुझान देखें, एक आँकड़ा नहीं।"],
+"Equity, debt and gold: splitting your money":["Equity, debt aur gold: paisa kaise baantein","इक्विटी, डेट और सोना: पैसा कैसे बाँटें"],
+"Add up what you own at today's value, then subtract the full amount you still owe on every loan and card (not the EMI).":["Jo aapke paas hai use aaj ki value par jodo, phir har loan aur card par bacha poora baaki ghatao (EMI nahi).","जो आपके पास है उसे आज के मूल्य पर जोड़ें, फिर हर लोन और कार्ड पर बचा पूरा बकाया घटाएँ (EMI नहीं)।"],
+"Net worth = what you own − what you owe":["Net worth = jo paas hai − jo baaki hai","कुल संपत्ति = जो पास है − जो बकाया है"],"Use resale value for cars and today's price for gold.":["Car ke liye resale value aur sone ke liye aaj ki keemat lo.","कार के लिए दोबारा बिक्री मूल्य और सोने के लिए आज की क़ीमत लें।"],
+"Should I count my house?":["Kya apna ghar ginein?","क्या अपना घर गिनें?"],
+"Count it for the full picture, but also look at the number without it: you can't easily spend the home you live in.":["Poori tasveer ke liye gino, par bina ghar ke number bhi dekho: jis ghar mein rehte ho use aasaani se kharch nahi kar sakte.","पूरी तस्वीर के लिए गिनें, पर बिना घर के आँकड़ा भी देखें: जिस घर में रहते हैं उसे आसानी से खर्च नहीं कर सकते।"],
+"How often should I check?":["Kitni baar check karein?","कितनी बार जाँचें?"],"Once a year, on the same date.":["Saal mein ek baar, same date par.","साल में एक बार, एक ही तारीख़ पर।"],"The trend matters more than any one number.":["Trend kisi ek number se zyada maayne rakhta hai.","रुझान किसी एक आँकड़े से ज़्यादा मायने रखता है।"],
+"Essential monthly expenses":["Zaroori monthly kharche","ज़रूरी मासिक खर्च"],"Income type":["Income ka type","आय का प्रकार"],"Government or PSU job":["Sarkari ya PSU naukri","सरकारी या PSU नौकरी"],
+"Self-employed or variable":["Self-employed ya badalti income","स्वरोज़गार या बदलती आय"],"Earners at home":["Ghar mein kamaane wale","घर में कमाने वाले"],"One earner":["Ek kamaane wala","एक कमाने वाला"],"Two or more":["Do ya zyada","दो या ज़्यादा"],
+"Dependants (children, parents, non-earners)":["Aashrit (bachche, maa-baap, na kamaane wale)","आश्रित (बच्चे, माता-पिता, न कमाने वाले)"],"people":["log","लोग"],
+"Already saved for emergencies":["Emergency ke liye pehle se bachaya","आपातकाल के लिए पहले से बचाया"],"You can set aside each month":["Har mahine kitna alag rakh sakte ho","हर महीने कितना अलग रख सकते हैं"],
+"Months to keep":["Kitne mahine ka","कितने महीने का"],"Target":["Target","लक्ष्य"],"Still to save":["Abhi bachana hai","अभी बचाना है"],"Time to reach it":["Wahan tak pahunchne ka samay","वहाँ तक पहुँचने का समय"],
+"Done":["Ho gaya","हो गया"],"Set a monthly amount":["Monthly amount daalo","मासिक रकम डालें"],"50+ years":["50+ saal","50+ साल"],
+"Gullak abhi khaali hai. Start with ₹50,000, then build to the full target.":["Gullak abhi khaali hai. ₹50,000 se shuru karo, phir poora target banao.","गुल्लक अभी ख़ाली है। ₹50,000 से शुरू करें, फिर पूरा लक्ष्य बनाएँ।"],
+"Gullak full! Your emergency fund target is covered.":["Gullak full! Aapka emergency fund target poora hai.","गुल्लक भरी! आपका इमरजेंसी फ़ंड लक्ष्य पूरा है।"],
+"Your emergency fund":["Aapka emergency fund","आपका इमरजेंसी फ़ंड"],
+"Essentials are rent or EMI, food, bills, school fees, transport and insurance premiums, not shopping or trips.":["Zaroori kharche matlab kiraya ya EMI, khaana, bills, school fees, aana-jaana aur insurance premium; shopping ya trips nahi.","ज़रूरी खर्च यानी किराया या EMI, खाना, बिल, स्कूल फ़ीस, आना-जाना और बीमा प्रीमियम; ख़रीदारी या घूमना नहीं।"],
+"Keep it safe and quick to reach (savings account, sweep-in FD or liquid fund), not in shares.":["Ise surakshit aur jaldi milne wali jagah rakho (savings account, sweep-in FD ya liquid fund), shares mein nahi.","इसे सुरक्षित और जल्दी मिलने वाली जगह रखें (सेविंग्स खाता, स्वीप-इन FD या लिक्विड फ़ंड), शेयरों में नहीं।"],
+"How big should the emergency fund be?":["Emergency fund kitna bada ho?","इमरजेंसी फ़ंड कितना बड़ा हो?"],"Target = essential monthly expenses × months.":["Target = zaroori monthly kharche × mahine.","लक्ष्य = ज़रूरी मासिक खर्च × महीने।"],
+"Months: 4 for a government or PSU job, 6 for a private salary, 9 for self-employed or variable income; +1 for a single earner and +1 for 3 or more dependants, up to 12.":["Mahine: sarkari ya PSU naukri ke liye 4, private salary ke liye 6, self-employed ya badalti income ke liye 9; ek kamaane wale ke liye +1 aur 3 ya zyada aashriton ke liye +1, 12 tak.","महीने: सरकारी या PSU नौकरी के लिए 4, प्राइवेट सैलरी के लिए 6, स्वरोज़गार या बदलती आय के लिए 9; एक कमाने वाले के लिए +1 और 3 या ज़्यादा आश्रितों के लिए +1, 12 तक।"],
+"Same rule as the Money Planner.":["Money Planner wala hi rule.","मनी प्लानर वाला ही नियम।"],"Target = essentials × months":["Target = zaroori kharche × mahine","लक्ष्य = ज़रूरी खर्च × महीने"],
+"Time to reach it = (target − already saved) ÷ monthly saving.":["Pahunchne ka samay = (target − pehle se bachaya) ÷ monthly bachat.","पहुँचने का समय = (लक्ष्य − पहले से बचाया) ÷ मासिक बचत।"],
+"Where should I keep it?":["Ise kahan rakhein?","इसे कहाँ रखें?"],"Somewhere safe and quick to reach: a savings account, a sweep-in FD or a liquid fund.":["Surakshit aur jaldi milne wali jagah: savings account, sweep-in FD ya liquid fund.","सुरक्षित और जल्दी मिलने वाली जगह: सेविंग्स खाता, स्वीप-इन FD या लिक्विड फ़ंड।"],
+"Not in shares.":["Shares mein nahi.","शेयरों में नहीं।"],"Doesn't health insurance cover emergencies?":["Kya health insurance emergency cover nahi karta?","क्या हेल्थ बीमा आपातकाल कवर नहीं करता?"],
+"Only hospital bills.":["Sirf hospital ke bills.","सिर्फ़ अस्पताल के बिल।"],"The emergency fund pays rent, EMIs, fees and food if income stops.":["Income ruk jaaye toh emergency fund kiraya, EMIs, fees aur khaana chalata hai.","आय रुक जाए तो इमरजेंसी फ़ंड किराया, EMI, फ़ीस और खाना चलाता है।"],
+"Yearly income of the earner":["Kamaane wale ki saalana income","कमाने वाले की सालाना आय"],"Years of income to replace":["Kitne saal ki income","कितने साल की आय"],"× income":["× income","× आय"],
+"Loans outstanding":["Bache loans","बचे लोन"],"Big goals to protect (children's education, marriage)":["Bachane wale bade goals (bachchon ki padhai, shaadi)","बचाने वाले बड़े लक्ष्य (बच्चों की पढ़ाई, शादी)"],
+"Savings and investments the family could use":["Bachat aur investments jo family use kar sake","बचत और निवेश जो परिवार इस्तेमाल कर सके"],"Term cover you already have":["Pehle se term cover","पहले से टर्म कवर"],
+"Income part":["Income wala hissa","आय वाला हिस्सा"],"Cover needed (illustrative)":["Zaroori cover (andaaza)","ज़रूरी कवर (अनुमान)"],"You have":["Aapke paas","आपके पास"],"Gap":["Kami","कमी"],
+"Pure term cover first. Keep insurance and investment separate.":["Pehle pure term cover. Insurance aur investment alag rakho.","पहले प्योर टर्म कवर। बीमा और निवेश अलग रखें।"],"Adds up":["Jud kar","जोड़कर"],"Already there":["Pehle se hai","पहले से है"],
+"Loans":["Loans","लोन"],"Goals":["Goals","लक्ष्य"],"Savings":["Bachat","बचत"],"Existing cover":["Maujooda cover","मौजूदा कवर"],
+"A rule of thumb only: about 10 times yearly income plus loans is a common starting point.":["Sirf ek mota hisaab: saalana income ka lagbhag 10 guna plus loans ek aam shuruaat hai.","सिर्फ़ एक मोटा हिसाब: सालाना आय का लगभग 10 गुना और लोन एक आम शुरुआत है।"],
+"Count pure term plans only, not endowment or money-back policies.":["Sirf pure term plans gino, endowment ya money-back policies nahi.","सिर्फ़ प्योर टर्म प्लान गिनें, एंडोमेंट या मनी-बैक पॉलिसी नहीं।"],"Each earner needs their own cover.":["Har kamaane wale ka apna cover chahiye.","हर कमाने वाले का अपना कवर चाहिए।"],
+"The right amount and premium depend on age, health and the insurer, so compare plans and read the policy terms before buying.":["Sahi amount aur premium umar, sehat aur insurer par depend karte hain, isliye kharidne se pehle plans compare karo aur policy terms padho.","सही रकम और प्रीमियम उम्र, सेहत और बीमा कंपनी पर निर्भर करते हैं, इसलिए ख़रीदने से पहले प्लान की तुलना करें और पॉलिसी की शर्तें पढ़ें।"],
+"Health and term insurance first":["Pehle health aur term insurance","पहले हेल्थ और टर्म बीमा"],
+"A rough size: years of income your family would need, plus loans and big goals, minus savings they could use.":["Mota andaaza: family ko jitne saal ki income chahiye, plus loans aur bade goals, minus woh bachat jo woh use kar sakein.","मोटा अनुमान: परिवार को जितने साल की आय चाहिए, साथ में लोन और बड़े लक्ष्य, घटाएँ वह बचत जो वे इस्तेमाल कर सकें।"],
+"Cover you already have is shown separately.":["Pehle se jo cover hai woh alag dikhaya gaya hai.","पहले से जो कवर है वह अलग दिखाया गया है।"],
+"Cover = income × years + loans + goals − savings":["Cover = income × saal + loans + goals − bachat","कवर = आय × साल + लोन + लक्ष्य − बचत"],"Gap = cover needed − cover you already have.":["Kami = zaroori cover − pehle se cover.","कमी = ज़रूरी कवर − पहले से कवर।"],
+"Why pure term and not a plan with returns?":["Pure term kyun, returns wala plan kyun nahi?","प्योर टर्म क्यों, रिटर्न वाला प्लान क्यों नहीं?"],
+"A pure term plan pays only if the insured person dies during the term, so it gives far more cover per rupee.":["Pure term plan sirf tab paisa deta hai jab beemit vyakti term ke dauraan guzar jaaye, isliye har rupaye par kahin zyada cover milta hai.","प्योर टर्म प्लान सिर्फ़ तब भुगतान करता है जब बीमित व्यक्ति की अवधि के दौरान मृत्यु हो, इसलिए हर रुपये पर कहीं ज़्यादा कवर मिलता है।"],
+"Endowment and money-back plans mix small cover with low returns.":["Endowment aur money-back plans chhote cover ko kam returns ke saath milate hain.","एंडोमेंट और मनी-बैक प्लान छोटे कवर को कम रिटर्न के साथ मिलाते हैं।"],
+"How long should the cover run?":["Cover kitne saal chale?","कवर कितने साल चले?"],"Usually until children are independent and big loans are paid off.":["Aam taur par jab tak bachche apne pairon par na khade ho jaayein aur bade loans chuk na jaayein.","आमतौर पर जब तक बच्चे आत्मनिर्भर न हो जाएँ और बड़े लोन चुक न जाएँ।"],
+"Your age, health and the insurer decide the premium.":["Premium aapki umar, sehat aur insurer tay karte hain.","प्रीमियम आपकी उम्र, सेहत और बीमा कंपनी तय करते हैं।"],
+"Credit-card bill":["Credit-card bill","क्रेडिट-कार्ड बिल"],"Card interest":["Card ka byaaj","कार्ड का ब्याज"],"% a month":["% mahina","% प्रति माह"],"Minimum due (part of the bill)":["Minimum due (bill ka hissa)","मिनिमम ड्यू (बिल का हिस्सा)"],
+"Or pay a fixed amount each month":["Ya har mahine fixed amount bharo","या हर महीने तय रकम भरें"],"GST on interest":["Byaaj par GST","ब्याज पर GST"],"Pay the full bill":["Poora bill bharo","पूरा बिल भरें"],"₹0 interest":["₹0 byaaj","₹0 ब्याज"],
+"Minimum due only":["Sirf minimum due","सिर्फ़ मिनिमम ड्यू"],"Time with minimum due":["Minimum due se kitna samay","मिनिमम ड्यू से कितना समय"],
+"Bas minimum due bhar do… baaki main sambhal lunga!":["Bas minimum due bhar do… baaki main sambhal lunga!","बस मिनिमम ड्यू भर दो… बाक़ी मैं सँभाल लूँगा!"],
+"Udhaar Uncle · the costly-debt villain. Don't listen to him!":["Udhaar Uncle · mehenge karz ka villain. Iski mat suno!","उधार अंकल · महँगे कर्ज़ का विलेन। इसकी मत सुनो!"],
+"Galti mat karna! Paying only the minimum due keeps interest running on the whole bill. Pay the full bill.":["Galti mat karna! Sirf minimum due bharne se poore bill par byaaj chalta rehta hai. Poora bill bharo.","ग़लती मत करना! सिर्फ़ मिनिमम ड्यू भरने से पूरे बिल पर ब्याज चलता रहता है। पूरा बिल भरें।"],
+"Paying the minimum due":["Minimum due bharna","मिनिमम ड्यू भरना"],
+"Assumes no new spending on the card, a minimum due of all interest and GST plus 5% of the bill (at least ₹200), and interest from the statement date.":["Maana gaya hai: card par naya kharcha nahi, minimum due = saara byaaj aur GST plus bill ka 5% (kam se kam ₹200), aur byaaj statement date se.","माना गया है: कार्ड पर नया खर्च नहीं, मिनिमम ड्यू = सारा ब्याज और GST और बिल का 5% (कम से कम ₹200), और ब्याज स्टेटमेंट तारीख़ से।"],
+"In real life it is charged from each purchase date, and any unpaid balance also cancels the interest-free period on new purchases, so the true cost is higher.":["Asal mein byaaj har kharid ki date se lagta hai, aur koi bhi baaki balance nayi kharid ka interest-free period bhi khatam kar deta hai, isliye asli kharcha zyada hai.","असल में ब्याज हर ख़रीद की तारीख़ से लगता है, और कोई भी बकाया नई ख़रीद की ब्याज-मुक्त अवधि भी ख़त्म कर देता है, इसलिए असली खर्च ज़्यादा है।"],
+"Rates checked 19 Oct 2026: SBI Card, HDFC Bank and ICICI Bank list up to 3.75% a month (45% a year).":["Rates 19 Oct 2026 ko check kiye: SBI Card, HDFC Bank aur ICICI Bank 3.75% mahina (45% saal) tak batate hain.","दरें 19 अक्टूबर 2026 को जाँचीं: SBI Card, HDFC Bank और ICICI Bank 3.75% प्रति माह (45% सालाना) तक बताते हैं।"],
+"Check your card's MITC.":["Apne card ki MITC check karo.","अपने कार्ड की MITC जाँचें।"],
+"Each month, interest and GST on it are added to the balance, then your payment is taken off.":["Har mahine byaaj aur us par GST balance mein judta hai, phir aapka payment ghatta hai.","हर महीने ब्याज और उस पर GST बैलेंस में जुड़ता है, फिर आपका भुगतान घटता है।"],
+"Minimum due = that month's interest and GST + your chosen % of the balance, at least ₹200.":["Minimum due = us mahine ka byaaj aur GST + balance ka aapka chuna %, kam se kam ₹200.","मिनिमम ड्यू = उस महीने का ब्याज और GST + बैलेंस का आपका चुना %, कम से कम ₹200।"],
+"No new spending is assumed.":["Naya kharcha nahi maana gaya.","नया खर्च नहीं माना गया।"],
+"Balance next month = (balance + interest + GST) − payment":["Agle mahine balance = (balance + byaaj + GST) − payment","अगले महीने बैलेंस = (बैलेंस + ब्याज + GST) − भुगतान"],
+"Interest = balance × monthly rate; GST = 18% of interest.":["Byaaj = balance × monthly rate; GST = byaaj ka 18%.","ब्याज = बैलेंस × मासिक दर; GST = ब्याज का 18%।"],
+"Do I lose the interest-free period?":["Kya interest-free period chala jaata hai?","क्या ब्याज-मुक्त अवधि चली जाती है?"],
+"Yes. If any part of the last bill is unpaid, new purchases get no interest-free days and interest runs from each purchase date.":["Haan. Pichhle bill ka koi bhi hissa baaki ho toh nayi kharid par interest-free din nahi milte aur byaaj har kharid ki date se chalta hai.","हाँ। पिछले बिल का कोई भी हिस्सा बकाया हो तो नई ख़रीद पर ब्याज-मुक्त दिन नहीं मिलते और ब्याज हर ख़रीद की तारीख़ से चलता है।"],
+"Your card's MITC (most important terms) says this.":["Aapke card ki MITC (sabse zaroori sharten) mein ye likha hai.","आपके कार्ड की MITC (सबसे ज़रूरी शर्तें) में यह लिखा है।"],
+"What if I can't pay the full bill?":["Poora bill na bhar sakein toh?","पूरा बिल न भर सकें तो?"],
+"Pay as much as you can, stop using the card, and ask the bank about turning the dues into an EMI at a lower rate.":["Jitna ho sake bharo, card use karna band karo, aur bank se baaki ko kam rate wali EMI mein badalne ki baat karo.","जितना हो सके भरें, कार्ड इस्तेमाल करना बंद करें, और बैंक से बकाया को कम दर वाली EMI में बदलने की बात करें।"],
+"No.":["Nahi.","नहीं।"],"Yes.":["Haan.","हाँ।"],"Values are before tax.":["Values tax se pehle ki hain.","मूल्य टैक्स से पहले के हैं।"],"Equity funds go up and down, and some years are negative.":["Equity funds upar-neeche hote hain, aur kuch saal negative bhi hote hain.","इक्विटी फ़ंड ऊपर-नीचे होते हैं, और कुछ साल नेगेटिव भी होते हैं।"],"If any part of the last bill is unpaid, new purchases get no interest-free days and interest runs from each purchase date.":["Pichhle bill ka koi bhi hissa baaki ho toh nayi kharid par interest-free din nahi milte aur byaaj har kharid ki date se chalta hai.","पिछले बिल का कोई भी हिस्सा बकाया हो तो नई ख़रीद पर ब्याज-मुक्त दिन नहीं मिलते और ब्याज हर ख़रीद की तारीख़ से चलता है।"],"Never clears":["Kabhi khatam nahi hoga","कभी ख़त्म नहीं होगा"],"Clear this debt before investing.":["Invest karne se pehle ye karz chukao.","निवेश से पहले यह कर्ज़ चुकाएँ।"]
+});
+const yrsHi = s => s.replace(/(\d+) yrs?/, "$1 साल").replace(/(\d+) mo/, "$1 महीने").replace(/(\d+) months?/, "$1 महीने");
+const yrsHg = s => s.replace(/(\d+) yrs?/, "$1 saal").replace(/(\d+) mo/, "$1 mahine").replace(/(\d+) months?/, "$1 mahine");
+const SPAN = "((?:\\d+ yrs?)?(?: ?\\d+ mo)?|\\d+ months?)";
+I18N_RX.push(
+  [/^([\d.]+) years$/, ["$1 saal", "$1 साल"]],
+  [new RegExp("^" + SPAN + "$"), [(m, a) => yrsHg(a), (m, a) => yrsHi(a)]],
+  [/^The monthly amount goes up by (\d+)% at the start of each year, so in year (\d+) you invest (₹[\d,]+) a month\.$/, ["Monthly amount har saal ki shuruaat mein $1% badhta hai, toh saal $2 mein aap $3 har mahine lagaoge.", "मासिक रकम हर साल की शुरुआत में $1% बढ़ती है, तो साल $2 में आप $3 हर महीने लगाएँगे।"]],
+  [/^(₹[\d,]+) today becomes (₹[\d,]+) in (\d+) years at ([\d.]+)% a year\.$/, ["Aaj ke $1 $3 saal mein $4% saalana se $2 ho jaate hain.", "आज के $1, $3 साल में $4% सालाना से $2 हो जाते हैं।"]],
+  [/^(₹[\d,]+) then buys$/, ["$1 tab kharidega", "$1 तब ख़रीदेगा"]], [/^(₹[\d,]+) of today$/, ["aaj ke $1 jitna", "आज के $1 जितना"]],
+  [/^Value at ([\d.]+)% cost$/, ["$1% kharche par value", "$1% खर्च पर मूल्य"]], [/^At ([\d.]+)% cost$/, ["$1% kharche par", "$1% खर्च पर"]],
+  [/^Small yearly costs make a big difference over (\d+) years\.$/, ["Chhote saalana kharche $1 saal mein bada farak laate hain.", "छोटे सालाना खर्च $1 साल में बड़ा फ़र्क़ लाते हैं।"]],
+  [/^(Cash, bank, FDs|EPF, PPF, NPS|Gold|Vehicles|Home and land|Mutual funds, shares|Home loan|Other loans|Credit card): (.+)$/, [(m, a, b) => ({ "Cash, bank, FDs":"Cash, bank, FDs", "Gold":"Sona", "Vehicles":"Gaadiyan", "Home and land":"Ghar aur zameen", "Mutual funds, shares":"Mutual funds, shares", "Home loan":"Home loan", "Other loans":"Baaki loans" }[a] || a) + ": " + b,
+    (m, a, b) => ({ "Cash, bank, FDs":"नक़द, बैंक, FD", "Gold":"सोना", "Vehicles":"गाड़ियाँ", "Home and land":"घर और ज़मीन", "Mutual funds, shares":"म्यूचुअल फ़ंड, शेयर", "Home loan":"होम लोन", "Other loans":"बाक़ी लोन", "Credit card":"क्रेडिट कार्ड" }[a] || a) + ": " + b.replace(" lakh", " लाख").replace(" crore", " करोड़")]],
+  [/^Income × (\d+)(?:: (.+))?$/, [(m, a, b) => "Income × " + a + (b ? ": " + b : ""), (m, a, b) => "आय × " + a + (b ? ": " + b.replace(" lakh", " लाख").replace(" crore", " करोड़") : "")]],
+  [/^(Loans|Goals|Savings|Existing cover): (.+)$/, [(m, a, b) => ({ Loans:"Loans", Goals:"Goals", Savings:"Bachat", "Existing cover":"Maujooda cover" }[a]) + ": " + b,
+    (m, a, b) => ({ Loans:"लोन", Goals:"लक्ष्य", Savings:"बचत", "Existing cover":"मौजूदा कवर" }[a]) + ": " + b.replace(" lakh", " लाख").replace(" crore", " करोड़")]],
+  [/^(₹[\d,]+) interest$/, ["$1 byaaj", "$1 ब्याज"]], [/^Paying (₹[\d,]+) a month$/, ["$1 har mahine bharna", "$1 हर महीने भरना"]],
+  [new RegExp("^(₹[\\d,]+) in " + SPAN + "$"), [(m, a, b) => a + " byaaj, " + yrsHg(b) + " mein", (m, a, b) => a + " ब्याज, " + yrsHi(b) + " में"]],
+  [/^(\d+) months for this income type((?:, \+1 for (?:a single earner|3 or more dependants))*)( \(capped at 12\))?\.$/, [
+    (m, a, b, c) => "Is income type ke liye " + a + " mahine" + (b || "").replace(", +1 for a single earner", ", ek kamaane wale ke liye +1").replace(", +1 for 3 or more dependants", ", 3 ya zyada aashriton ke liye +1") + (c ? " (12 tak)" : "") + ".",
+    (m, a, b, c) => "इस आय प्रकार के लिए " + a + " महीने" + (b || "").replace(", +1 for a single earner", ", एक कमाने वाले के लिए +1").replace(", +1 for 3 or more dependants", ", 3 या ज़्यादा आश्रितों के लिए +1") + (c ? " (12 तक)" : "") + "।"]],
+  [new RegExp("^First milestone: ₹50,000 in about " + SPAN + "\\.$"), [(m, a) => "Pehla padaav: lagbhag " + yrsHg(a) + " mein ₹50,000.", (m, a) => "पहला पड़ाव: लगभग " + yrsHi(a) + " में ₹50,000।"]],
+  [/^Interest of ([\d.]+)% a month is about (\d+)% a year, plus ([\d.]+)% GST on it\.$/, ["$1% mahina byaaj matlab lagbhag $2% saal, upar se us par $3% GST.", "$1% प्रति माह ब्याज यानी लगभग $2% सालाना, ऊपर से उस पर $3% GST।"]],
+  [/^First minimum due is about (₹[\d,]+)\.$/, ["Pehla minimum due lagbhag $1 hai.", "पहला मिनिमम ड्यू लगभग $1 है।"]],
+  [/^Assumes no new spending on the card, a minimum due of all interest and GST plus ([\d.]+)% of the bill \(at least ₹200\), and interest from the statement date\.$/, ["Maana gaya hai: card par naya kharcha nahi, minimum due = saara byaaj aur GST plus bill ka $1% (kam se kam ₹200), aur byaaj statement date se.", "माना गया है: कार्ड पर नया खर्च नहीं, मिनिमम ड्यू = सारा ब्याज और GST और बिल का $1% (कम से कम ₹200), और ब्याज स्टेटमेंट तारीख़ से।"]]
+);
 // Site-wide language: en (default) | hing | hi. Pages are written in English; after each render the text is swapped from I18N.
 // Kharcha check + asli saving block write Hinglish themselves (kcL) in hing mode, and English in en/hi mode.
+function trOne(t, k){ let v = I18N[t]?.[k]; if (v == null) for (const [rx, outs] of I18N_RX) if (rx.test(t)) { v = t.replace(rx, outs[k]); break; } return v; }
 function tr(root){
   const k = LANG === "hing" ? 0 : LANG === "hi" ? 1 : -1;
   const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => n.parentElement?.closest("script,style,textarea,[data-noi18n]") ? 2 : 1 });
@@ -1973,8 +2179,8 @@ function tr(root){
   for (const n of list) {
     const src = n.__en ?? n.nodeValue, t = src.trim(); if (!t) continue;
     if (k < 0) { if (n.__en != null) { n.nodeValue = n.__en; delete n.__en; } continue; }
-    let v = I18N[t]?.[k];
-    if (v == null) for (const [rx, outs] of I18N_RX) if (rx.test(t)) { v = t.replace(rx, outs[k]); break; }
+    let v = trOne(t, k);
+    if (v == null) { const parts = t.split(/(?<=[.!?])\s+/); if (parts.length > 1) { const o = parts.map(x => trOne(x, k)); if (o.every(x => x != null)) v = o.join(" "); } }
     if (v == null || v === t) { if (n.__en != null) n.nodeValue = n.__en; continue; }
     n.__en = src; n.nodeValue = src.replace(t, v);
   }
