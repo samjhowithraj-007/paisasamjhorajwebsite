@@ -1651,7 +1651,7 @@ function bookCard(){
       ${BOOK.live ? `<div class="row buy-row">${BOOK.buy.map((x, i) => `<a class="btn${i === (LANG === "hi" ? 2 : LANG === "hing" ? 1 : 0) ? " cta" : ""}" href="${x.link}" target="_blank" rel="noopener">Buy the book: ${x.label} · ₹${lw && x.launch ? x.launch : x.price}${lw && x.launch ? ` <s>₹${x.price}</s>` : ""} ↗</a>`).join("")}</div>
       ${lw ? `<p class="code-line">Launch-week prices until 18 Nov, then ₹249 each or ₹449 for all 3.</p>` : ""}`
       : `<p>English ₹249 · Hinglish ₹249 · launch week (first 7 days) ₹199 each. Hindi edition and all-3 bundle (₹449, launch ₹349): coming soon.</p>`}
-      <h4 class="sample-h">See how it looks: the first chapters are free</h4>
+      <h4 class="sample-h">See how it looks: chapters 1 to 3 are free</h4>
       <div class="row" style="justify-content:flex-start">${read}</div>
       <small>Or download the free PDF: <a href="${BOOK.en}" download>English</a> · <a href="${BOOK.hi}" download>Hinglish</a> · <a href="${BOOK.hindi}" download>हिंदी</a>${BOOK.link ? ` · <a href="${BOOK.link}" target="_blank" rel="noopener">Gumroad ↗</a>` : ""}</small>
       <small>${BOOK.live ? "Payment on Gumroad. " : ""}Financial education, advice nahi. No product tips and no promised returns.</small></div>`;
@@ -2463,7 +2463,7 @@ Object.assign(I18N, {
 });
 Object.assign(I18N, { // shop: one book card + sample reader + notify box (11 Nov)
 "Raj's money book with the Verma family and Gullak Bhai: worked rupee examples, practice with answers and a worksheet in every chapter.":["Raj ki money book, Verma family aur Gullak Bhai ke saath: rupaye ke hal kiye hue examples, answers ke saath practice aur har chapter mein worksheet.","राज की मनी बुक, वर्मा परिवार और गुल्लक भाई के साथ: रुपये के हल किए हुए उदाहरण, जवाबों के साथ अभ्यास और हर अध्याय में वर्कशीट।"],
-"See how it looks: the first chapters are free":["Dekho kaisi hai: pehle chapters free hain","देखें कैसी है: शुरू के अध्याय मुफ़्त हैं"],
+"See how it looks: chapters 1 to 3 are free":["Dekho kaisi hai: chapter 1 se 3 free hain","देखें कैसी है: अध्याय 1 से 3 मुफ़्त हैं"],
 "Read free: English":["Free padho: English","मुफ़्त पढ़ें: अंग्रेज़ी"],"Read free: Hinglish":["Free padho: Hinglish","मुफ़्त पढ़ें: हिंग्लिश"],"Read free: हिंदी":["Free padho: हिंदी","मुफ़्त पढ़ें: हिंदी"],
 "Or download the free PDF:":["Ya free PDF download karo:","या मुफ़्त PDF डाउनलोड करें:"],
 "Free sample":["Free sample","मुफ़्त सैंपल"],"Download ↓":["Download ↓","डाउनलोड ↓"],"Close ✕":["Band karo ✕","बंद करें ✕"],
