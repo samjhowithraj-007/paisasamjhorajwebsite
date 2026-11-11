@@ -1686,14 +1686,14 @@ const PROMOS = [
 // Action URL of the Brevo sign-up form (Marketing → Forms → Paisa lessons sign-up → Share → Simple HTML). Double opt-in is on.
 // Leave it empty to hide the sign-up box everywhere.
 const SIGNUP = { action: "https://b84d134c.sibforms.com/serve/MUIFANGQ3k0ewk2aDao8EXJ1KILF1fEPNoIEVLDupdbchMJLQs5lID06s-_DtCaCymKqHkKRGIibFrFBKpvh5D2GEBKqfyFMaUOJl47w3vmbwLF3YxTej2fMR9hbp5x_JyNYn7Z5GjKdAW1fJWLSFSwonEG7XQAXAvQtii6NuvvS4lgkwMobhFz8MB-wiPDReZy-iti4Eyoy-fvpww==" };
-// Diwali gift: the sign-up box swaps its heading and text until the launch week ends (BOOK.launchEnds)
+// Launch-week gift (LAUNCH10, book only; Raj 11 Nov): the sign-up box swaps its heading and text until the launch week ends (BOOK.launchEnds)
 const DIWALI = { ends:"",   // Raj 11 Nov: the sign-up gift ends with the launch week (sale day + 7) = BOOK.launchEnds; open until then
   sheet:"books/diwali-money-cheat-sheet.pdf" };
 function signup(lead){
   if (!SIGNUP.action) return "";
   const diwali = !BOOK.launchEnds || Date.now() <= Date.parse(BOOK.launchEnds);
-  const head = diwali ? "🎁 Sign-up gift: 10% off the book" : "Get new lessons by email";
-  const text = diwali ? `Sign up and Raj emails you a private code: 10% off any edition of <b>${BOOK.title}</b>, valid until the end of launch week (7 days from the day the book goes on sale), and a free one-page <b>Money Cheat Sheet</b> (festival budget, no-cost EMI check, card and UPI fraud rules). Plus new lessons.<br><small class="tip">Tip: our emails sometimes land in Promotions or Spam. Learning with a friend? Send them this page too.</small>` : lead;
+  const head = diwali ? "🎁 Launch-week gift: 10% off the Money Book" : "Get new lessons by email";
+  const text = diwali ? `Sign up and Raj emails you a private launch-week code: 10% off the Money Book <b>${BOOK.title}</b> (book only), valid until the end of launch week (7 days from the day the book goes on sale), and a free one-page <b>Money Cheat Sheet</b> (festival budget, no-cost EMI check, card and UPI fraud rules). Plus new lessons.<br><small class="tip">Tip: our emails sometimes land in Promotions or Spam. Learning with a friend? Send them this page too.</small>` : lead;
   return `<section class="signup${diwali ? " diwali" : ""}"><div><h3>${head}</h3><p>${text}</p></div>
     <form class="signup-form" novalidate><input type="email" name="email" required placeholder="you@example.com" aria-label="Your email address" autocomplete="email">
       <button class="btn primary" type="submit">Notify me</button>
@@ -1835,7 +1835,7 @@ const I18N = {
 "Free from Raj":["Raj ki taraf se free","राज की ओर से मुफ़्त"],"Free sample: Paisa Samjho money book":["Free sample: Paisa Samjho money book","मुफ़्त सैंपल: पैसा समझो मनी बुक"],
 "Salary se Savings tak with the Verma family and Gullak Bhai. Read the first chapters free, in English or Hinglish.":["Salary se Savings tak, Verma family aur Gullak Bhai ke saath. Pehle chapters free padho, English ya Hinglish mein.","सैलरी से सेविंग्स तक, वर्मा परिवार और गुल्लक भाई के साथ। पहले अध्याय मुफ़्त पढ़ें, अंग्रेज़ी या हिंग्लिश में।"],
 "Get the free sample →":["Free sample lo →","मुफ़्त सैंपल लें →"],
-"🎁 Sign-up gift: 10% off the book":["🎁 Sign-up gift: book par 10% off","🎁 साइन-अप तोहफ़ा: किताब पर 10% छूट"],
+"🎁 Launch-week gift: 10% off the Money Book":["🎁 Launch-week gift: Money Book par 10% off","🎁 लॉन्च-वीक तोहफ़ा: मनी बुक पर 10% छूट"],
 "Tip: our emails sometimes land in Promotions or Spam. Learning with a friend? Send them this page too.":["Tip: hamari emails kabhi Promotions ya Spam mein chali jaati hain. Dost ke saath seekh rahe ho? Unhe bhi yeh page bhejo.","सुझाव: हमारे ईमेल कभी-कभी Promotions या Spam में चले जाते हैं। किसी दोस्त के साथ सीख रहे हैं? उन्हें भी यह पेज भेजें।"],
 "Notify me":["Mujhe batao","मुझे सूचना दें"],"One short email when something new is out. Unsubscribe any time.":["Kuch naya aaye toh ek chhoti email. Kabhi bhi unsubscribe karo.","कुछ नया आए तो एक छोटा ईमेल। कभी भी अनसब्सक्राइब करें।"],
 "Privacy":["Privacy","गोपनीयता"],"Prefer WhatsApp or Telegram?":["WhatsApp ya Telegram pasand hai?","WhatsApp या Telegram पसंद है?"],"Join on WhatsApp":["WhatsApp par judo","WhatsApp पर जुड़ें"],"Join on Telegram":["Telegram par judo","Telegram पर जुड़ें"],
@@ -1925,7 +1925,7 @@ const I18N = {
 "24-hour rule:":["24-ghante rule:","24 घंटे का नियम:"],"of your planned saving. A want is fine when it is planned inside your fun budget.":["aapki planned saving ka. Shauk theek hai jab fun budget ke andar planned ho.","आपकी योजना वाली बचत का। शौक़ ठीक है जब मनोरंजन बजट के अंदर योजना में हो।"],
 "Your spending check":["Aapka kharcha check","आपकी खर्च जाँच"],"Leak:":["Leak:","लीक:"],"Pressure:":["Pressure:","दबाव:"],"a month =":["mahina =","महीना ="],"a day =":["din =","दिन ="],"a year.":["saal.","साल।"],"Goal effect in the plan ↑":["Goals par asar plan mein ↑","लक्ष्यों पर असर प्लान में ↑"],"Halve the leak and the pressure: about":["Leak aur pressure aadha karo: lagbhag","लीक और दबाव आधा करें: लगभग"],"back each month,":["har mahine wapas,","हर महीने वापस,"],"Illustrative only. Financial education, not advice.":["Sirf example. Financial education, advice nahi.","सिर्फ़ उदाहरण। वित्तीय शिक्षा, सलाह नहीं।"],
 "any spend over ₹2,000 that isn't a need waits 24 hours. Then ask: need, want or pressure? That is about":["₹2,000 se upar ka koi bhi kharcha jo zaroorat nahi, 24 ghante rukta hai. Phir poochho: zaroorat, shauk ya pressure? Yeh lagbhag","₹2,000 से ऊपर का कोई भी खर्च जो ज़रूरत नहीं है, 24 घंटे रुकता है। फिर पूछें: ज़रूरत, शौक़ या दबाव? यह लगभग"],
-"Sign up and Raj emails you a private code: 10% off any edition of":["Sign up karo aur Raj aapko private code email karenge: kisi bhi edition par 10% off,","साइन अप करें और राज आपको प्राइवेट कोड ईमेल करेंगे: किसी भी संस्करण पर 10% छूट,"],
+"Sign up and Raj emails you a private launch-week code: 10% off the Money Book":["Sign up karo aur Raj aapko launch-week ka private code email karenge: Money Book par 10% off","साइन अप करें और राज आपको लॉन्च-वीक का प्राइवेट कोड ईमेल करेंगे: मनी बुक पर 10% छूट"],"(book only), valid until the end of launch week (7 days from the day the book goes on sale), and a free one-page":["(sirf book par), launch week khatam hone tak (book bikne ke din se 7 din), aur ek free one-page","(सिर्फ़ किताब पर), लॉन्च वीक ख़त्म होने तक (किताब बिकने के दिन से 7 दिन), और एक मुफ़्त एक-पेज"],
 ", valid until the end of launch week (7 days from the day the book goes on sale), and a free one-page":[", launch week khatam hone tak valid (book aane ke din se 7 din), aur ek free one-page",", लॉन्च हफ़्ते के अंत तक मान्य (किताब आने के दिन से 7 दिन), और एक मुफ़्त एक पेज की"],
 "Money Cheat Sheet":["Money Cheat Sheet","मनी चीट शीट"],
 "(festival budget, no-cost EMI check, card and UPI fraud rules). Plus new lessons.":["(tyohaar budget, no-cost EMI check, card aur UPI fraud rules). Saath mein naye lessons.","(त्योहार बजट, नो-कॉस्ट EMI जाँच, कार्ड और UPI धोखाधड़ी के नियम)। साथ में नए पाठ।"],
