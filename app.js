@@ -1892,7 +1892,7 @@ function efFirst(){ const app = document.getElementById("app"); if (!app || (efF
   const w = document.createTreeWalker(app, NodeFilter.SHOW_TEXT), rx = /इमरजेंसी[- ]फ़?ंड/;
   while (w.nextNode()) { const n = w.currentNode; if (rx.test(n.nodeValue) && n.parentElement.checkVisibility()) { n.nodeValue = n.nodeValue.replace(rx, "आपातकालीन कोष (इमरजेंसी फंड)"); efFirst.n = n; break; } } }
 function langMark(){ document.querySelectorAll("#lang [data-lang]").forEach(x => { const on = x.dataset.lang === LANG; x.classList.toggle("on", on); x.setAttribute("aria-pressed", on); });
-  document.documentElement.lang = LANG === "hi" ? "hi" : "en"; }
+  document.documentElement.lang = LANG === "hi" ? "hi" : LANG === "hing" ? "hi-Latn" : "en"; }
 new MutationObserver(ms => { if (LANG === "en") return; for (const m of ms) m.addedNodes.forEach(n => tr(n.nodeType === 3 ? n.parentNode : n)); }).observe(document.body, { childList:true, subtree:true });
 document.getElementById("lang").addEventListener("click", e => { const x = e.target.closest("[data-lang]"); if (!x || x.dataset.lang === LANG) return;
   LANG = x.dataset.lang; kcLang = LANG === "hing" ? "hi" : "en"; try { localStorage.setItem("lang", LANG); } catch (err) {}
