@@ -27,3 +27,4 @@ img.g3d{object-fit:contain;border-radius:0!important;background:none!important;f
 @media (prefers-reduced-motion:reduce){img.g3d{animation:none!important}}
 .cb-fab img.g3d{width:40px!important;height:40px!important}
 .install img.g3d{width:30px;height:30px}
+@media(max-width:740px){html[lang=hi] .front h1{max-width:60%;font-size:27px;line-height:1.25}}
