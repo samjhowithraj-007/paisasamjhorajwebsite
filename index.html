@@ -2,6 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>
+/* Installed app (12 Nov): always show the phone app design. Shrink the app window to phone size; if it stays wide (maximised), show the app in a centred phone-width frame. */
+(function(){
+  var q=location.search.indexOf("appmode=1")>-1;
+  var sa=q||matchMedia("(display-mode: standalone)").matches||navigator.standalone===true;
+  if(!sa||self!==top)return;
+  if(innerWidth>600){try{resizeTo(Math.min(460,screen.availWidth),Math.min(940,screen.availHeight));moveTo(Math.max(0,(screen.availWidth-460)/2),0)}catch(e){}}
+  function frame(){
+    if(innerWidth<=600||document.getElementById("appframe")||!document.body)return;
+    var u=location.pathname+"?inapp=1"+location.hash;
+    document.body.innerHTML="";document.body.className="";
+    var s=document.createElement("style");
+    s.textContent="html,body{margin:0;height:100%;overflow:hidden;background:radial-gradient(circle at 50% 30%,#1f6b47,#0b3324 70%)}#appframe{display:block;width:430px;max-width:100%;height:100%;margin:0 auto;border:0;background:#faf7ef;box-shadow:0 0 60px rgba(0,0,0,.45)}";
+    document.head.appendChild(s);
+    var f=document.createElement("iframe");f.id="appframe";f.src=u;f.title="Paisa Samjho Raj";document.body.appendChild(f);
+  }
+  addEventListener("load",function(){setTimeout(frame,450)});
+  addEventListener("resize",function(){setTimeout(frame,250)});
+})();
+</script>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Paisa Samjho Raj · Money made simple</title>
 <meta name="description" content="Paisa Samjho Raj: free, plain-English lessons on budgeting, emergency funds, insurance, SIP, mutual funds, index funds, ETFs and retirement for Indian families, plus SIP, goal and EMI calculators and a private family Money Planner.">
@@ -17,14 +37,14 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@samjhowithraj">
 <link rel="canonical" href="https://www.paisasamjhoraj.com/">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"Paisa Samjho Raj","url":"https://www.paisasamjhoraj.com/","inLanguage":"en-IN","description":"Free, plain-English money lessons, calculators and a private family Money Planner for Indian families. Educational, not advice."},{"@type":"Organization","name":"Paisa Samjho Raj","url":"https://www.paisasamjhoraj.com/","logo":"https://www.paisasamjhoraj.com/img/icon-512.png","sameAs":["https://www.youtube.com/@PaisaSamjhoRaj","https://www.instagram.com/paisasamjhoraj/","https://www.facebook.com/profile.php?id=1470820459437124","https://whatsapp.com/channel/0029VbDeoZ65fM5TqL91G53x","https://t.me/paisasamjhoraj","https://x.com/samjhowithraj"]}]}</script>
-<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"Paisa Samjho Raj","url":"https://www.paisasamjhoraj.com/","inLanguage":"en-IN","description":"Free, plain-English money lessons, calculators and a private family Money Planner for Indian families. Educational, not advice."},{"@type":"Organization","name":"Paisa Samjho Raj","url":"https://www.paisasamjhoraj.com/","logo":"https://www.paisasamjhoraj.com/img/icon-512.png?v=3","sameAs":["https://www.youtube.com/@PaisaSamjhoRaj","https://www.instagram.com/paisasamjhoraj/","https://www.facebook.com/profile.php?id=1470820459437124","https://whatsapp.com/channel/0029VbDeoZ65fM5TqL91G53x","https://t.me/paisasamjhoraj","https://x.com/samjhowithraj"]}]}</script>
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png?v=3">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png?v=3">
 <link rel="preload" href="img/sora-800-brand.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="manifest.webmanifest?v=3">
 <meta name="theme-color" content="#0a110e">
-<script>try{document.documentElement.dataset.theme=localStorage.getItem("psr-theme")==="light"?"light":"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
-<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("psr-theme")==="dark"?"dark":"light"}catch(e){document.documentElement.dataset.theme="light"}</script>
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png?v=3">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Paisa Samjho">
@@ -591,30 +611,35 @@ p.disc{font-size:13px;color:var(--muted)}
 .btn.tg{gap:8px;border-color:#26A5E4;color:var(--ink)}.btn.tg svg{width:18px;height:18px;fill:#26A5E4;flex:none}.btn.tg:hover{background:color-mix(in srgb,#26A5E4 12%,transparent)}
 .join-calc .btn{padding:9px 13px;font-size:14px}
 </style>
-</head>
+<link rel="stylesheet" href="design.css"><style>
+.verma-feature{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr);gap:20px}
+.verma-story{position:relative;isolation:isolate;display:flex;align-items:flex-end;overflow:hidden;min-height:400px;background:#17392e;border-radius:20px;text-decoration:none!important;color:white}
+.verma-story img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 40%;z-index:-2}
+.verma-story:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,#071e19f2,#081c188a 52%,transparent 90%)}
+.verma-story>div{padding:clamp(20px,3.3vw,46px)}.verma-feature small{display:block;font:700 11px/1.5 var(--body);letter-spacing:.13em;text-transform:uppercase}.verma-story small,.verma-story h2{color:#fff}.verma-story h2{font:500 clamp(38px,4.5vw,68px)/1.04 Georgia;letter-spacing:-.045em;max-width:15ch;margin:12px 0 18px}.verma-story strong{display:inline-block;background:#f6bb4b;color:#173a2c;border-radius:32px;padding:11px 20px}.verma-story:hover strong{text-decoration:underline}.verma-feature aside{background:#e7ecd6;color:#173e30;padding:clamp(18px,2.4vw,32px);border-radius:20px}.verma-feature aside img{display:block;width:90%;height:150px;object-fit:contain;mix-blend-mode:multiply;margin:8px auto}.verma-feature aside h3{font:500 clamp(26px,3vw,43px)/1.05 Georgia;color:inherit;letter-spacing:-.035em;margin:14px 0}.verma-feature aside p,.verma-feature aside a{color:inherit}.verma-feature aside a{font-weight:700;text-decoration:underline;text-underline-offset:4px}
+@media(max-width:740px){.verma-feature{grid-template-columns:1fr;gap:12px}.verma-story{min-height:325px}.verma-feature aside img{float:right;width:30%;height:95px}.verma-feature aside h3{max-width:18ch}.verma-feature aside:after{content:"";display:block;clear:both}}
+</style><style>.card.calc-picture{display:grid;grid-template-columns:clamp(72px,7vw,100px) minmax(0,1fr);align-items:center;gap:14px;padding:12px}.calc-picture img{width:100%;aspect-ratio:1;object-fit:contain;border-radius:10px}.calc-picture h3{margin:0 0 5px}.calc-picture p{margin:0}</style></head>
 <body>
-<header>
+<header><div class="app-title"><a href="#home" aria-label="Home">←</a><strong id="app-title-text">Paisa Samjho Raj</strong><details><summary aria-label="All sections">☰</summary><div><a href="#home">Home</a><a href="#learn">Learn</a><a href="#calculators">Calculators</a><a href="#planner">Money Planner</a><a href="#series">Money Plan Series</a><a href="#shop">Shop</a><a href="#about">About</a><a href="#privacy">Privacy</a></div></details></div>
   <div class="wrap bar">
-    <a class="brand" href="#home" aria-label="Paisa Samjho Raj, home"><img src="img/badge-96.png" alt="" width="40" height="40"><span class="wm"><b>Paisa</b> Samjho Raj</span></a>
-    <div class="bar-right"><div class="social" data-social></div><div class="kc-lang" id="lang" role="group" aria-label="Language" data-noi18n><button type="button" data-lang="en" lang="en"><span class="ll">English</span><span class="ls">ENG</span></button><button type="button" data-lang="hing" lang="hi-Latn"><span class="ll">Hinglish</span><span class="ls">HING</span></button><button type="button" data-lang="hi" lang="hi"><span class="ll">हिंदी</span><span class="ls">हिं</span></button></div><button class="tbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button><button class="install" id="install" type="button"><img src="img/badge-96.png" alt="" width="28" height="28">Install<span class="install-x"> app</span></button></div>
+    <a class="brand" href="#home" aria-label="Paisa Samjho Raj, home"><img src="img/gullak3d/full.webp" class="mark3d" alt="" width="50" height="44"><span class="wm"><b>Paisa</b> Samjho Raj</span></a>
+    <div class="bar-right"><div class="social" data-social></div><div class="kc-lang" id="lang" role="group" aria-label="Language" data-noi18n><button type="button" data-lang="en" lang="en"><span class="ll">English</span><span class="ls">ENG</span></button><button type="button" data-lang="hing" lang="hi-Latn"><span class="ll">Hinglish</span><span class="ls">HING</span></button><button type="button" data-lang="hi" lang="hi"><span class="ll">हिंदी</span><span class="ls">हिं</span></button></div><button class="tbtn" id="theme" type="button" aria-label="Switch light or dark theme" title="Light / dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button><button class="install" id="install" type="button"><img class="g3d" src="img/gullak3d/happy.webp" alt="" width="28" height="28">Install<span class="install-x"> app</span></button></div>
   </div>
   <nav class="wrap tabs" aria-label="Sections">
     <a class="tab" href="#home" data-tab="home">Home</a>
     <a class="tab" href="#learn" data-tab="learn">Learn</a>
-    <a class="tab" href="#calculators" data-tab="calculators">Calculators</a>
-    <a class="tab" href="#planner" data-tab="planner">Money Planner</a>
-    <a class="tab" href="#series" data-tab="series">Money Plan Series</a>
-    <a class="tab" href="#shop" data-tab="shop">Shop<span class="new">New</span></a>
+    <a class="tab" href="#calculators" data-tab="calculators">Tools</a>
+    <a class="tab" href="#shop" data-tab="shop">Book<span class="new">New</span></a>
     <a class="tab" href="#about" data-tab="about">About</a>
   </nav>
 </header>
 <main class="wrap" id="app"></main>
 <footer><div class="wrap fgrid">
-  <div class="fabout"><a class="brand" href="#home" aria-label="Paisa Samjho Raj, home"><img src="img/badge-96.png" alt="" width="40" height="40" loading="lazy"><span class="wm"><b>Paisa</b> Samjho Raj</span></a>
+  <div class="fabout"><a class="brand" href="#home" aria-label="Paisa Samjho Raj, home"><img src="img/gullak3d/full.webp" class="mark3d" alt="" width="50" height="44" loading="lazy"><span class="wm"><b>Paisa</b> Samjho Raj</span></a>
     <p>Free money lessons, calculators and a private family Money Planner for Indian families, from the Hinglish series "Middle-Class Family Ka Money Plan".</p><div class="social" data-social></div></div>
   <nav aria-label="Learn"><h4>Learn</h4><a href="#learn">All lessons</a><a href="#learn/budget">Start with a budget</a><a href="#learn/emergency-fund">Emergency fund</a><a href="#series">Money Plan series</a></nav>
   <nav aria-label="Tools"><h4>Tools</h4><a href="#planner">Money Planner</a><a href="#calculators/sip">SIP calculator</a><a href="#calculators/emergency">Emergency fund calculator</a><a href="#calculators/card">Credit card calculator</a><a href="#calculators">All calculators</a></nav>
-  <nav aria-label="Site"><h4>Site</h4><a href="#about">About Raj</a><a href="https://www.techsamjhoraj.com/#workshops">Money + AI workshops ↗</a><a href="https://www.techsamjhoraj.com">Python + AI lessons ↗</a><a href="mailto:samjhowithraj@gmail.com">Contact</a><a href="#privacy">Privacy</a></nav>
+  <nav aria-label="Site"><h4>Site</h4><a href="#about">About Raj</a><a href="https://www.techsamjhoraj.com/#workshops">Money + AI workshops ↗</a><a href="https://www.techsamjhoraj.com">Python + AI lessons ↗</a><a href="contact.html">Contact us</a><a href="terms.html">Terms</a><a href="refund.html">Refunds</a><a href="shipping.html">Shipping</a><a href="privacy.html">Privacy</a></nav>
 </div><div class="wrap fbottom">
   <p><b>Educational only.</b> Nothing on this site is financial, investment, tax or insurance advice, and Raj is not a SEBI-registered investment adviser. Examples use assumed returns and inflation; returns are never guaranteed and markets can fall. Mutual fund investments are subject to market risks; read all scheme-related documents carefully. Check current rules and speak to a SEBI-registered adviser before acting on your own money.</p>
   <span>© 2026 Paisa Samjho Raj. Calculator and planner inputs stay in your browser. No tracking, no cookies.</span>
@@ -1496,41 +1521,27 @@ function tweenKpis(before){
   });
 }
 // ---------- pages ----------
-function home(){
-  const ex = sipRows(5000, 12, 20).pop();
-  const steps = MODULES.map(m => `<a class="step" href="#learn/${m.lessons[0].id}"><span class="num"></span><h3>${m.title}</h3><p>${m.blurb}</p><span class="meta">${m.lessons.length} lessons →</span></a>`).join("");
-  return `<section class="hero2">
-    <div><div class="eyebrow">Free money classroom for Indian families</div>
-      <h1>Money, made simple for <em>Indian families.</em></h1>
-      <p class="lead">Budget, emergency fund, insurance, SIP, mutual funds, index funds and retirement, explained in plain words with real rupee examples. Free calculators and a private Money Planner that runs only in your browser.</p>
-      <p class="hindi">Companion website to Raj's Hinglish video series "Middle-Class Family Ka Money Plan".</p>
-      <div class="cta-row"><a class="btn cta" href="#planner">Apni family ka Money Plan banao →</a><a class="btn ghost" href="#learn">Start learning free</a></div>
-      <p class="cta-sub">No sign-up. Nothing you type leaves your browser. Educational, not advice.</p>
-      <p class="byline2"><img src="img/badge-96.png" alt="" width="34" height="34"><span>Made by <a href="#about">Raj</a>, Paisa Samjho Raj. Not a SEBI-registered adviser.</span></p>
-      <div class="stats"><div><b>${LESSONS.length}</b>lessons</div><div><b>${CALCS.length}</b>calculators</div><div><b>${EPISODES.length}</b>video episodes</div><div><b>${pctDone()}%</b>done by you</div></div></div>
-    ${miniCalc()}
-  </section>
-  <section class="trust" aria-label="Why you can trust these numbers">
-    <div><b>Private by design</b>Calculators and the planner run in your browser. No account, no tracking.</div>
-    <div><b>Facts with dates</b>Rates and rules carry a source and the date they were checked.</div>
-    <div><b>Maths you can see</b>Every calculator shows its formula and assumptions.</div>
-    <div><b>Education, not advice</b>No fund tips and no promised returns.</div>
-  </section>
-  <section class="section"><div class="section-head"><div><div class="eyebrow">Learning path</div><h2>Four steps, in this order</h2></div><a class="more" href="#learn">All ${LESSONS.length} lessons →</a></div>
-    <div class="path">${steps}</div></section>
-  <section class="section"><div class="section-head"><div><div class="eyebrow">Calculators</div><h2>Run the numbers</h2></div><a class="more" href="#calculators">All calculators →</a></div>
-    ${CALC_GROUPS.map(([g, ids]) => `<div class="cgroup">${g}</div><div class="grid">${ids.map(id => CALCS.find(c => c.id === id)).map(c => `<a class="card" href="#calculators/${c.id}"><span class="ico">₹</span><h3>${c.title}</h3><p>${c.blurb}</p></a>`).join("")}</div>`).join("")}</section>
-  <section class="section band"><div><div class="eyebrow">Money Planner</div><h2>Your family's plan, one bucket at a time</h2>
-    <p>Enter income, expenses, savings, loans and goals. See how your monthly surplus could be split between insurance, costly debt, the emergency fund and long-term goals. Nothing leaves your browser.</p></div>
-    <a class="btn primary" href="#planner">Open the Money Planner</a></section>
-  ${books()}
-  ${promo()}
-  ${signup("New money lessons and Money Plan episodes, straight to your inbox. Free, in plain English.")}`;
+function directory(){
+  return '<div class="page-head"><div><div class="eyebrow">Money tools</div><h1>Run the numbers.</h1><p class="lead">Choose a calculator for the question on your mind.</p></div><img class="page-art" src="art/growth.jpg" alt=""></div><a class="tool-hero" href="#planner"><img src="art/family.jpg" alt=""><div><small>Start here</small><h2>Money Planner</h2><p>Your whole family plan in one place: income, expenses, emergency fund, loans and goals. Runs only in your browser.</p><b>Open the Money Planner →</b></div></a>'+CALC_GROUPS.map(([group,ids])=>'<section class="section"><h2>'+group+'</h2><div class="grid">'+ids.map(id=>{const c=CALCS.find(x=>x.id===id);return '<a class="card calc-picture" href="#calculators/'+id+'"><img src="art/calc-'+id+'.webp" alt=""><div><h3>'+c.title+' →</h3><p>'+c.blurb+'</p></div></a>'}).join('')+'</div></section>').join('')+'<a class="btn" href="#compare">Compare home loans →</a>';
 }
+function home(){
+ const cards=[['Budget','budget','learn/budget'],['Emergency fund','fund','calculators/emergency'],['Credit cards','card','calculators/card'],['Investing','growth','learn/mutual-funds']];
+ return `<section class="front"><div><h1>Money, made simple for Indian families.</h1><p class="lead">Learn the basics, run the numbers, and build your family’s money plan.</p><div class="cta-row"><a class="btn cta" href="#planner">Build my money plan</a><a class="btn ghost" href="#learn">Start learning</a></div></div><img src="art/hero-gullak.jpg" alt="Gullak Bhai, the 3D piggy bank, with a green credit card"></section>
+ <div class="health"><img src="art/family.jpg" alt=""><div><h3>Your family’s financial health</h3><p>Check your monthly balance and savings cushion.</p></div><a class="btn" href="#planner">Start your check →</a></div>
+ <div class="topicgrid">${cards.map(([t,img,link])=>'<a href="#'+link+'"><img src="art/'+img+'.jpg" alt=""><strong>'+t+'</strong><span>›</span></a>').join('')}</div>
+ <section class="section verma-feature"><a class="verma-story" href="#learn/budget"><img src="art/family.jpg" alt=""><div><small>The Verma family · Money diary</small><h2>Where did the salary go?</h2><strong>Open the family budget →</strong></div></a><aside><small>Try it with your numbers</small><img src="art/fund.jpg" alt=""><h3>How long could your savings last?</h3><p>Work it out using your monthly essentials.</p><a href="#calculators/emergency">Check my cushion →</a></aside></section>
+ <section class="section"><div class="section-head"><h2>Run the numbers</h2><a href="#calculators">All calculators →</a></div>${miniCalc()}</section>${promo()}${signup("Get new lessons and episodes by email.")}`;
+}
+function comparePage(){
+ return `<div class="page-head"><div><div class="eyebrow">Compare</div><h1>Compare home loans</h1><p class="lead">Compare two illustrative fixed-rate loans for the same amount.</p></div></div><form class="loans" oninput="updateLoans()" onsubmit="return false"><label>Loan amount (₹)<input id="principal" type="number" min="1" value="3000000" required></label><div class="loanpair">${[8,8.5].map((r,i)=>`<article class="loan"><h2>Option ${i?'B':'A'}</h2><label>Annual rate (%)<input id="rate${i}" type="number" min="0" max="50" step=".1" value="${r}" required></label><label>Tenure (years)<input id="years${i}" type="number" min="1" max="50" value="20" required></label><small>Monthly EMI</small><strong id="value${i}">${inr(emiOf(3000000,r,20))}</strong></article>`).join('')}</div><p>Illustrative calculation. Fees and rate changes are excluded.</p><a class="btn cta" href="#calculators/emi">Open EMI calculator →</a></form>`;
+}
+function updateLoans(){const f=document.querySelector('.loans');for(let i=0;i<2;i++){const v=id=>+document.getElementById(id).value;document.getElementById('value'+i).textContent=f.checkValidity()?inr(emiOf(v('principal'),v('rate'+i),v('years'+i))):'—';}}
+
 function learn(){
   return `<div class="page-head"><div><div class="eyebrow">Learn</div><h1>Understand money, <em>step by step.</em></h1>
       <p class="lead">${LESSONS.length} short lessons in four modules. Each one has the idea, the key points, a worked rupee example, one action and a calculator to try.</p></div>
     <div class="progrow"><div class="prog"><i style="width:${pctDone()}%"></i></div>${pctDone()}% done</div></div>
+  <a class="tool-hero" href="#series"><img src="art/series.jpg" alt=""><div><small>Video series</small><h2>Middle-Class Family Ka Money Plan</h2><p>Watch the Verma family's plan, one episode at a time, with notes and a calculator for each part.</p><b>See all episodes →</b></div></a>
   <div class="modules">${MODULES.map((m, i) => `<section><div class="mod-head"><span class="n">${String(i + 1).padStart(2, "0")}</span><div><h2>${m.title}</h2><p>${m.blurb}</p></div></div>
     <div class="lessons">${m.lessons.map(l => `<a class="lcard" href="#learn/${l.id}"><span class="tick ${done.has(l.id) ? "done" : ""}"></span><span><b>${l.title}</b><small>${l.short}</small></span></a>`).join("")}</div></section>`).join("")}</div>
   ${books()}`;
@@ -1737,7 +1748,7 @@ function privacy(){
       <li>Your address is stored with our email service, Brevo, which sends the emails for us. We never sell or share it, and we never send ads.</li>
       <li>Our emails may record whether they were opened or a link was clicked, so we learn which lessons are useful.</li>
       <li>Every email has an unsubscribe link. To have your address deleted completely, write to <span class="mail">samjhowithraj@gmail.com</span>.</li></ul>
-    <h2>Buying a sheet</h2><p>Templates in the Shop are sold through Gumroad, which handles the payment and sends you the files. We never see your card or UPI details. Gumroad's own privacy policy applies there.</p>
+    <h2>When you buy</h2><p>Payments are handled by Razorpay or Gumroad, which take the payment and follow their own privacy policies. We get only your name, email, phone (if given) and what you bought, to deliver your order and help with refunds. We never see your card, UPI or bank details. See also our <a href="terms.html">terms</a>, <a href="refund.html">refund</a> and <a href="shipping.html">delivery</a> policies.</p>
     <h2>Featured spots</h2><p>The “Featured” card and the book list are plain links chosen by Raj, not an ad network, so they don't track you. Book links go to Amazon India and may be affiliate links (the page says when they are). Paid sponsors are always labelled “Sponsored”, and featuring a brand is never a recommendation to buy or invest.</p>
     <h2>No tracking on this site</h2><p>No analytics, advertising or tracking cookies. The site is hosted on GitHub Pages; GitHub may keep basic technical logs (such as IP addresses) to run and protect its service. Links to YouTube, Instagram, Facebook and X follow those sites' own policies.</p>
     <h2>Questions</h2><p>Write to <span class="mail">samjhowithraj@gmail.com</span>.</p></article>`;
@@ -1748,6 +1759,9 @@ function render(){
   let tab = p, html, title = "Paisa Samjho Raj · Money made simple";
   if (p === "learn" && id && findLesson(id)) { const l = findLesson(id); html = lessonView(l); title = `${l.title} · Paisa Samjho Raj`; }
   else if (p === "learn") html = learn();
+  else if (p === "compare") html = comparePage();
+  
+  else if (p === "calculators" && !id) html = directory();
   else if (p === "calculators") { const c = CALCS.find(x => x.id === id) || CALCS[0]; applyCalcQuery(c, q); html = calcView(c); title = `${c.title} · Paisa Samjho Raj`; }
   else if (p === "planner" || p === "tracker") { html = tracker(); tab = "planner"; title = "Money Planner · Paisa Samjho Raj"; }
   else if (p === "series") html = series();
@@ -1757,11 +1771,23 @@ function render(){
   else if (p === "site-index") { html = '<pre id="site-index"></pre>'; setTimeout(() => { document.getElementById("site-index").textContent = JSON.stringify(siteIndex(), null, 1); }); }
   else { html = home(); tab = "home"; }
   app.innerHTML = html;
+  document.body.dataset.page=p;
+  document.querySelectorAll(".dock a").forEach(a=>{if(a.hash==="#"+p)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
+  if(p==="calculators" && id){
+    const form=app.querySelector(".cform"), res=app.querySelector("#cres");
+    if(form && res){const box=document.createElement("div");box.className="mobile-result";form.before(box);const sync=()=>{const k=res.querySelector(".kpi");if(k)box.innerHTML=k.innerHTML};sync();new MutationObserver(sync).observe(res,{childList:true,subtree:true,characterData:true});}
+  }
+  if(["learn","series","planner"].includes(p) && !id){
+    const head=app.querySelector(".page-head");
+    if(head) head.insertAdjacentHTML("beforeend",'<img class="page-art" alt="" src="art/'+({learn:"fund",series:"series",planner:"family"}[p])+'.jpg">');
+  }
   if (tab === "planner") fpAmtHints();
   if (tab === "home") miniUpdate();
   if (p === "calculators") { const ch = document.querySelector("#cres .chart"); if (ch) ch.classList.add("draw"); }
-  document.querySelectorAll(".tab").forEach(t => t.dataset.tab === tab ? t.setAttribute("aria-current", "page") : t.removeAttribute("aria-current"));
+  const navTab = ({ series:"learn", planner:"calculators", compare:"calculators" })[tab] || tab;
+  document.querySelectorAll(".tab").forEach(t => t.dataset.tab === navTab ? t.setAttribute("aria-current", "page") : t.removeAttribute("aria-current"));
   fillSocial(); document.title = title;
+ const at=document.querySelector("#app-title-text");at.textContent=({compare:"Compare home loans",series:"Money Plan Series",planner:"Money Planner",learn:"Learn with Raj",shop:"Shop",about:"About Raj",privacy:"Privacy",calculators:id?CALCS.find(x=>x.id===id)?.title:"Calculators"})[p]||"Paisa Samjho Raj";document.querySelector(".app-title details").open=false;
 }
 app.addEventListener("input", e => {
   const el = e.target.closest("#cform [data-c]"); if (!el) return;
@@ -1792,7 +1818,7 @@ app.addEventListener("click", async e => {
   if (mark) { const id = mark.dataset.id; done.has(id) ? done.delete(id) : done.add(id); saveDone(); const y = scrollY; render(); scrollTo(0, y); }
 });
 addEventListener("hashchange", () => { render(); scrollTo(0, 0); });
-const I18N = {
+const I18N = {"The Verma family · Money diary": ["Verma parivaar · Money diary", "वर्मा परिवार · पैसों की डायरी"], "Where did the salary go?": ["Salary kahan gayi?", "वेतन कहाँ गया?"], "Open the family budget →": ["Parivaar ka budget dekhein →", "परिवार का बजट देखें →"], "Try it with your numbers": ["Apne numbers se dekhein", "अपने आँकड़े आज़माएँ"], "How long could your savings last?": ["Aapki savings kitne din chalengi?", "आपकी बचत कितने दिन चलेगी?"], "Work it out using your monthly essentials.": ["Apne zaroori kharch se hisaab lagayein.", "अपने मासिक ज़रूरी खर्च से हिसाब लगाएँ।"], "Check my cushion →": ["Meri savings check karein →", "मेरी बचत जाँचें →"],
 "Install":["Install","इंस्टॉल"],"app":["app","ऐप"],
 "Home":["Home","होम"],"Learn":["Seekho","सीखें"],"Calculators":["Calculators","कैलकुलेटर"],"Money Planner":["Money Planner","मनी प्लानर"],"Money Plan Series":["Money Plan Series","मनी प्लान सीरीज़"],"Shop":["Shop","शॉप"],"New":["New","नया"],"About":["About","परिचय"],
 "Free money classroom for Indian families":["Indian families ke liye free money classroom","भारतीय परिवारों के लिए मुफ़्त मनी क्लासरूम"],
@@ -1860,7 +1886,7 @@ const I18N = {
 "Educational only.":["Sirf education ke liye.","सिर्फ़ शिक्षा के लिए।"],
 "Nothing on this site is financial, investment, tax or insurance advice, and Raj is not a SEBI-registered investment adviser. Examples use assumed returns and inflation; returns are never guaranteed and markets can fall. Mutual fund investments are subject to market risks; read all scheme-related documents carefully. Check current rules and speak to a SEBI-registered adviser before acting on your own money.":["Is site par kuch bhi financial, investment, tax ya insurance advice nahi hai, aur Raj SEBI-registered investment adviser nahi hain. Examples assumed returns aur inflation par hain; returns kabhi guaranteed nahi aur market gir sakta hai. Mutual fund investments are subject to market risks; read all scheme-related documents carefully. Apne paise par faisla lene se pehle current rules check karo aur SEBI-registered adviser se baat karo.","इस साइट पर कुछ भी वित्तीय, निवेश, टैक्स या बीमा सलाह नहीं है, और राज SEBI-रजिस्टर्ड निवेश सलाहकार नहीं हैं। उदाहरण अनुमानित रिटर्न और महँगाई पर आधारित हैं; रिटर्न की कभी गारंटी नहीं होती और बाज़ार गिर सकता है। म्यूचुअल फंड निवेश बाज़ार जोखिमों के अधीन हैं; योजना से जुड़े सभी दस्तावेज़ ध्यान से पढ़ें। अपने पैसे पर फ़ैसला लेने से पहले मौजूदा नियम जाँचें और SEBI-रजिस्टर्ड सलाहकार से बात करें।"],
 "© 2026 Paisa Samjho Raj. Calculator and planner inputs stay in your browser. No tracking, no cookies.":["© 2026 Paisa Samjho Raj. Calculator aur planner ke inputs aapke browser mein hi rehte hain. Na tracking, na cookies.","© 2026 पैसा समझो राज। कैलकुलेटर और प्लानर में भरी जानकारी आपके ब्राउज़र में ही रहती है। न ट्रैकिंग, न कुकीज़।"],
-"Install the app":["App install karo","ऐप इंस्टॉल करें"],"Got it":["Samajh gaya","समझ गया"],"Ask Raj":["Raj se poochho","राज से पूछें"],"Automated helper · Chai pe paise ki baat":["Automated helper · Chai pe paise ki baat","ऑटोमेटेड हेल्पर · चाय पे पैसे की बात"],"Send":["Bhejo","भेजें"],
+"Install the app":["App install karo","ऐप इंस्टॉल करें"],"Got it":["Samajh gaya","समझ गया"],"Ask Gullak Bhai":["Gullak Bhai se poochho","गुल्लक भाई से पूछें"],"Automated helper · Chai pe paise ki baat":["Automated helper · Chai pe paise ki baat","ऑटोमेटेड हेल्पर · चाय पे पैसे की बात"],"Send":["Bhejo","भेजें"],
 "Answers come only from this site's lessons and calculators. Educational only: no personal investment advice.":["Jawab sirf is site ke lessons aur calculators se aate hain. Sirf education: koi personal investment advice nahi.","जवाब सिर्फ़ इस साइट के पाठों और कैलकुलेटरों से आते हैं। सिर्फ़ शिक्षा: कोई व्यक्तिगत निवेश सलाह नहीं।"],
 "Take your plan":["Apna plan","अपना प्लान"],"offline.":["offline le jao.","ऑफ़लाइन ले जाएँ।"],
 "Raj's money book and ready-made sheets that follow the lessons on this site. Every purchase helps keep the lessons and calculators free.":["Raj ki money book aur ready-made sheets jo is site ke lessons ke saath chalti hain. Har purchase lessons aur calculators ko free rakhne mein madad karti hai.","राज की मनी बुक और तैयार शीट, जो इस साइट के पाठों के साथ चलती हैं। हर ख़रीद पाठों और कैलकुलेटरों को मुफ़्त रखने में मदद करती है।"],
@@ -2484,6 +2510,14 @@ Object.assign(I18N, { // sale day 11 Nov
 });
 I18N_RX.push([/^Buy the book: All 3 editions · (₹[\d,]+)$/, ["Teeno editions lo · $1","तीनों संस्करण ख़रीदें · $1"]],
   [/^Buy the book: (English|Hinglish|हिंदी) · (₹[\d,]+)$/, [(m, a, b) => `Book lo: ${a} · ${b}`, (m, a, b) => `किताब ख़रीदें: ${a === "English" ? "अंग्रेज़ी" : a === "Hinglish" ? "हिंग्लिश" : a} · ${b}`]]);
+Object.assign(I18N, { // 5-tab layout (12 Nov)
+"Tools":["Tools","टूल्स"],"Book":["Book","किताब"],"Start here":["Yahan se shuru karo","यहाँ से शुरू करें"],"Video series":["Video series","वीडियो सीरीज़"],
+"Your whole family plan in one place: income, expenses, emergency fund, loans and goals. Runs only in your browser.":["Poori family ka plan ek jagah: income, kharche, emergency fund, loans aur goals. Sirf aapke browser mein chalta hai.","पूरे परिवार का प्लान एक जगह: आय, खर्च, आपातकालीन कोष, लोन और लक्ष्य। सिर्फ़ आपके ब्राउज़र में चलता है।"],
+"Open the Money Planner →":["Money Planner kholo →","मनी प्लानर खोलें →"],"Middle-Class Family Ka Money Plan":["Middle-Class Family Ka Money Plan","मिडिल-क्लास फ़ैमिली का मनी प्लान"],
+"Watch the Verma family's plan, one episode at a time, with notes and a calculator for each part.":["Verma family ka plan dekho, ek episode ek baar, har part ke notes aur calculator ke saath.","वर्मा परिवार का प्लान देखें, एक बार में एक एपिसोड, हर भाग के नोट्स और कैलकुलेटर के साथ।"],
+"See all episodes →":["Saare episodes dekho →","सारे एपिसोड देखें →"]
+});
+Object.assign(I18N,{"Contact us":["Contact karein","संपर्क करें"],"Terms":["Terms","नियम और शर्तें"],"Refunds":["Refund","रिफंड नीति"],"Shipping":["Delivery","डिलीवरी नीति"]});
 // Site-wide language: en (default) | hing | hi. Pages are written in English; after each render the text is swapped from I18N.
 // Kharcha check + asli saving block write Hinglish themselves (kcL) in hing mode, and English in en/hi mode.
 function trOne(t, k){ let v = I18N[t]?.[k]; if (v == null) for (const [rx, outs] of I18N_RX) if (rx.test(t)) { v = t.replace(rx, outs[k]); break; } return v; }
@@ -2519,9 +2553,9 @@ render();
 function askRaj(BOT){
   const fab = document.createElement("button"), panel = document.createElement("section");
   fab.className = "cb-fab"; fab.type = "button"; fab.setAttribute("aria-expanded", "false"); fab.setAttribute("aria-controls", "cb-panel");
-  fab.innerHTML = '<img src="img/badge-96.png" alt="" width="26" height="26"><b>Ask Raj</b>'; fab.title = "Ask Raj: automated chat helper";
-  panel.className = "cb-panel"; panel.id = "cb-panel"; panel.hidden = true; panel.setAttribute("aria-label", "Ask Raj chat");
-  panel.innerHTML = `<div class="cb-head"><img class="cb-av" src="img/badge-96.png" alt="" width="34" height="34"><div><b>Ask Raj</b><small>Automated helper · ${BOT.tagline}</small></div><button class="cb-x" type="button" aria-label="Close chat">×</button></div>
+  fab.innerHTML = '<img class="g3d" src="img/gullak3d/happy.webp" alt="" width="26" height="26"><b>Ask Gullak Bhai</b>'; fab.title = "Ask Gullak Bhai: automated chat helper";
+  panel.className = "cb-panel"; panel.id = "cb-panel"; panel.hidden = true; panel.setAttribute("aria-label", "Ask Gullak Bhai chat");
+  panel.innerHTML = `<div class="cb-head"><img class="cb-av g3d" src="img/gullak3d/happy.webp" alt="" width="34" height="34"><div><b>Ask Gullak Bhai</b><small>Automated helper · ${BOT.tagline}</small></div><button class="cb-x" type="button" aria-label="Close chat">×</button></div>
     <div class="cb-log" role="log" aria-live="polite"></div><div class="cb-chips"></div>
     <form class="cb-form"><input name="q" autocomplete="off" placeholder="Type a message…" aria-label="Message" maxlength="200"><button type="submit">Send</button></form>
     <div class="cb-foot">${BOT.foot}</div>`;
@@ -2653,7 +2687,7 @@ const topic = (txt, chips) => ({ text: txt + "\n\n<small>Educational only, not a
 askRaj({
   tagline: "Chai pe paise ki baat",
   foot: "Answers come only from this site's lessons and calculators. Educational only: no personal investment advice.",
-  hello: "Namaste! ☕ I'm Ask Raj, Raj's automated helper (not Raj himself).\nAsk me about budgets, emergency funds, insurance, SIPs, index funds or retirement, and I'll point you to the right lesson or calculator.\n(I don't give personal investment advice.)",
+  hello: "Namaste! ☕ I'm Gullak Bhai, Raj's automated money helper (not Raj himself).\nAsk me about budgets, emergency funds, insurance, SIPs, index funds or retirement, and I'll point you to the right lesson or calculator.\n(I don't give personal investment advice.)",
   chips: ["Where do I start?", "Emergency fund", "SIP", "Index funds", "Money Planner", "Calculators"],
   smart: smartAnswer, alwaysFirst: 4,
   rules: [
@@ -2686,7 +2720,7 @@ askRaj({
     [["python", "coding", "tech", "ai", "chatbot"], { text: "Tech lessons live on our sister site 🤖 <a href=\"https://www.techsamjhoraj.com\" target=\"_blank\" rel=\"noopener\">techsamjhoraj.com</a>: Python with Chai, an AI chatbot course and Agentic AI.", chips: ["Where do I start?"] }],
     [["install", "app", "download", "home screen"], { text: "Tap the <b>Install</b> button at the top right to add Paisa Samjho Raj to your phone or computer like an app. 📲", chips: ["Where do I start?"] }],
     [["email", "notify", "subscribe", "newsletter", "update"], { text: "Use the <b>Get new lessons by email</b> box on the home page or at the end of any lesson. One short email per new lesson or episode; unsubscribe any time. 📬", chips: ["Where do I start?"] }],
-    [["book", "books", "read", "reading"], { text: "📗 Raj's own money book <b>Paisa Samjho: Salary se Savings tak</b> is out now in English, Hinglish and Hindi (PDF, on Gumroad): ₹199 each or ₹349 for all 3 in launch week, until 18 Nov, then ₹249 / ₹449. Buy it or read the free sample (chapters 1 to 3) in the <a href=\"#shop\">Shop</a>. Financial education, advice nahi. 📚 Recommended money books are on the <a href=\"#learn\">Learn</a> page (scroll to the bottom) and the home page. They are for learning, not advice.", chips: ["Where do I start?", "Index funds"] }],
+    [["book", "books", "read", "reading"], { text: "📗 Raj's own money book <b>Paisa Samjho: Salary se Savings tak</b> is out now in English, Hinglish and Hindi (PDF, on Gumroad): ₹199 each or ₹349 for all 3 in launch week, until 18 Nov, then ₹249 / ₹449. Buy it or read the free sample (chapters 1 to 3) in the <a href=\"#shop\">Shop</a>. Financial education, advice nahi. 📚 Recommended money books are on the <a href=\"#learn\">Learn</a> page (scroll to the bottom). They are for learning, not advice.", chips: ["Where do I start?", "Index funds"] }],
     [["menu"], { text: "☕ Aaj ka menu: " + LESSONS.length + " lessons, " + CALCS.length + " calculators, 1 Money Planner and " + EPISODES.length + " video episodes. Kya lenge?", chips: ["Where do I start?", "Calculators", "Money Planner"] }],
     [["contact", "question", "help", "raj", "mail"], { text: "Write to <b>samjhowithraj@gmail.com</b> with your question or an idea for the next episode. 🙂 (Questions may be answered in a video, without your name.)", chips: ["Where do I start?"] }],
     [["thank", "thanks", "shukriya", "dhanyavad", "nice", "great"], { text: "Shukriya! ☕ Ek aur sawaal?", chips: ["SIP", "Emergency fund", "Money Planner"] }],
@@ -2744,5 +2778,5 @@ installBtn.addEventListener("click", async () => {
 });
 help.addEventListener("click", e => { if (e.target === help || e.target.closest("[data-close]")) help.close(); });
 </script>
-</body>
+<nav class="dock" aria-label="App navigation"><a href="#home"><b aria-hidden="true">⌂</b>Home</a><a href="#learn"><b aria-hidden="true">▤</b>Learn</a><a href="#calculators"><b aria-hidden="true">±</b>Tools</a><a href="#planner"><b aria-hidden="true">▦</b>Planner</a><a href="#shop"><b aria-hidden="true">📘</b>Book</a></nav></body>
 </html>

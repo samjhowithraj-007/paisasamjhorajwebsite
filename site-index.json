@@ -1,6 +1,6 @@
 {
  "site": "money",
- "built": "2026-11-11",
+ "built": "2026-11-12",
  "items": [
   {
    "id": "lesson-budget-1",
@@ -472,14 +472,14 @@
    "type": "page",
    "title": "Privacy",
    "url": "#privacy",
-   "text": "Every email has an unsubscribe link. To have your address deleted completely, write to samjhowithraj@gmail.com. Buying a sheet. Templates in the Shop are sold through Gumroad, which handles the payment and sends you the files. We never see your card or UPI details. Gumroad's own privacy policy applies there. Featured spots. The “Featured” card and the book list are plain links chosen by Raj, not an ad network, so they don't track you. Book links go to Amazon India and may be affiliate links (the page says when they are). Paid sponsors are always labelled “Sponsored”, and featuring a brand is never a recommendation to buy or invest. No tracking on this site. No analytics, advertising or tracking cookies. The site is hosted on GitHub Pages; GitHub may keep basic technical logs (such as IP addresses) to run and protect its service."
+   "text": "Every email has an unsubscribe link. To have your address deleted completely, write to samjhowithraj@gmail.com. When you buy. Payments are handled by Razorpay or Gumroad, which take the payment and follow their own privacy policies. We get only your name, email, phone (if given) and what you bought, to deliver your order and help with refunds. We never see your card, UPI or bank details. See also our terms , refund and delivery policies. Featured spots. The “Featured” card and the book list are plain links chosen by Raj, not an ad network, so they don't track you. Book links go to Amazon India and may be affiliate links (the page says when they are). Paid sponsors are always labelled “Sponsored”, and featuring a brand is never a recommendation to buy or invest. No tracking on this site. No analytics, advertising or tracking cookies."
   },
   {
    "id": "privacy-3",
    "type": "page",
    "title": "Privacy",
    "url": "#privacy",
-   "text": "Links to YouTube, Instagram, Facebook and X follow those sites' own policies. Questions. Write to samjhowithraj@gmail.com."
+   "text": "The site is hosted on GitHub Pages; GitHub may keep basic technical logs (such as IP addresses) to run and protect its service. Links to YouTube, Instagram, Facebook and X follow those sites' own policies. Questions. Write to samjhowithraj@gmail.com."
   },
   {
    "id": "books-1",
@@ -500,7 +500,7 @@
    "type": "page",
    "title": "Educational only (disclaimer)",
    "url": "#about",
-   "text": "Paisa Samjho Raj Free money lessons, calculators and a private family Money Planner for Indian families, from the Hinglish series \"Middle-Class Family Ka Money Plan\". Learn. All lessons Start with a budget Emergency fund Money Plan series Tools. Money Planner SIP calculator Emergency fund calculator Credit card calculator All calculators Site. About Raj Money + AI workshops ↗ Python + AI lessons ↗ Contact Privacy Educational only. Nothing on this site is financial, investment, tax or insurance advice, and Raj is not a SEBI-registered investment adviser. Examples use assumed returns and inflation; returns are never guaranteed and markets can fall. Mutual fund investments are subject to market risks; read all scheme-related documents carefully. Check current rules and speak to a SEBI-registered adviser before acting on your own money. © 2026 Paisa Samjho Raj."
+   "text": "Paisa Samjho Raj Free money lessons, calculators and a private family Money Planner for Indian families, from the Hinglish series \"Middle-Class Family Ka Money Plan\". Learn. All lessons Start with a budget Emergency fund Money Plan series Tools. Money Planner SIP calculator Emergency fund calculator Credit card calculator All calculators Site. About Raj Money + AI workshops ↗ Python + AI lessons ↗ Contact us Terms Refunds Shipping Privacy Educational only. Nothing on this site is financial, investment, tax or insurance advice, and Raj is not a SEBI-registered investment adviser. Examples use assumed returns and inflation; returns are never guaranteed and markets can fall. Mutual fund investments are subject to market risks; read all scheme-related documents carefully. Check current rules and speak to a SEBI-registered adviser before acting on your own money. © 2026 Paisa Samjho Raj."
   },
   {
    "id": "disclaimer-2",
