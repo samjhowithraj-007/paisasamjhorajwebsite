@@ -1,4 +1,4 @@
-/* Paisa Samjho Raj: Books store, book pages, email-code login and account (25 Nov 2026).
+/* Paisa Samjho Raj (paisasamjhoraj.com): Books store, book pages, email-code login and account (25 Nov 2026).
    Same shape as the Tech site Books store (cart.js + Dodo checkout via the Worker, Supabase email code), Paisa theme.
    English only. Prices are display-only and must match the Dodo products (Dodo adds tax on top).
    Rules: financial education only, no promised returns, no discount codes on the site, book PDFs never in this repo (only the free sample).
