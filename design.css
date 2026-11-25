@@ -45,3 +45,11 @@ img.g3d{object-fit:contain;border-radius:0!important;background:none!important;f
 .bk-login{max-width:440px;margin:24px auto}.bk-login label{display:block;margin:10px 0}.bk-login input{display:block;width:100%;margin-top:4px;padding:10px;font:inherit;border:1px solid var(--line);border-radius:10px}
 .bk-err{color:#b3261e;min-height:1.2em}
 @media(max-width:700px){.bk-page{grid-template-columns:1fr}.bk-cover{max-width:240px;margin:auto}}
+/* Header: register/log in + cart (25 Nov 2026) */
+.hdr-acts{display:flex;align-items:center;gap:8px}
+.hdr-acct{font-weight:700;font-size:14px;text-decoration:none;padding:7px 12px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+.hdr-cart{position:relative;font-size:18px;line-height:1;background:none;border:1px solid var(--line);border-radius:999px;padding:6px 10px;cursor:pointer}
+.hdr-cart .tsr-cart-badge{position:absolute;top:-6px;right:-6px;margin:0}
+.app-title .hdr-acts{margin-left:auto;gap:6px}.app-title .hdr-acct{padding:5px 9px;font-size:13px}.app-title .hdr-cart{padding:4px 8px;font-size:16px}
+@media(max-width:420px){.app-title .hdr-acct span{font-size:12px}}
+.app-title #app-title-text{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}

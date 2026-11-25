@@ -5,8 +5,8 @@
 (function () {
   var WORKER = window.CART_WORKER || "https://naukri-saathi.techsamjhoraj.workers.dev", KEY = "psr-cart";   // CART_WORKER is only set on local test pages
   var PRODUCTS = window.CART_PRODUCTS = window.CART_PRODUCTS || [
-    { id: "paisa-book-1-en", title: "Paisa Samjho: Salary se Savings tak (Money Book 1, English PDF)", price: 249, cover: "img/book/cover-en.jpg?v=3" },
-    { id: "paisa-book-1-hi", title: "पैसा समझो: सैलरी से सेविंग्स तक (Money Book 1, हिंदी PDF)", price: 249, cover: "img/book/cover-hindi.jpg?v=1" }
+    { id: "paisa-book-1-en", title: "Paisa Samjho: Salary se Savings tak (Money Book 1, English PDF)", price: 249, cover: "img/book/cover-en.jpg?v=3", gum: "https://samjhowithraj.gumroad.com/l/paisa-samjho-en" },
+    { id: "paisa-book-1-hi", title: "पैसा समझो: सैलरी से सेविंग्स तक (Money Book 1, हिंदी PDF)", price: 249, cover: "img/book/cover-hindi.jpg?v=1", gum: "https://samjhowithraj.gumroad.com/l/paisa-samjho-hindi" }
   ];
   var ALIAS = {};
   function norm(id) { id = String(id || ""); return ALIAS[id] || id; }
@@ -33,7 +33,7 @@
       ".tsr-cart .pn{position:absolute;right:0;top:0;bottom:0;width:min(400px,100%);background:#fffdf7;color:#153c2a;padding:16px;overflow:auto;font:15px/1.45 system-ui,sans-serif;box-shadow:-4px 0 20px rgba(0,0,0,.25)}" +
       ".tsr-cart h2{margin:0 0 10px;font-size:18px}.tsr-cart .row{display:flex;gap:8px;align-items:flex-start;justify-content:space-between;padding:10px 0;border-bottom:1px solid #e5e7eb}" +
       ".tsr-cart button{font:inherit;cursor:pointer;border-radius:8px;padding:8px 12px;border:1px solid #d4d8c7;background:#fff}.tsr-cart .go{background:#104732;color:#fff;border-color:#104732;width:100%;margin-top:12px;padding:11px}.tsr-cart .go[disabled]{opacity:.6}" +
-      ".tsr-cart .note{font-size:13px;color:#555;margin:8px 0 0}.tsr-cart .x{border:0;background:none;color:#b91c1c;padding:2px 6px}" +
+      ".tsr-cart a.go{display:block;text-align:center;text-decoration:none;box-sizing:border-box;border-radius:8px}.tsr-cart .soon{margin:12px 0 0}.tsr-cart .note{font-size:13px;color:#555;margin:8px 0 0}.tsr-cart .x{border:0;background:none;color:#b91c1c;padding:2px 6px}" +
       ":root[data-theme=\"dark\"] .tsr-cart .pn{background:#161a22;color:#e8eaf0}:root[data-theme=\"dark\"] .tsr-cart .row{border-color:#2a3040}:root[data-theme=\"dark\"] .tsr-cart button{background:#1f2430;color:#e8eaf0;border-color:#3b4256}:root[data-theme=\"dark\"] .tsr-cart .go{background:#6366f1;border-color:#6366f1;color:#fff}:root[data-theme=\"dark\"] .tsr-cart .note{color:#aab0c0}:root[data-theme=\"dark\"] .tsr-cart .x{background:none;border:0;color:#f87171}:root[data-theme=\"dark\"] .tsr-cart [data-close]{color:#e8eaf0}";
     document.head.appendChild(st);
   }
@@ -48,8 +48,10 @@
     if (!box) return; var a = items(), p = box.querySelector(".pn");
     p.innerHTML = "<button type='button' class='x' data-close style='float:right;color:#111'>Close</button><h2>Your cart</h2>" +
       (a.length ? a.map(function (id) { var i = info(id); return "<div class='row'><div>" + esc(i.title) + "<br><b>Rs " + i.price + "</b></div><button type='button' class='x' data-rm='" + id + "'>Remove</button></div>"; }).join("") +
-        "<p><b>Estimated total: Rs " + total() + "</b> <span class='note'>plus tax. The final amount is shown on the secure Dodo Payments page.</span></p>" +
-        "<button type='button' class='go' data-go>Checkout</button><p class='note' id='tsrCartMsg'></p>" : "<p>Your cart is empty.</p>");
+        "<p><b>Estimated total: Rs " + total() + "</b> <span class='note'>plus tax. The final amount is shown on the " + (window.CART_LIVE === false ? "payment page" : "secure Dodo Payments page") + ".</span></p>" +
+        (window.CART_LIVE === false
+          ? "<p class='soon'><b>Checkout opens soon.</b> Buy on Gumroad now:</p>" + a.map(function (id) { var i = info(id); return i.gum ? "<a class='go gum' href='" + i.gum + "' target='_blank' rel='noopener'>Buy on Gumroad: " + esc(i.title.replace(/^.*\((Money Book 1, )?/, "").replace(/\)$/, "")) + " ↗</a>" : ""; }).join("")
+          : "<button type='button' class='go' data-go>Checkout</button>") + "<p class='note' id='tsrCartMsg'></p>" : "<p>Your cart is empty. <a href='#books'>See the books</a></p>");
     p.onclick = function (e) {
       var t = e.target; if (t.hasAttribute("data-close")) close(); var r = t.getAttribute("data-rm"); if (r) remove(r); if (t.hasAttribute("data-go")) checkout();
     };
@@ -60,7 +62,7 @@
   function msg(t) { var m = document.getElementById("tsrCartMsg"); if (m) m.textContent = t; }
 
   function checkout(opts) {
-    opts = opts || {}; var a = items(); if (!a.length) { msg("Your cart is empty."); return Promise.resolve(false); }
+    opts = opts || {}; if (window.CART_LIVE === false) { open(); return Promise.resolve(false); } var a = items(); if (!a.length) { msg("Your cart is empty."); return Promise.resolve(false); }
     var u = user();
     if (!u) {   // log in first, so the key email is a verified one
       var ok = true; try { ok = window.dispatchEvent(new CustomEvent("cart:login", { cancelable: true })); } catch (e) {}

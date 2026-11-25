@@ -31,12 +31,14 @@
       blurb: "Kauri is back for teens: first earnings, UPI and online spending, saving goals and avoiding money traps.", inside: [] }
   ];
   const find = id => BOOKS.find(b => b.id === id);
-  const canCart = () => CART_LIVE && !!window.Cart;
+  const canCart = () => !!window.Cart;   // the cart always works; CART_LIVE only decides whether checkout is open
+  window.CART_LIVE = CART_LIVE;
 
   function buyBtns(b, big) {
     if (b.status !== "live") return `<span class="btn" aria-disabled="true">Coming soon</span>`;
     const sm = big ? "" : " sm";
-    if (canCart()) return b.eds.map((e, i) => `<button type="button" class="btn${i ? "" : " cta"}${sm}" data-bk-cart="${e.cart}">Add to cart: ${e.label} · ₹${e.price}</button>`).join("");
+    if (canCart()) return b.eds.map((e, i) => `<button type="button" class="btn${i ? "" : " cta"}${sm}" data-bk-cart="${e.cart}">Add to cart: ${e.label} · ₹${e.price}</button>`).join("") +
+      (CART_LIVE ? "" : `<p class="bk-meta" style="width:100%">Checkout opens soon. Buy now on Gumroad: ${b.eds.map(e => `<a href="${e.gum}" target="_blank" rel="noopener">${e.label} ↗</a>`).join(" · ")}</p>`);
     return b.eds.map((e, i) => `<a class="btn${i ? "" : " cta"}${sm}" href="${e.gum}" target="_blank" rel="noopener">Buy: ${e.label} · ₹${e.price} ↗</a>`).join("");   // until the cart is live, both editions stay on Gumroad
   }
   function card(b) {
@@ -55,10 +57,7 @@
       <div class="row" style="justify-content:flex-start"><span class="tag">${x.tag}</span><span class="tag">${x.sub}</span></div>
       <h3>${x.title}</h3><p>${x.text}</p><div class="row"><span class="price">₹${x.price}</span><a class="btn cta sm" href="${x.link}" target="_blank" rel="noopener">${x.cta} ↗</a></div></div>`).join("") + `</div>`;
   }
-  function topbar() {
-    const u = user();
-    return `<div class="bk-top">${u ? `<a href="#account">👤 ${esc(u.email)}</a>` : `<a href="#login">Log in</a>`}${canCart() ? `<button type="button" class="btn sm" data-bk-open>🛒 Cart <span data-cart-count></span></button>` : ""}</div>`;
-  }
+  function topbar() { return ""; }
   function store() {
     return `<div class="page-head"><div><div class="eyebrow">Books</div><h1>Money books from <em>Raj.</em></h1>
       <p class="lead">Plain-language money books for Indian families, kids and teens, with the Verma family and Gullak Bhai. Instant PDF download, nothing is printed or shipped.</p></div></div>
@@ -66,12 +65,12 @@
       <div class="shop bk-grid">${BOOKS.map(card).join("")}</div>
       ${sheets()}
       ${faq()}
-      <p class="disc" style="margin-top:18px">Financial education only, not advice. No product tips and no promised returns. ${canCart() ? "Checkout is by Dodo Payments and needs a free login; tax is added on the payment page. We never see your card or UPI details." : "Payment is on Gumroad; we never see your card or UPI details."}</p>`;
+      <p class="disc" style="margin-top:18px">Financial education only, not advice. No product tips and no promised returns. ${CART_LIVE ? "Checkout is by Dodo Payments and needs a free login; tax is added on the payment page. We never see your card or UPI details." : "Checkout on this site opens soon; until then payment is on Gumroad. We never see your card or UPI details."}</p>`;
   }
   function faq() {
     return `<div class="bk-faq"><h2 class="bk-h2">Questions</h2>
       <details><summary>What do I get after paying?</summary><p>A PDF ebook. The download link is shown after payment and also sent to your email. Nothing is printed or shipped.</p></details>
-      <details><summary>Why do I need to log in?</summary><p>${canCart() ? "So your download goes to an email you have confirmed. Log in with your email and a 6-digit code; no password." : "You don't, for now. Login arrives with our new checkout."}</p></details>
+      <details><summary>Why do I need to log in?</summary><p>${CART_LIVE ? "So your download goes to an email you have confirmed. Register or log in with your email and a 6-digit code; no password." : "Checkout on this site opens soon and will ask you to register or log in with your email (a 6-digit code, no password). Buying on Gumroad today needs no login."}</p></details>
       <details><summary>Which languages?</summary><p>Money Book 1 comes in English and हिंदी (Hindi). Each edition is a separate PDF; pick the one you want, or both.</p></details>
       <details><summary>Refunds?</summary><p>If the file does not arrive or does not open, write to us within 7 days. See the <a href="refund.html">refund policy</a>.</p></details></div>`;
   }
@@ -104,8 +103,8 @@
     const u = user();
     if (u) return `<div class="page-head"><div><div class="eyebrow">Account</div><h1>You're logged in</h1><p class="lead">As <b>${esc(u.email)}</b>.</p></div></div><p><a class="btn cta" href="#books">Go to the books</a> <a class="btn" href="#account">Account</a></p>`;
     setTimeout(() => wireLogin(q));
-    return `<div class="bk-login item"><div class="eyebrow">Log in</div><h1>Log in with your email</h1>
-      <p>We send a 6-digit code to your email. No password needed.</p>
+    return `<div class="bk-login item"><div class="eyebrow">Register or log in</div><h1>Register or log in with your email</h1>
+      <p>New here or coming back, it works the same: we send a 6-digit code to your email. No password needed.</p>
       <form id="bk-l1"><label>Email<input id="bk-em" type="email" required maxlength="80" autocomplete="email" placeholder="you@example.com"></label><button class="btn cta" type="submit">Send the code</button></form>
       <form id="bk-l2" hidden><p id="bk-sent"></p><label>6-digit code<input id="bk-code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required></label><button class="btn cta" type="submit">Log in</button> <button class="btn ghost sm" type="button" id="bk-re">Send a new code</button></form>
       <p class="bk-err" id="bk-err" role="alert"></p>
@@ -138,10 +137,25 @@
     if (e.target.closest("[data-bk-logout]")) { put(K_USER, null); put(K_SESS, null); location.hash = "#books"; }
   });
 
+  /* ---- header: Register / log in + cart, on every page (desktop bar and phone title bar) ---- */
+  function header() {
+    const u = user(), acct = u ? `<a class="hdr-acct" href="#account" title="${esc(u.email)}">👤 <span>Account</span></a>` : `<a class="hdr-acct" href="#login"><span>Register / Log in</span></a>`;
+    const cart = `<button type="button" class="hdr-cart" data-bk-open aria-label="Cart">🛒<span data-cart-count></span></button>`;
+    document.querySelectorAll(".bar-right, .app-title").forEach(el => {
+      let h = el.querySelector(":scope > .hdr-acts"); if (!h) { h = document.createElement("div"); h.className = "hdr-acts"; el.classList.contains("app-title") ? el.querySelector("details").before(h) : el.prepend(h); }
+      h.innerHTML = acct + cart;
+    });
+    try { window.dispatchEvent(new Event("storage")); } catch (e) {}
+    if (window.Cart) { const n = Cart.count(); document.querySelectorAll("[data-cart-count]").forEach(x => { x.textContent = n ? String(n) : ""; x.setAttribute("data-n", String(n)); }); }
+  }
+  document.addEventListener("DOMContentLoaded", header);
+  addEventListener("hashchange", () => setTimeout(header));
+  addEventListener("cart:change", header);
+
   window.PSRBOOKS = {
     books: BOOKS, user,
     route(p, id, q) {
-      if (p === "login") return { html: login(q), title: "Log in · Paisa Samjho Raj" };
+      if (p === "login") return { html: login(q), title: "Register or log in · Paisa Samjho Raj" };
       if (p === "account") return { html: account(), title: "Account · Paisa Samjho Raj" };
       if (id === "thanks") return { html: thanks(), title: "Thank you · Paisa Samjho Raj" };
       const b = id && find(id);
