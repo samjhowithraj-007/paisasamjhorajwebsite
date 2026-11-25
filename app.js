@@ -1116,6 +1116,7 @@ function render(){
   else if (p === "planner" || p === "tracker") { html = tracker(); tab = "planner"; title = "Money Planner · Paisa Samjho Raj"; }
   else if (p === "series") html = series();
   else if (p === "about") html = about();
+  else if ((p === "shop" || p === "books" || p === "login" || p === "account") && window.PSRBOOKS) { const r = PSRBOOKS.route(p === "shop" ? "books" : p, id, q); html = r.html; title = r.title; tab = "shop"; }
   else if (p === "shop") { html = shop(); title = "Shop · Paisa Samjho Raj"; }
   else if (p === "privacy") { html = privacy(); title = "Privacy · Paisa Samjho Raj"; }
   else if (p === "site-index") { html = '<pre id="site-index"></pre>'; setTimeout(() => { document.getElementById("site-index").textContent = JSON.stringify(siteIndex(), null, 1); }); }
@@ -1137,7 +1138,7 @@ function render(){
   const navTab = ({ series:"learn", planner:"calculators", compare:"calculators" })[tab] || tab;
   document.querySelectorAll(".tab").forEach(t => t.dataset.tab === navTab ? t.setAttribute("aria-current", "page") : t.removeAttribute("aria-current"));
   fillSocial(); document.title = title;
- const at=document.querySelector("#app-title-text");at.textContent=({compare:"Compare home loans",series:"Money Plan Series",planner:"Money Planner",learn:"Learn with Raj",shop:"Shop",about:"About Raj",privacy:"Privacy",calculators:id?CALCS.find(x=>x.id===id)?.title:"Calculators"})[p]||"Paisa Samjho Raj";document.querySelector(".app-title details").open=false;
+ const at=document.querySelector("#app-title-text");at.textContent=({compare:"Compare home loans",series:"Money Plan Series",planner:"Money Planner",learn:"Learn with Raj",shop:"Books",books:"Books",login:"Log in",account:"Account",about:"About Raj",privacy:"Privacy",calculators:id?CALCS.find(x=>x.id===id)?.title:"Calculators"})[p]||"Paisa Samjho Raj";document.querySelector(".app-title details").open=false;
 }
 app.addEventListener("input", e => {
   const el = e.target.closest("#cform [data-c]"); if (!el) return;
