@@ -992,10 +992,8 @@ const BOOK = { title:"Paisa Samjho: Salary se Savings tak", cover:"img/book/cove
   en:"books/paisa-samjho-sample-en.pdf", hi:"books/paisa-samjho-sample-hi.pdf", hindi:"books/paisa-samjho-sample-hindi.pdf", link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-free-sample", fullCover:"img/book/full-en.jpg?v=3",
   // Prices from Raj, 10 Nov 2026: ₹249 per edition, ₹199 in launch week (7 days from the sale day; Raj 11 Nov). Set launchEnds = sale day + 7 days when it goes live. Hindi + all-3 bundle (₹449, launch ₹349) added after Hindi QC.
   launchEnds:"2026-11-18T23:59:00+05:30",   // on sale 11 Nov 2026 (Payments): launch prices + LAUNCH10 until 18 Nov 23:59 IST, then ₹249 / ₹449
-  buy:[{ label:"English", price:249, launch:199, link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-en" },
-       { label:"Hinglish", price:249, launch:199, link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-hinglish" },
-       { label:"हिंदी", price:249, launch:199, link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-hindi" },
-       { label:"All 3 editions", price:449, launch:349, link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-both" }],
+  buy:[{ label:"English", price:249, link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-en" },
+       { label:"हिंदी", price:249, link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-hindi" }],   // Raj 25 Nov: English + Hindi only; Hinglish and the 3-language bundle unpublished on Gumroad
   code:"", codeEnds:"", // public launch code dropped 1 Nov 2026 (launch discount goes to sign-ups only)
   live:true, launch:"soon" };   // live since 11 Nov 2026 (Payments confirmed all 3 editions + bundle on Gumroad) // set live:true only after Payments confirms the 3 Gumroad books are on sale
 // Shop cover follows the site language (Hindi / Hinglish editions have their own covers).
@@ -1005,16 +1003,16 @@ const bookCover = full => LANG === "hi" ? BOOK.coverHindi : LANG === "hing" ? BO
 // One book card (Raj 11 Nov): sample, prices and (on sale day) the buy buttons together. "Read free" opens the sample right here.
 function bookCard(){
   const lw = !!BOOK.launchEnds && Date.now() <= Date.parse(BOOK.launchEnds), mine = LANG === "hi" ? "hindi" : LANG === "hing" ? "hi" : "en";
-  const read = [["en","English"],["hi","Hinglish"],["hindi","हिंदी"]].map(([k, l]) => `<button class="btn${k === mine ? " cta" : ""}" type="button" onclick="openSample('${k}')">Read free: ${l}</button>`).join("");
+  const read = [["en","English"],["hindi","हिंदी"]].map(([k, l]) => `<button class="btn${k === mine ? " cta" : ""}" type="button" onclick="openSample('${k}')">Read free: ${l}</button>`).join("");
   return `<div class="item book-sample book-one"><div class="art"><img src="${book3d()}" alt="3D cover of the money book ${BOOK.title}" width="388" height="520" loading="lazy"></div>
       <div class="row" style="justify-content:flex-start">${BOOK.live ? `<span class="tag">New book</span>` : `<span class="tag">Coming soon</span>`}<span class="tag">PDF · 20 chapters</span><span class="tag">English · Hinglish · हिंदी</span></div>
       <h3>${BOOK.title}</h3><p>Raj's money book with the Verma family and Gullak Bhai: worked rupee examples, practice with answers and a worksheet in every chapter.</p>
       ${BOOK.live ? `<div class="row buy-row">${BOOK.buy.map((x, i) => `<a class="btn${i === (LANG === "hi" ? 2 : LANG === "hing" ? 1 : 0) ? " cta" : ""}" href="${x.link}" target="_blank" rel="noopener">Buy the book: ${x.label} · ₹${lw && x.launch ? x.launch : x.price}${lw && x.launch ? ` <s>₹${x.price}</s>` : ""} ↗</a>`).join("")}</div>
-      ${lw ? `<p class="code-line">Launch-week prices until 18 Nov, then ₹249 each or ₹449 for all 3.</p>` : ""}`
+      `
       : `<p>English ₹249 · Hinglish ₹249 · launch week (first 7 days) ₹199 each. Hindi edition and all-3 bundle (₹449, launch ₹349): coming soon.</p>`}
       <h4 class="sample-h">See how it looks: chapters 1 to 3 are free</h4>
       <div class="row" style="justify-content:flex-start">${read}</div>
-      <small>Or download the free PDF: <a href="${BOOK.en}" download>English</a> · <a href="${BOOK.hi}" download>Hinglish</a> · <a href="${BOOK.hindi}" download>हिंदी</a>${BOOK.link ? ` · <a href="${BOOK.link}" target="_blank" rel="noopener">Gumroad ↗</a>` : ""}</small>
+      <small>Or download the free PDF: <a href="${BOOK.en}" download>English</a> · <a href="${BOOK.hindi}" download>हिंदी</a>${BOOK.link ? ` · <a href="${BOOK.link}" target="_blank" rel="noopener">Gumroad ↗</a>` : ""}</small>
       <small>${BOOK.live ? "Payment on Gumroad. " : ""}Financial education, advice nahi. No product tips and no promised returns.</small></div>`;
 }
 // Free-sample reader: pdf.js (loaded only when someone taps "Read free") draws each page as you scroll.
@@ -1052,7 +1050,7 @@ function shop(){
   <p class="disc" style="margin-top:18px">Payments are handled by Gumroad (you'll see the final price there, in your currency); we never see your card details. The book sample is a free PDF, no sign-up needed. The sheets are tools for learning and planning: they don't recommend any product and never promise returns.</p>`;
 }
 const PROMOS = [
-  { label:"New from Raj", title:"Out now: Paisa Samjho money book", text:"Salary se Savings tak with the Verma family and Gullak Bhai, in English, Hinglish and Hindi. ₹249 each, or ₹449 for all 3. Read the first chapters free.", image:"img/book/book-3d-en.jpg?v=1", link:"#shop", cta:"See the book" },
+  { label:"New from Raj", title:"Out now: Paisa Samjho money book", text:"Salary se Savings tak with the Verma family and Gullak Bhai, in English and Hindi. ₹249 each. Read the first chapters free.", image:"img/book/book-3d-en.jpg?v=1", link:"#books", cta:"See the book" },
   { label:"From Raj", title:"Family Money Planner sheet · ₹199", text:"3 jars, a 50-30-20 check, your emergency-fund target and net worth in one Excel / Google Sheets file.", image:"img/gullak3d/full.webp", link:"#shop", cta:"See the sheet" },
   { label:"From Raj", title:"Money Plan Part 3 is live", text:"Zaroorat, shauk ya pressure? See how the Verma family sorts every rupee into needs, wants and social pressure.", image:"https://i.ytimg.com/vi/MIdN-dkg7vU/hqdefault.jpg", link:"https://youtu.be/MIdN-dkg7vU", cta:"Watch on YouTube" },
   { label:"From Raj", title:"Learning Python and AI?", text:"Python with Chai, a chatbot you build yourself and Agentic AI, free on our sister site.", image:"https://www.techsamjhoraj.com/media/python-7.jpg", link:"https://www.techsamjhoraj.com", cta:"Open techsamjhoraj.com" },
@@ -1852,9 +1850,8 @@ Object.assign(I18N, { // shop: one book card + sample reader + notify box (11 No
 "(festival budget, no-cost EMI check, card and UPI fraud rules) and new lessons.":["(tyohaar budget, no-cost EMI check, card aur UPI fraud rules) aur naye lessons.","(त्योहार बजट, नो-कॉस्ट EMI जाँच, कार्ड और UPI धोखाधड़ी के नियम) और नए पाठ।"]
 });
 Object.assign(I18N, { // sale day 11 Nov
-"Launch-week prices until 18 Nov, then ₹249 each or ₹449 for all 3.":["Launch-week price 18 Nov tak, phir ₹249 har ek ya teeno ₹449.","लॉन्च-वीक दाम 18 नवंबर तक, फिर ₹249 हर एक या तीनों ₹449।"],
 "New book":["Nayi book","नई किताब"],"New from Raj":["Raj ki nayi book","राज की नई किताब"],"Out now: Paisa Samjho money book":["Aa gayi: Paisa Samjho money book","आ गई: पैसा समझो मनी बुक"],
-"Salary se Savings tak with the Verma family and Gullak Bhai, in English, Hinglish and Hindi. ₹249 each, or ₹449 for all 3. Read the first chapters free.":["Salary se Savings tak, Verma family aur Gullak Bhai ke saath, English, Hinglish aur Hindi mein. ₹249 har ek, ya teeno ₹449. Pehle chapters free padho.","सैलरी से सेविंग्स तक, वर्मा परिवार और गुल्लक भाई के साथ, अंग्रेज़ी, हिंग्लिश और हिंदी में। ₹249 हर एक, या तीनों ₹449। शुरू के अध्याय मुफ़्त पढ़ें।"],
+"Salary se Savings tak with the Verma family and Gullak Bhai, in English and Hindi. ₹249 each. Read the first chapters free.":["Salary se Savings tak, Verma family aur Gullak Bhai ke saath, English aur Hindi mein. ₹249 har ek. Pehle chapters free padho.","सैलरी से सेविंग्स तक, वर्मा परिवार और गुल्लक भाई के साथ, अंग्रेज़ी और हिंदी में। ₹249 हर एक। शुरू के अध्याय मुफ़्त पढ़ें।"],
 "See the book":["Book dekho","किताब देखें"],"Payment on Gumroad. Financial education, advice nahi. No product tips and no promised returns.":["Payment Gumroad par. Financial education, advice nahi. Na product tips, na promised returns.","भुगतान Gumroad पर। वित्तीय शिक्षा, सलाह नहीं। न प्रोडक्ट टिप्स, न रिटर्न का वादा।"],"See the book →":["Book dekho →","किताब देखें →"],
 
 "Payment on Gumroad.":["Payment Gumroad par.","भुगतान Gumroad पर।"]
@@ -2073,7 +2070,7 @@ askRaj({
     [["python", "coding", "tech", "ai", "chatbot"], { text: "Tech lessons live on our sister site 🤖 <a href=\"https://www.techsamjhoraj.com\" target=\"_blank\" rel=\"noopener\">techsamjhoraj.com</a>: Python with Chai, an AI chatbot course and Agentic AI.", chips: ["Where do I start?"] }],
     [["install", "app", "download", "home screen"], { text: "Tap the <b>Install</b> button at the top right to add Paisa Samjho Raj to your phone or computer like an app. 📲", chips: ["Where do I start?"] }],
     [["email", "notify", "subscribe", "newsletter", "update"], { text: "Use the <b>Get new lessons by email</b> box on the home page or at the end of any lesson. One short email per new lesson or episode; unsubscribe any time. 📬", chips: ["Where do I start?"] }],
-    [["book", "books", "read", "reading"], { text: "📗 Raj's own money book <b>Paisa Samjho: Salary se Savings tak</b> is out now in English, Hinglish and Hindi (PDF, on Gumroad): ₹249 each or ₹449 for all 3. Buy it or read the free sample (chapters 1 to 3) in the <a href=\"#shop\">Shop</a>. Financial education, advice nahi. 📚 Recommended money books are on the <a href=\"#learn\">Learn</a> page (scroll to the bottom). They are for learning, not advice.", chips: ["Where do I start?", "Index funds"] }],
+    [["book", "books", "read", "reading"], { text: "📗 Raj's own money book <b>Paisa Samjho: Salary se Savings tak</b> is out now in English and Hindi (PDF): ₹249 each. Buy it or read the free sample (chapters 1 to 3) in the <a href=\"#books\">Books</a> store. Financial education, advice nahi. 📚 Recommended money books are on the <a href=\"#learn\">Learn</a> page (scroll to the bottom). They are for learning, not advice.", chips: ["Where do I start?", "Index funds"] }],
     [["menu"], { text: "☕ Aaj ka menu: " + LESSONS.length + " lessons, " + CALCS.length + " calculators, 1 Money Planner and " + EPISODES.length + " video episodes. Kya lenge?", chips: ["Where do I start?", "Calculators", "Money Planner"] }],
     [["contact", "question", "help", "raj", "mail"], { text: "Write to <b>samjhowithraj@gmail.com</b> with your question or an idea for the next episode. 🙂 (Questions may be answered in a video, without your name.)", chips: ["Where do I start?"] }],
     [["thank", "thanks", "shukriya", "dhanyavad", "nice", "great"], { text: "Shukriya! ☕ Ek aur sawaal?", chips: ["SIP", "Emergency fund", "Money Planner"] }],
