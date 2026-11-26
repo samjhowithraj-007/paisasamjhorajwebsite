@@ -990,12 +990,12 @@ const SHOP = [
 // Money Book 1: free sample PDFs. BOOK.link = the Gumroad free-sample listing; set it only after Money PM confirms it is live
 const BOOK = { title:"Paisa Samjho: Salary se Savings tak", cover:"img/book/cover-en.jpg?v=3", coverHindi:"img/book/cover-hindi.jpg?v=1",
   en:"books/paisa-samjho-sample-en.pdf", hindi:"books/paisa-samjho-sample-hindi.pdf", link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-free-sample", fullCover:"img/book/full-en.jpg?v=3",
-  // Prices from Raj, 10 Nov 2026: ₹249 per edition, ₹199 in launch week (7 days from the sale day; Raj 11 Nov). Set launchEnds = sale day + 7 days when it goes live. Hindi + all-3 bundle (₹449, launch ₹349) added after Hindi QC.
-  launchEnds:"2026-11-18T23:59:00+05:30",   // on sale 11 Nov 2026 (Payments): launch prices + LAUNCH10 until 18 Nov 23:59 IST, then ₹249 / ₹449
+  // Price from Raj: ₹249 per edition (English, Hindi), plus tax at checkout. launchEnds is kept for old launch-week code paths only.
+  launchEnds:"2026-11-18T23:59:00+05:30",
   buy:[{ label:"English", price:249, link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-en" },
        { label:"हिंदी", price:249, link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-hindi" }],   // Raj 25 Nov: English + Hindi only; Hinglish and the 3-language bundle unpublished on Gumroad
   code:"", codeEnds:"", // public launch code dropped 1 Nov 2026 (launch discount goes to sign-ups only)
-  live:true, launch:"soon" };   // live since 11 Nov 2026 (Payments confirmed all 3 editions + bundle on Gumroad) // set live:true only after Payments confirms the 3 Gumroad books are on sale
+  live:true, launch:"soon" };   // on sale since 11 Nov 2026
 // Shop cover follows the site language (Hindi / Hinglish editions have their own covers).
 // 3D covers from money-book-v2/out/book-3d-*.png (Raj 11 Nov), one per edition, shown in the shop book card.
 const book3d = () => `img/book/book-3d-${LANG === "hi" ? "hindi" : "en"}.jpg?v=1`;
@@ -1223,7 +1223,6 @@ const I18N = {"The Verma family · Money diary": ["Verma parivaar · Money diary
 "Simple lessons on saving and financial discipline.":["Bachat aur financial discipline par simple lessons.","बचत और वित्तीय अनुशासन पर आसान सबक।"],
 "Books for learning, not advice: Raj doesn't agree with every idea in them, and none of them tells you what to buy. These are affiliate links: if you buy through them, Raj may earn a small commission at no extra cost to you. As an Amazon Associate I earn from qualifying purchases.":["Books seekhne ke liye hain, advice nahi: Raj har idea se sehmat nahi, aur koi book nahi batati kya khareedna hai. Yeh affiliate links hain: inse khareedne par Raj ko chhota commission mil sakta hai, aapko koi extra kharcha nahi. As an Amazon Associate I earn from qualifying purchases.","किताबें सीखने के लिए हैं, सलाह नहीं: राज हर विचार से सहमत नहीं हैं, और कोई किताब नहीं बताती कि क्या ख़रीदें। ये एफ़िलिएट लिंक हैं: इनसे ख़रीदने पर राज को छोटा कमीशन मिल सकता है, आपको कोई अतिरिक्त खर्च नहीं। As an Amazon Associate I earn from qualifying purchases."],
 "Free from Raj":["Raj ki taraf se free","राज की ओर से मुफ़्त"],"Free sample: Paisa Samjho money book":["Free sample: Paisa Samjho money book","मुफ़्त सैंपल: पैसा समझो मनी बुक"],
-"Salary se Savings tak with the Verma family and Gullak Bhai. Read the first chapters free, in English, Hinglish or Hindi.":["Salary se Savings tak, Verma family aur Gullak Bhai ke saath. Pehle chapters free padho, English, Hinglish ya Hindi mein.","सैलरी से सेविंग्स तक, वर्मा परिवार और गुल्लक भाई के साथ। पहले अध्याय मुफ़्त पढ़ें, अंग्रेज़ी, हिंग्लिश या हिंदी में।"],
 "Get the free sample →":["Free sample lo →","मुफ़्त सैंपल लें →"],
 "🎁 Launch-week gift: 10% off the Money Book":["🎁 Launch-week gift: Money Book par 10% off","🎁 लॉन्च-वीक तोहफ़ा: मनी बुक पर 10% छूट"],
 "Tip: our emails sometimes land in Promotions or Spam. Learning with a friend? Send them this page too.":["Tip: hamari emails kabhi Promotions ya Spam mein chali jaati hain. Dost ke saath seekh rahe ho? Unhe bhi yeh page bhejo.","सुझाव: हमारे ईमेल कभी-कभी Promotions या Spam में चले जाते हैं। किसी दोस्त के साथ सीख रहे हैं? उन्हें भी यह पेज भेजें।"],
