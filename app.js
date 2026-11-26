@@ -988,8 +988,8 @@ const SHOP = [
     points:["Monthly budget, plan vs actual, for all 12 months", "The same 3 jars, with what's left over each month", "Loans and goals in the same file"] },
 ];
 // Money Book 1: free sample PDFs. BOOK.link = the Gumroad free-sample listing; set it only after Money PM confirms it is live
-const BOOK = { title:"Paisa Samjho: Salary se Savings tak", cover:"img/book/cover-en.jpg?v=3", coverHing:"img/book/cover-hinglish.jpg?v=1", coverHindi:"img/book/cover-hindi.jpg?v=1",
-  en:"books/paisa-samjho-sample-en.pdf", hi:"books/paisa-samjho-sample-hi.pdf", hindi:"books/paisa-samjho-sample-hindi.pdf", link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-free-sample", fullCover:"img/book/full-en.jpg?v=3",
+const BOOK = { title:"Paisa Samjho: Salary se Savings tak", cover:"img/book/cover-en.jpg?v=3", coverHindi:"img/book/cover-hindi.jpg?v=1",
+  en:"books/paisa-samjho-sample-en.pdf", hindi:"books/paisa-samjho-sample-hindi.pdf", link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-free-sample", fullCover:"img/book/full-en.jpg?v=3",
   // Prices from Raj, 10 Nov 2026: ₹249 per edition, ₹199 in launch week (7 days from the sale day; Raj 11 Nov). Set launchEnds = sale day + 7 days when it goes live. Hindi + all-3 bundle (₹449, launch ₹349) added after Hindi QC.
   launchEnds:"2026-11-18T23:59:00+05:30",   // on sale 11 Nov 2026 (Payments): launch prices + LAUNCH10 until 18 Nov 23:59 IST, then ₹249 / ₹449
   buy:[{ label:"English", price:249, link:"https://samjhowithraj.gumroad.com/l/paisa-samjho-en" },
@@ -998,18 +998,17 @@ const BOOK = { title:"Paisa Samjho: Salary se Savings tak", cover:"img/book/cove
   live:true, launch:"soon" };   // live since 11 Nov 2026 (Payments confirmed all 3 editions + bundle on Gumroad) // set live:true only after Payments confirms the 3 Gumroad books are on sale
 // Shop cover follows the site language (Hindi / Hinglish editions have their own covers).
 // 3D covers from money-book-v2/out/book-3d-*.png (Raj 11 Nov), one per edition, shown in the shop book card.
-const book3d = () => `img/book/book-3d-${LANG === "hi" ? "hindi" : LANG === "hing" ? "hinglish" : "en"}.jpg?v=1`;
-const bookCover = full => LANG === "hi" ? BOOK.coverHindi : LANG === "hing" ? BOOK.coverHing : full ? BOOK.fullCover : BOOK.cover;
+const book3d = () => `img/book/book-3d-${LANG === "hi" ? "hindi" : "en"}.jpg?v=1`;
+const bookCover = full => LANG === "hi" ? BOOK.coverHindi : full ? BOOK.fullCover : BOOK.cover;
 // One book card (Raj 11 Nov): sample, prices and (on sale day) the buy buttons together. "Read free" opens the sample right here.
 function bookCard(){
-  const lw = !!BOOK.launchEnds && Date.now() <= Date.parse(BOOK.launchEnds), mine = LANG === "hi" ? "hindi" : LANG === "hing" ? "hi" : "en";
+  const lw = !!BOOK.launchEnds && Date.now() <= Date.parse(BOOK.launchEnds), mine = LANG === "hi" ? "hindi" : "en";
   const read = [["en","English"],["hindi","हिंदी"]].map(([k, l]) => `<button class="btn${k === mine ? " cta" : ""}" type="button" onclick="openSample('${k}')">Read free: ${l}</button>`).join("");
   return `<div class="item book-sample book-one"><div class="art"><img src="${book3d()}" alt="3D cover of the money book ${BOOK.title}" width="388" height="520" loading="lazy"></div>
       <div class="row" style="justify-content:flex-start">${BOOK.live ? `<span class="tag">New book</span>` : `<span class="tag">Coming soon</span>`}<span class="tag">PDF · 20 chapters</span><span class="tag">English · हिंदी</span></div>
       <h3>${BOOK.title}</h3><p>Raj's money book with the Verma family and Gullak Bhai: worked rupee examples, practice with answers and a worksheet in every chapter.</p>
-      ${BOOK.live ? `<div class="row buy-row">${BOOK.buy.map((x, i) => `<a class="btn${i === (LANG === "hi" ? 2 : LANG === "hing" ? 1 : 0) ? " cta" : ""}" href="${x.link}" target="_blank" rel="noopener">Buy the book: ${x.label} · ₹${lw && x.launch ? x.launch : x.price}${lw && x.launch ? ` <s>₹${x.price}</s>` : ""} ↗</a>`).join("")}</div>
-      `
-      : `<p>English ₹249 · Hinglish ₹249 · launch week (first 7 days) ₹199 each. Hindi edition and all-3 bundle (₹449, launch ₹349): coming soon.</p>`}
+      ${BOOK.live ? `<div class="row buy-row">${BOOK.buy.map((x, i) => `<a class="btn${i === (LANG === "hi" ? 1 : 0) ? " cta" : ""}" href="${x.link}" target="_blank" rel="noopener">Buy the book: ${x.label} · ₹${lw && x.launch ? x.launch : x.price}${lw && x.launch ? ` <s>₹${x.price}</s>` : ""} ↗</a>`).join("")}</div>
+      `: ""}
       <h4 class="sample-h">See how it looks: chapters 1 to 3 are free</h4>
       <div class="row" style="justify-content:flex-start">${read}</div>
       <small>Or download the free PDF: <a href="${BOOK.en}" download>English</a> · <a href="${BOOK.hindi}" download>हिंदी</a>${BOOK.link ? ` · <a href="${BOOK.link}" target="_blank" rel="noopener">Gumroad ↗</a>` : ""}</small>
@@ -1241,7 +1240,6 @@ const I18N = {"The Verma family · Money diary": ["Verma parivaar · Money diary
 "Raj's money book and ready-made sheets that follow the lessons on this site. Every purchase helps keep the lessons and calculators free.":["Raj ki money book aur ready-made sheets jo is site ke lessons ke saath chalti hain. Har purchase lessons aur calculators ko free rakhne mein madad karti hai.","राज की मनी बुक और तैयार शीट, जो इस साइट के पाठों के साथ चलती हैं। हर ख़रीद पाठों और कैलकुलेटरों को मुफ़्त रखने में मदद करती है।"],
 "Get new lessons by email":["Naye lessons email par pao","नए पाठ ईमेल पर पाएँ"],"Coming soon":["Jaldi aa rahi hai","जल्द आ रही है"],"PDF · 20 chapters":["PDF · 20 chapters","PDF · 20 अध्याय"],
 "Full book: coming soon · free sample now · Notify me when it is out.":["Poori book: jaldi · free sample abhi · aane par Notify me.","पूरी किताब: जल्द · मुफ़्त सैंपल अभी · आने पर सूचना पाएँ।"],"Notify me when it is out ↓":["Aane par mujhe batao ↓","आने पर मुझे सूचना दें ↓"],
-"English ₹249 · Hinglish ₹249 · launch week (first 7 days) ₹199 each. Hindi edition and all-3 bundle (₹449, launch ₹349): coming soon.":["English ₹249 · Hinglish ₹249 · launch week (pehle 7 din) mein ₹199 har ek. Hindi edition aur teeno ka bundle (₹449, launch ₹349): jaldi aa raha hai.","अंग्रेज़ी ₹249 · हिंग्लिश ₹249 · लॉन्च हफ़्ते (पहले 7 दिन) में ₹199 हर एक। हिंदी संस्करण और तीनों का बंडल (₹449, लॉन्च ₹349): जल्द आ रहा है।"],
 "Get a short note when the money book is out, plus new lessons.":["Money book aane par chhota note pao, saath mein naye lessons.","मनी बुक आने पर छोटा नोट पाएँ, साथ में नए पाठ।"],
 "Financial education, advice nahi. No product tips and no promised returns.":["Financial education, advice nahi. Na product tips, na promised returns.","वित्तीय शिक्षा, सलाह नहीं। न प्रोडक्ट टिप्स, न रिटर्न का वादा।"],
 "Free sample":["Free sample","मुफ़्त सैंपल"],"Free sample (हिंदी) ↓":["Free sample (हिंदी) ↓","मुफ़्त सैंपल (हिंदी) ↓"],
